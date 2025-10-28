@@ -1,0 +1,124 @@
+---
+import RitsecSymbol from "@/assets/ritsec_symbol.svg?raw"
+
+// A good size that isn't too large, but would make noticing tiling unlikely.
+const height = 1920
+const width = 1920
+
+const digitCount = 50;
+const ritsecCount = 25;
+const additionalCount = 25;
+
+const digits = []
+const ritsec = []
+const additional = []
+
+interface Props {
+  // Must have the id="icon" as symbol id
+  additionalIcon?: string;
+}
+
+const { additionalIcon } = Astro.props;
+
+
+for (let i = 0; i < digitCount; i++) {
+  const size = Math.random() * 30 + 24;
+
+  digits.push({
+    x: Math.random() * (width - size),
+    y: Math.random() * (height - size),
+    rotation: Math.random() * 90 - 45,
+    size,
+    value: Math.random() > 0.5 ? "1" : "0",
+  });
+}
+
+for (let i = 0; i < ritsecCount; i++) {
+  const size = Math.random() * 30 + 24;
+
+  ritsec.push({
+    x: Math.random() * (width - size),
+    y: Math.random() * (height - size),
+    rotation: Math.random() * 90 - 45,
+    size,
+  });
+}
+
+for (let i = 0; i < additionalCount && additionalIcon; i++) {
+  const size = Math.random() * 30 + 24;
+
+  additional.push({
+    x: Math.random() * (width - size),
+    y: Math.random() * (height - size),
+    rotation: Math.random() * 90 - 45,
+    size,
+  });
+}
+---
+
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+  <defs>
+    <Fragment set:html={RitsecSymbol} />
+
+    <Fragment set:html={additionalIcon} />
+
+    <pattern
+        id="tile"
+        patternUnits="userSpaceOnUse"
+        width={width}
+        height={height}>
+      {
+        digits.map((digit, i) => (
+          <text
+            class="digit"
+            x={digit.x}
+            y={digit.y}
+            font-size={digit.size}
+            transform={`rotate(${digit.rotation}, ${digit.x}, ${digit.y})`}
+          >
+            {digit.value}
+          </text>
+        ))
+      }
+      {
+        ritsec.map((icon, i) => (
+          <use
+            href="#ritsec-symbol"
+            class="icon"
+            x={icon.x}
+            y={icon.y}
+            width={icon.size}
+            height={icon.size}
+            transform={`rotate(${icon.rotation}, ${icon.x + icon.size / 2}, ${icon.y + icon.size / 2})`}
+          />
+        ))
+      }
+      { additionalIcon && 
+        additional.map((icon, i) => (
+          <use
+            href="#icon"
+            class="icon"
+            x={icon.x}
+            y={icon.y}
+            width={icon.size}
+            height={icon.size}
+            transform={`rotate(${icon.rotation}, ${icon.x + icon.size / 2}, ${icon.y + icon.size / 2})`}
+          />
+        ))
+      }
+    </pattern>
+  </defs>
+
+  <rect width="100%" height="100%" fill="url(#tile)"></rect>
+</svg>
+
+<style>
+  svg {
+    position: absolute;
+    fill: var(--bg-primary);
+    color: var(--bg-primary);
+    width: 100%;
+    min-height: 100%;
+    z-index: -2;
+  }
+</style>
