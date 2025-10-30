@@ -7,4 +7,8 @@ import mdx from '@astrojs/mdx';
 export default defineConfig({
   site: 'https://ritsec.club',
   integrations: [mdx()],
+  prefetch: {
+    defaultStrategy: 'hover',
+    prefetchAll: true,
+  }
 });

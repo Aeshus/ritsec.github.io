@@ -14,14 +14,14 @@ interface Props {
 const { title, subtitle, description } = Astro.props;
 ---
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang="en" transition:name="root" transition:animate="none">
   <Head title={title} description={description} />
 
   <body>
     <Gradient />
     <Background />
     <Header />
-    <main>
+    <main transition:animate="slide">
       <h1>{title}</h1>
       {subtitle && <div class="subtitle">{subtitle}</div>}
       <slot />
