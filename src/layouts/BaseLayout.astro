@@ -95,12 +95,15 @@ const { title, subtitle, description } = Astro.props;
 
   main {
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   main > * {
     max-width: var(--w-md);
     width: 100%;
-    margin: auto;
+    margin-top: 1rem;
   }
 
   main img {
@@ -120,5 +123,6 @@ const { title, subtitle, description } = Astro.props;
     font-weight: 300;
     font-size: 1.75rem;
     text-align: center;
+    margin-top: 0rem;
   }
 </style>

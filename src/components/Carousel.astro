@@ -1,6 +1,5 @@
 ---
 const {
-  class: className,
   loop = false,
   autoplay = false,
   autoplayDelay = 4000,
@@ -11,163 +10,147 @@ const {
 } = Astro.props;
 ---
 
-<div
-  class:list={["embla", className]}
-  data-loop={loop ? 'true' : null}
-  data-autoplay={autoplay ? 'true' : null}
-  data-autoplay-delay={autoplayDelay}
-  data-autoscroll={autoscroll ? 'true' : null}
-  data-autoscroll-speed={autoscrollSpeed}
-  data-dots={dots ? 'true' : null}
-  {...rest}
->
-  <div class="viewport">
-    <div class="container">
-      <slot />
+<div class="carousel">
+  <embla-carousel
+    class="embla"
+    data-loop={loop ? 'true' : null}
+    data-autoplay={autoplay ? 'true' : null}
+    data-autoplay-delay={autoplayDelay}
+    data-autoscroll={autoscroll ? 'true' : null}
+    data-autoscroll-speed={autoscrollSpeed}
+    data-dots={dots ? 'true' : null}
+    {...rest}
+  >
+    <div class="embla__viewport">
+      <div class="embla__container">
+        <slot />
+      </div>
     </div>
-  </div>
-  {dots && <div class="dots"></div>}
+    {dots && <div class="embla__dots"></div>}
+  </embla-carousel>
 </div>
 
+<script>
+  import EmblaCarousel from "embla-carousel"
+  import Autoplay from "embla-carousel-autoplay"
+  import AutoScroll from "embla-carousel-auto-scroll";
+
+  class Carousel extends HTMLElement {
+    connectedCallback() {
+      const viewport = this.querySelector(".embla__viewport");
+      const dots = this.querySelector(".embla__dots");
+
+      const options = {};
+      options["loop"] = this.getAttribute("data-loop");
+
+      const plugins = [];
+      if (this.hasAttribute("data-autoplay")) {
+        const autoplayOptions = {}
+        autoplayOptions["delay"] = this.getAttribute("data-autoplay-delay");
+
+        plugins.push(Autoplay(autoplayOptions));
+      }
+
+      if (this.hasAttribute("data-autoscroll")) {
+        const autoplayOptions = {}
+        autoscrollOptions["speed"] = this.getAttribute("data-autoscroll-speed");
+
+        plugins.push(AutoScroll(autoscrollOptions));
+      }
+
+      const embla = EmblaCarousel(viewport, options, plugins);
+
+      const createDots = () => {
+        const fragment = document.createDocumentFragment();
+        embla.scrollSnapList().forEach((_, index) => {
+          const button = document.createElement('button');
+          button.classList.add('embla__dot');
+          button.addEventListener('click', () => embla.scrollTo(index));
+          fragment.appendChild(button);
+        });
+        dots.appendChild(fragment);
+      };
+   
+      const selectDot = () => {
+        const d = dots.querySelectorAll('.embla__dot');
+        const selectedIndex = embla.selectedScrollSnap();
+        d.forEach((dot, index) => {
+          dot.classList.toggle('is-selected', index === selectedIndex);
+        });
+      };
+
+      embla.on('select', selectDot);
+      embla.on('init', () => {
+        createDots();
+        selectDot();
+      })
+
+      embla.reInit();
+    }
+  }
+
+  customElements.define("embla-carousel", Carousel);
+</script>
+
 <style>
+  .carousel {
+    max-width: var(--w-md);
+    border: 2px solid var(--bg-surface);
+    border-radius: 0.5rem;
+  }
+
   .embla {
+    overflow: hidden;
+    max-width: 100%;
+  }
+
+  .embla__viewport {
+    overflow: hidden;
     position: relative;
-    overflow: hidden;
+    width: 100%;
   }
 
-  .viewport {
-    overflow: hidden;
-  }
-
-  .container {
+  .embla__container {
     display: flex;
   }
 
-  .container > :global(*) {
+  .embla__container :global(*) {
     flex: 0 0 100%;
     min-width: 0;
-    position: relative;
+    overflow: hidden;
+    height: 710px;
   }
 
-  .dots {
+  .embla__container :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .embla__dots {
     position: absolute;
-    bottom: 20px; 
+    display: flex;
+    bottom: 125px;
+    justify-content: center;
     left: 50%;
     transform: translateX(-50%);
-    display: flex;
-    justify-content: center;
     gap: 0.5rem;
     z-index: 10;
-    opacity: 0;
-    transition: opacity 0.3s ease;
   }
 
-  .embla:hover .dots {
-    opacity: 1;
-  }
-
-  .embla__dot {
+  :global(.embla__dot) {
     width: 12px;
     height: 12px;
     border-radius: 50%;
     border: 2px solid #fff;
-    background: rgba(255, 255, 255, 0.4);
+    background: rgba(255,255,255,0.4);
     cursor: pointer;
     transition: all 0.3s;
-    -webkit-appearance: none;
-    appearance: none;
-    padding: 0;
-    margin: 0;
   }
 
-  .embla__dot.is-selected {
-    background: #fff;
+  :global(.embla__dot.is-selected) {
+    border-color: var(--fg-primary);
+    background: var(--fg-surface-hover);
   }
 </style>
-
-<script>
-  import EmblaCarousel from 'embla-carousel';
-  import Autoplay from 'embla-carousel-autoplay';
-  import Autoscroll from 'embla-carousel-autoscroll';
-
-  document.addEventListener('DOMContentLoaded', () => {
-    const emblaNodes = document.querySelectorAll('.embla');
-
-    emblaNodes.forEach((emblaNode) => {
-      const viewportNode = emblaNode.querySelector(
-        '.viewport'
-      );
-      const dotsNode = emblaNode.querySelector('.dots');
-      const containerNode = emblaNode.querySelector('.container');
-
-      if (!viewportNode || !containerNode) return;
-
-      containerNode.style.touchAction = 'pan-y';
-      containerNode.style.userSelect = 'none';
-
-      const isAutoscroll = emblaNode.dataset.autoscroll === 'true';
-
-      const options = {
-        loop: emblaNode.dataset.loop === 'true',
-        dragFree: isAutoscroll, 
-      };
-
-      const plugins = [];
-      if (emblaNode.dataset.autoplay === 'true') {
-        plugins.push(
-          Autoplay({
-            delay: parseInt(emblaNode.dataset.autoplayDelay || '4000', 10),
-            stopOnInteraction: false,
-          })
-        );
-      }
-      if (isAutoscroll) {
-        plugins.push(
-          Autoscroll({
-            speed: parseFloat(emblaNode.dataset.autoscrollSpeed || '1'),
-            stopOnInteraction: false,
-          })
-        );
-      }
-
-      const emblaApi = EmblaCarousel(viewportNode, options, plugins);
-
-      if (dotsNode) {
-        let dots = []; 
-
-        const createDots = () => {
-          dotsNode.innerHTML = '';
-          const fragment = document.createDocumentFragment();
-          emblaApi.scrollSnapList().forEach((_, index) => {
-            const button = document.createElement('button');
-            button.classList.add('embla__dot');
-            button.type = 'button';
-            button.addEventListener('click', () => emblaApi.scrollTo(index));
-            fragment.appendChild(button);
-          });
-          dotsNode.appendChild(fragment);
-          dots = Array.from(dotsNode.querySelectorAll('.embla__dot'));
-        };
-
-        const selectDot = () => {
-          if (dots.length === 0) return;
-          const selectedIndex = emblaApi.selectedScrollSnap();
-          dots.forEach((dot, index) => {
-            dot.classList.toggle('is-selected', index === selectedIndex);
-          });
-        };
-
-        emblaApi.on('select', selectDot);
-        emblaApi.on('reInit', () => {
-          createDots();
-          selectDot();
-        });
-        emblaApi.on('init', ();
-        
-        createDots();
-        selectDot();
-      }
-    });
-  });
-</script>
-
