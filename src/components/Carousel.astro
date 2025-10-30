@@ -46,15 +46,13 @@ const {
       const plugins = [];
       if (this.hasAttribute("data-autoplay")) {
         const autoplayOptions = {}
-        autoplayOptions["delay"] = this.getAttribute("data-autoplay-delay");
-
+        autoplayOptions["delay"] = Number(this.getAttribute("data-autoplay-delay")) || 4000;
         plugins.push(Autoplay(autoplayOptions));
       }
 
       if (this.hasAttribute("data-autoscroll")) {
         const autoplayOptions = {}
-        autoscrollOptions["speed"] = this.getAttribute("data-autoscroll-speed");
-
+        autoscrollOptions["speed"] = Number(this.getAttribute("data-autoscroll-speed")) || 1;
         plugins.push(AutoScroll(autoscrollOptions));
       }
 
@@ -150,7 +148,7 @@ const {
   }
 
   :global(.embla__dot.is-selected) {
-    border-color: var(--fg-primary);
-    background: var(--fg-surface-hover);
+    border-color: rgba(255,255,255,1);
+    background: rgba(255,255,255,0.7);
   }
 </style>
