@@ -1,10 +1,22 @@
 ---
 layout: "@/layouts/MdxLayout.astro"
 title: "RITSEC"
-subtitle: "Security Through Security"
+subtitle: "Security Through Community"
 ---
 import Center from "@/components/Center.astro";
+import Carousel from "@/components/Carousel.astro";
+
+import { Picture } from 'astro:assets';
+import Image1 from '@/assets/images/image1.jpg'
+import Image2 from '@/assets/images/image2.jpg'
+import Image3 from '@/assets/images/image3.jpg'
 
 <Center>
   Welcome to the danger zone!
 </Center>
+
+<Carousel dots={true}>
+  <Picture src={Image1} alt=""/>
+  <Picture src={Image2} alt=""/>
+  <Picture src={Image3} alt=""/>
+</Carousel>
