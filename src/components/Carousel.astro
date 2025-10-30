@@ -1,4 +1,31 @@
 ---
+// support embla
+// embla autoplay
+// embla auto-scroll
+// dots to control
 ---
 
-<!-- Embla?? -->
+<carousel>
+  <div class="viewport">
+    <div class="container">
+      <slot />
+    </div>
+  </div>
+</carousel>
+
+<style>
+</style>
+
+<script>
+  import EmblaCarousel from 'embla-carousel'
+
+  class Carousel extends HTMLElement {
+    connectedCallback() {
+      const viewport = this.querySelector(".viewport");
+
+      const embla = EmblaCarousel(viewport, options);
+    }
+  }
+
+  customElements.define('carousel', Carousel);
+</script>
