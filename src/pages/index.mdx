@@ -4,6 +4,7 @@ title: "RITSEC"
 subtitle: "Security Through Community"
 ---
 import Carousel from "@/components/Carousel.astro";
+import FeaturedEvents from "@/components/FeaturedEvents.astro";
 
 import { Picture } from 'astro:assets';
 import Image1 from '@/assets/images/image1.jpg'
@@ -32,12 +33,17 @@ RITSEC is dedicated to educating and preparing RIT students to compete in securi
 Whether you're new to computing security or a veteran, RITSEC has a place for you. 
 All of the activities we host to promote this learning can be found on our 'Events' page.
 
-## Upcoming Events
+<div>
+  <a href="/alumni" class="link-button">Alumni</a>
+  <a href="/about" class="link-button">About</a>
+  <a href="/gallery" class="link-button">Gallery</a>
+</div>
+
+## Featured Events
 
 RITSEC prides itself on providing frequent competative and educational events.
 
-IRSEC | WEEKLY EDUCATION
-WEEKLY RESEARCH | ISTS
+<FeaturedEvents />
 
 ## Groups
 

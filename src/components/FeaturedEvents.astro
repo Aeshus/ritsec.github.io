@@ -1,0 +1,44 @@
+---
+import { getCollection } from 'astro:content';
+
+const events = await getCollection('events');
+const featured = events.filter((e) => e.data.featured);
+---
+
+<div>
+  {featured.map((x) => (
+    <a href={x.data.url} class="link-button">
+      <p class="title">{x.data.name}</p>
+      <p>{x.data.date}</p>
+      <p>{x.data.where}</p>
+    </a>
+  ))}
+</div>
+
+<style>
+  ,link-button {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .title {
+    font-weight: 700;
+  }
+
+  div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  p {
+    text-align: left;
+    font-weight: 300;
+    width: 100%;
+    word-wrap: none;
+    line-height: 1.36;
+  }
+
+  @media (max-width: 800px) {
+    grid-template-columns: 1fr;
+  }
+</style>
