@@ -12,4 +12,12 @@ const events = defineCollection({
   }),
 });
 
-export const collections = { events };
+const alumni = defineCollection({
+  loader: file('src/data/alumni.yml'),
+  schema: z.object({
+    id: z.number(),
+    alumni: z.array(z.string(),)
+  }),
+});
+
+export const collections = { alumni, events };
