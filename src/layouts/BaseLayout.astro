@@ -46,6 +46,7 @@ const { title, subtitle, description } = Astro.props;
     /* Page widths */
     --w-lg: calc(min(100% - 2rem, 64rem));
     --w-md: calc(min(100% - 2rem, 50rem));
+    --w-sm: calc(min(100% - 2rem, 40rem));
     --w-full: calc(80rem);
 
     --bg: #f8f8f8;
@@ -170,5 +171,15 @@ const { title, subtitle, description } = Astro.props;
   .link-button:focus {
     background: var(--bg-surface-hover);
     border-color: var(--fg-primary);
+  }
+
+  .w-lg {
+    max-width: var(--w-lg);
+  }
+  .w-md {
+    max-width: var(--w-md);
+  }
+  .w-sm {
+    max-width: var(--w-sm);
   }
 </style>
