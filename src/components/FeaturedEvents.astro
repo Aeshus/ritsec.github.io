@@ -26,8 +26,13 @@ const featured = events.filter((e) => e.data.featured);
   }
 
   div {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-flow: wrap;
+  }
+
+  a {
+    flex: 1 1 0;
+    min-width: 444px;
   }
 
   p {
