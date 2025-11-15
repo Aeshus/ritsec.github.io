@@ -45,4 +45,15 @@ const legacyEboard = defineCollection({
   }),
 });
 
-export const collections = { alumni, events, eboard, legacyEboard };
+const sponsors = defineCollection({
+  loader: file('src/data/sponsors.yml'),
+  schema: z.object({
+    id: z.string(),
+    type: z.string(),
+    tier: z.string(),
+    image: z.string(),
+    url: z.string(),
+  })
+})
+
+export const collections = { alumni, events, eboard, legacyEboard, sponsors };
