@@ -1,4 +1,4 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection, z, image } from 'astro:content';
 import { file } from 'astro/loaders'; 
 
 const events = defineCollection({
@@ -20,4 +20,29 @@ const alumni = defineCollection({
   }),
 });
 
-export const collections = { alumni, events };
+const eboard = defineCollection({
+  loader: file('src/data/eboard.yml'),
+  schema: z.object({
+    id: z.string(),
+    name: z.string(),
+    grad_year: z.number(),
+    linked_in: z.string(),
+    email: z.string(),
+    image: z.string(),
+  }),
+});
+
+const legacyEboard = defineCollection({
+  loader: file('src/data/legacy-eboard.yml'),
+  schema: z.object({
+    id: z.string(),
+    term: z.string(),
+    organization: z.string(),
+    eboard: z.array(z.object({
+      position: z.string(),
+      name: z.string(),
+    })),
+  }),
+});
+
+export const collections = { alumni, events, eboard, legacyEboard };
