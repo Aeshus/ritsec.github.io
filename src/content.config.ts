@@ -54,6 +54,6 @@ const sponsors = defineCollection({
     image: z.string(),
     url: z.string(),
   })
-})
+});
 
 export const collections = { alumni, events, eboard, legacyEboard, sponsors };
