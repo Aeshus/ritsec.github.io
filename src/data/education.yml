@@ -1,0 +1,94 @@
+- id: fall-2025-intro-to-ritsec
+  term: Fall 2025
+  week: 1
+  title: Introduction to RITSEC
+  description: An overview of the RITSEC cybersecurity club, covering its leadership structure, specialized interest groups, cybersecurity competitions, and member research opportunities.
+  presenter: E-Board
+  slideshow: https://docs.google.com/presentation/d/1FTrOHBGc8fqchM6ScoFtfYr96FoHx0uIb3_nKTLp_GE/edit
+  video: https://www.youtube.com/watch?v=cc5rFzT4htI
+
+- id: fall-2025-csec
+  term: Fall 2025
+  week: 2
+  title: Introduction to Cybersecurity
+  description: An introductory overview of cybersecurity, detailing blue team (defense), red team (offense), and GRC (governance, risk, and compliance). It explains the basics of the field, and how students can get involved.
+  presenter: Adam Braccia
+  slideshow: https://docs.google.com/presentation/d/1XOdJYfZYkPdp2csiPy7rtz7sXloQrdAJNsp_RyBHLcc/edit
+  video: https://www.youtube.com/watch?v=DnGfsxmYBNc
+
+- id: fall-2025-linux
+  term: Fall 2025
+  week: 3
+  title: Linux
+  description: An introduction to Linux, covering its kernel, distributions, and command-line shell. Learn file system navigation, user permissions, process management, text editors, package managers, and SSH basics.
+  presenter: Odessa Rybski
+  slideshow: https://docs.google.com/presentation/d/1BylGCmyZDcSzIPrq7tFQeeLfUrERDSdk1k1suUavcJg/edit
+  video: https://www.youtube.com/watch?v=yy1ChxRu7dk
+
+- id: fall-2025-windows
+  term: Fall 2025
+  week: 4
+  title: Windows
+  description: A concise introduction to the Windows operating system, covering its history, the NTFS file system, and the crucial Windows Registry. It details Active Directory concepts like domains, users, and Group Policy, along with key tools like Task Manager, Event Viewer, and PowerShell.
+  presenter: James Southcott
+  slideshow: https://docs.google.com/presentation/d/1Gv4KzZHQlNQM3G0nyRA0-gXx4TQeVRYAypddDSuz_90/edit
+  video: https://www.youtube.com/watch?v=l95znODSVHQ
+
+- id: fall-2025-networking
+  term: Fall 2025
+  week: 5
+  title: Networking
+  description: An introduction to networking covering the OSI model, core protocols like TCP/UDP and DNS/DHCP, common network attacks, and tools including Wireshark and pfSense.
+  presenter: Tri Tran
+  slideshow: https://docs.google.com/presentation/d/1PQ1S-k2qqt0mQIK4Kk2X94ionfNHQUSufSjI6o4ZENM/edit
+  video: https://www.youtube.com/watch?v=mARKayIdcxY
+
+- id: fall-2025-career-fair-prep
+  term: Fall 2025
+  week: 6
+  title: Career Fair Preparations
+  description: An overview of career preparation, covering resume building, online presence, and career fair strategies. Also includes interview techniques, workplace etiquette, and networking.
+  presenter: James Southcott, Daniel LaChance
+  slideshow: https://docs.google.com/presentation/d/14XDgC3sirOr2Wz6Z_pWCpCwcL76JZzITUtN52XtLpPA/edit
+  video: https://www.youtube.com/watch?v=RHAj8rwrYrE&pp=0gcJCQMKAYcqIYzv
+
+- id: fall-2025-core-services
+  term: Fall 2025
+  week: 7
+  title: Core Services
+  description: A high-level overview of core IT services, including remote access protocols like SSH and RDP, file transfer with FTP/SFTP, and database management using MySQL. Also covers foundational network services like DNS, DHCP, and mail protocols, plus modern concepts like Docker, microservices, and CI/CD pipelines.
+  presenter: John Arrandale
+  slideshow: https://docs.google.com/presentation/d/15up682g7ttvppNp4yHaBy9t0P7SNyTGoxILy_NjUlEY/edit?
+  video: https://www.youtube.com/watch?v=DDlRaMFNOSs
+
+- id: fall-2025-cloud-security
+  term: Fall 2025
+  week: 8
+  title: Cloud Security
+  description: An overview of cloud computing, covering foundational concepts, service models (IaaS, PaaS, SaaS), and access methods. It also details key security components like network security groups, firewalls, IAM, and KMS, concluding with common cloud threats and a demonstration of an insecure S3 bucket.
+  presenter: Lucas Frink
+  slideshow: https://docs.google.com/presentation/d/1LZ-vWZG1iSom3b9RMl6CH8DZe_w65mplvyd3agcyH50/edit
+  video: https://www.youtube.com/watch?v=EcIx1CA52EE
+
+- id: fall-2025-blue-teaming
+  term: Fall 2025
+  week: 9
+  title: Blue Teaming
+  description: An introduction to blue teaming, covering Windows and Linux hardening, threat hunting with tools like System Internals, and network defense using pfSense. Also details incident response and inject writing.
+  presenter: Luke Demi, Massimo Marino, Tri Tran
+  slideshow: https://docs.google.com/presentation/d/1jSgjJ1nGZNnfu5AvSsUsyqKU4IBw2tZHBBH_VeIUIuI/edit
+  video: https://www.youtube.com/watch?v=o26rnpy_V30
+
+- id: fall-2025-black-teaming
+  term: Fall 2025
+  week: 10
+  title: Black Teaming
+  description: An overview of "Black Team" operations for cybersecurity competitions. It covers competition types, team organization, and the infrastructure build process using Terraform and Ansible, and how to get involved.
+  presenter: Leah Kvares
+  slideshow: https://docs.google.com/presentation/d/1nUrVO8Nz2JvkDHfWaJpK19tUFgWLEbp-fx3RJTcnZNc/edit
+  video: https://www.youtube.com/watch?v=y_yWka_CKYE
+
+- id: fall-2025-hardware-security
+  term: Fall 2025
+  week: 11
+  title: Hardware Security

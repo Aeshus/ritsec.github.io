@@ -56,4 +56,18 @@ const sponsors = defineCollection({
   })
 });
 
-export const collections = { alumni, events, eboard, legacyEboard, sponsors };
+const education = defineCollection({
+  loader: file('src/data/education.yml'),
+  schema: z.object({
+    id: z.string(),
+    term: z.string(),
+    week: z.number(),
+    title: z.string(),
+    description: z.string().optional(),
+    presenter: z.string().optional(),
+    slideshow: z.string().optional(),
+    video: z.string().optional(),
+  })
+})
+
+export const collections = { alumni, events, eboard, legacyEboard, sponsors, education };
