@@ -22,52 +22,56 @@ const {
   import Autoplay from "embla-carousel-autoplay";
   import AutoScroll from "embla-carousel-auto-scroll";
 
-  const emblaNode = document.querySelectorAll('.embla__viewport')
-  emblaNode.forEach(element => {
-    const options = {};
-    const plugins = [];
+  function setup() {
+    const emblaNode = document.querySelectorAll('.embla__viewport')
+    emblaNode.forEach(element => {
+      const options = {};
+      const plugins = [];
 
-    options["loop"] = element.getAttribute("data-loop");
+      options["loop"] = element.getAttribute("data-loop");
 
-    if (element.getAttribute("data-autoplay") == true) {
-      const autoplayOptions = {};
-      autoplayOptions["delay"] = Number(element.getAttribute("data-autoplay-delay")) || 4000;
-      plugins.push(Autoplay(autoplayOptions))
-    }
+      if (element.getAttribute("data-autoplay") == true) {
+        const autoplayOptions = {};
+        autoplayOptions["delay"] = Number(element.getAttribute("data-autoplay-delay")) || 4000;
+        plugins.push(Autoplay(autoplayOptions))
+      }
 
-    if (element.getAttribute("data-autoscroll") == true) {
-      const autoscrollOptions = {}
-      autoscrollOptions["speed"] = Number(element.getAttribute("data-autoscroll-speed")) || 1;
-      plugins.push(AutoScroll(autoscrollOptions));
-    }
+      if (element.getAttribute("data-autoscroll") == true) {
+        const autoscrollOptions = {}
+        autoscrollOptions["speed"] = Number(element.getAttribute("data-autoscroll-speed")) || 1;
+        plugins.push(AutoScroll(autoscrollOptions));
+      }
 
-    const embla = EmblaCarousel(element, options, plugins);
+      const embla = EmblaCarousel(element, options, plugins);
 
-    const dots = [];
-    const createDots = () => {
-      const fragment = document.createDocumentFragment();
-      embla.scrollSnapList().forEach((_, index) => {
-        const button = document.createElement("button");
-        button.classList.add("embla__dot");
-        button.type = "button";
-        button.addEventListener("click", () => embla.scrollTo(index));
-        fragment.appendChild(button);
-      });
+      const dots = [];
+      const createDots = () => {
+        const fragment = document.createDocumentFragment();
+        embla.scrollSnapList().forEach((_, index) => {
+          const button = document.createElement("button");
+          button.classList.add("embla__dot");
+          button.type = "button";
+          button.addEventListener("click", () => embla.scrollTo(index));
+          fragment.appendChild(button);
+        });
 
-      element.appendChild(fragment);
-    }
+        element.appendChild(fragment);
+      }
 
-    const selectDot = () => {
-      if (dots.length === 0) return;
+      const selectDot = () => {
+        if (dots.length === 0) return;
 
-      const selected = embla.selectedScrollSnap();
-      dots.forEach((dot, index) => {
-        dot.classList.toggle('is-selected', index === selectedIndex);
-      })
-    }
+        const selected = embla.selectedScrollSnap();
+        dots.forEach((dot, index) => {
+          dot.classList.toggle('is-selected', index === selectedIndex);
+        })
+      }
+    })
+  }
 
-
-  })
+  document.addEventListener("astro:page-load", () => {
+    setup();
+  });
 </script>
 
 <style>
