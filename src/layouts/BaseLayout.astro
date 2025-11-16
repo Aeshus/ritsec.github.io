@@ -164,6 +164,8 @@ const { title, subtitle, description } = Astro.props;
     line-height: 1;
     vertical-align: center;
     display: inline-block;
+    transition: all 0.2s ease-in-out; 
+    box-shadow: 0 1px 3px 0 color-mix(in oklab, var(--fg) 10%, transparent), 0 1px 2px -1px color-mix(in oklab, var(--fg) 10%, transparent);
   }
 
   .link-button:hover,
@@ -171,6 +173,7 @@ const { title, subtitle, description } = Astro.props;
   .link-button:focus {
     background: var(--bg-surface-hover);
     border-color: var(--fg-primary);
+    box-shadow: 0 4px 10px 0 color-mix(in oklab, var(--fg-primary) 12%, transparent), 0 2px 4px -2px color-mix(in oklab, var(--fg-primary) 12%, transparent);
   }
 
   .w-lg {
