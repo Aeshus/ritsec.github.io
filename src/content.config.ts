@@ -68,6 +68,15 @@ const education = defineCollection({
     slideshow: z.string().optional(),
     video: z.string().optional(),
   })
-})
+});
 
-export const collections = { alumni, events, eboard, legacyEboard, sponsors, education };
+const gallery = defineCollection({
+  loader: file('src/data/gallery.yml'),
+  schema: z.object({
+    id: z.string(),
+    image: z.string(),
+    alt: z.string(),
+  })
+});
+
+export const collections = { alumni, events, eboard, legacyEboard, sponsors, education, gallery };
