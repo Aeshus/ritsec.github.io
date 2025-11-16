@@ -40,15 +40,18 @@ const grouped = sortedEducation.reduce((acc, entry) => {
           <div class="description">{entry.data.description}</div>
           <div class="links">
             {entry.data.slideshow &&
-            <a href={entry.data.slideshow}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><!-- Icon from Carbon by IBM - undefined --><path fill="currentColor" d="m25.7 9.3l-7-7c-.2-.2-.4-.3-.7-.3H8c-1.1 0-2 .9-2 2v24c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V10c0-.3-.1-.5-.3-.7M18 4.4l5.6 5.6H18zM24 28H8V4h8v6c0 1.1.9 2 2 2h6z"/><path fill="currentColor" d="M10 22h12v2H10zm0-6h12v2H10z"/></svg>
+            <a class="link-button" href={entry.data.slideshow}>
+              Slideshow
             </a>
             }
             {entry.data.video &&
-            <a href={entry.data.video}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><!-- Icon from Carbon by IBM - undefined --><path fill="currentColor" d="M13 11v10l8-5z"/><path fill="currentColor" d="M28 6H4c-1.103 0-2 .898-2 2v16c0 1.103.897 2 2 2h24c1.103 0 2-.897 2-2V8c0-1.102-.897-2-2-2m0 18H4V8h24z"/></svg>
+            <a class="link-button" href={entry.data.video}>
+              Video
             </a>
             }
+            <a class="link-button" href="https://flags.ritsec.club">
+              Demo Challenge
+            </a>
           </div>
         </article>
       ))}
@@ -65,11 +68,18 @@ const grouped = sortedEducation.reduce((acc, entry) => {
   article {
     margin-top: 1rem;
     padding: 1rem;
-    text-align: center;
+    text-align: left;
     background: var(--bg);
     border: 1px solid var(--bg-surface-hover);
     border-radius: 0.5rem;
     box-shadow: 0 1px 3px 0 color-mix(in oklab, var(--fg) 10%, transparent), 0 1px 2px -1px color-mix(in oklab, var(--fg) 10%, transparent);
+    transition: all 0.2s ease-in-out; 
+  }
+
+  article:hover,
+  article:focus-within {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px 0 color-mix(in oklab, var(--fg) 12%, transparent), 0 2px 4px -2px color-mix(in oklab, var(--fg) 12%, transparent);
   }
 
   h3 {
@@ -81,6 +91,10 @@ const grouped = sortedEducation.reduce((acc, entry) => {
     color: var(--fg);
     text-decoration: none;
     transition: all 0.1s ease;
+  }
+
+  .links {
+    text-align: center;
   }
 
   a:hover,
