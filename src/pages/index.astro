@@ -60,66 +60,283 @@ import Background from '@/components/Background.astro';
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
-    <link rel="preconnect" href="https://rsms.me/">
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&display=swap" rel="stylesheet">
   </head>
   <body>
     <Background />
 
     <header>
-      <nav>
-        <div class="header-logo">
-          <Image src={logo} alt='RITSEC Logo' height="54px" />
-        </div>
-        <div class="header-links">
+      <div>
+        <Image src={logo} alt="RITSEC Logo" height="64px" />
+        <nav>
           <a href="/" aria-current="page">Home</a>
           <a href="/schedule">Schedule</a>
           <a href="/activites">Activites</a>
-          <a href="/blog">Blog</a>
+          <a href="/publications">Publications</a>
           <a href="/sponsors">Sponsors</a>
           <a href="/about">About</a>
-        </div>
-      </nav>
+        </nav>
+      </div>
     </header>
 
     <main>
-      <section class="hero">
-        <h1>RITSEC</h1>
-        <h2>Security <em>through</em> Community</h2>
-        <div class="hero-links">
-          <a href="#about">About</a>
-          <a href="#get-involved">Get Involved</a>
-          <a href="#activites">Activites</a>
-          <a href="#schedule">Schedule</a>
+      <!-- I want the central text + images surrounding like sigpwny's website -->
+      <!-- Then, I want there to be carousels for the activites/schedule stuff. -->
+      <!-- A call to action to join -->
+      <section class="intro">
+        <div class="top-images">
+          <Image src={image1} width="300px" height="200px" alt="" />
+          <Image src={image2} width="300px" height="200px" alt="" />
+          <Image src={image3} width="300px" height="200px" alt="" />
         </div>
-        <div class="hero-images">
-          <div class="inner">
-            <Image src={image1} height="150px" alt="" />
-            <Image src={image2} height="150px" alt="" />
-            <Image src={image3} height="150px" alt="" />
-            <Image src={image4} height="150px" alt="" />
-            <Image src={image5} height="150px" alt="" />
-            <Image src={image6} height="150px" alt="" />
+
+        <div class="info">
+          <h1>RITSEC</h1>
+          <p>Security Through Community</p>
+          <div>
+            <a href="#about" class="link">About
+              <Image src={arrow} height="18px" alt="" />
+            </a>
+            <a href="#get-involved" class="link">Get Involved
+              <Image src={arrow} height="18px" alt="" />
+            </a>
+            <a href="#schedule" class="link">Schedule
+              <Image src={arrow} height="18px" alt="" />
+            </a>
           </div>
-          <div class="outer">
-            <Image src={image1} height="150px" alt="" />
-            <Image src={image2} height="150px" alt="" />
-            <Image src={image3} height="150px" alt="" />
-            <Image src={image4} height="150px" alt="" />
-            <Image src={image5} height="150px" alt="" />
-            <Image src={image6} height="150px" alt="" />
-          </div>
+        </div>
+
+        <div class="bottom-images">
+          <Image src={image4} width="300px" height="200px" alt="" />
+          <Image src={image5} width="300px" height="200px" alt="" />
+          <Image src={image6} width="300px" height="200px" alt="" />
         </div>
       </section>
+
+        <p class="center">
+          (Scroll down for more information)
+        </p>
+
+        <section class="about">
+          <h2 id="about">About RITSEC</h2>
+          <p>RITSEC empowers the next generation of cybersecurity professionals through our core philosophy: Security Through Community. Whether you are writing your first line of code or are a seasoned competitor, we offer the resources, mentorship, and platform to showcase RIT talent on the global stage.</p>
+          <div class="links">
+            <a href="/" class='link'>Learn More About Us
+              <Image src={arrow} height="18px" alt="" />
+            </a>
+          </div>
+        </section>
+
+        <section class="involved">
+          <h2 id="get-involved">Get Involved</h2>
+          <p>We foster the next generation of security leaders through a comprehensive suite of initiatives. We combine hands-on education, academic research, and industry-recognized competitions to drive technical growth and excillence.</p>
+          <div class="links">
+            <a class="link" href="https://discord.ritsec.club">Join Discord
+              <Image src={arrow} height="18px" alt="" />
+            </a>
+            <a class="link" href="https://donate.ritsec.club">Sponsor Us
+              <Image src={arrow} height="18px" alt="" />
+            </a>
+          </div>
+
+          <!-- cards -->
+          <!-- Competitions, Education, Sponsorship -->
+          <div class="cards">
+            <div class="card">
+              <Image src={education} height="27px" alt="education" />
+              <p class="card-header">Education</p>
+              <p class="card-content">Weekly lessons into security trends, tools, and techniques to succeed.</p>
+            </div>
+            <div class="card">
+              <Image src={research} height="27px" alt="education" />
+              <p class="card-header">Research</p>
+              <p class="card-content">Opportunities to study and present novel student-led research, often with stipend support.</p>
+            </div>
+            <div class="card">
+              <Image src={irsec} height="27px" alt="education" />
+              <p class="card-header">IRSEC</p>
+              <p class="card-content">An introductory, student-run red-blue competition to build foundational blue-teaming skills.</p>
+            </div>
+            <div class="card">
+              <Image src={ists} height="27px" alt="education" />
+              <p class="card-header">ISTS</p>
+              <p class="card-content">A battle of defense inviting top collegiate teams from across the nation to compete, hosted by RITSEC.</p>
+            </div>
+            <div class="card">
+              <Image src={ctf} height="27px" alt="education" />
+              <p class="card-header">RITSEC CTF</p>
+              <p class="card-content">Our annual Capture the Flag competition attracting hundreds of teams worldwide.</p>
+            </div>
+            <div class="card">
+              <Image src={ig} height="27px" alt="education" />
+              <p class="card-header">Interest Groups</p>
+              <p class="card-content">Specialized communities for students to teach and learn specific security disciplines together.</p>
+            </div>
+            <div class="card">
+              <Image src={mentorship} height="27px" alt="education" />
+              <p class="card-header">Mentorships</p>
+              <p class="card-content">A program connecting students with upperclassmen for academic and career advice.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="schedule">
+          <h2 id="schedule">Schedule</h2>
+          <p>Stay connected with the community. Whether you are looking for our weekly general meetings, specific interest groups, or special workshops, find out where you can jump in and start learning.</p>
+          <div class="card">
+            <div class="event">
+              <div>
+                <div class="date">Fri Nov 21, 12:00 PM</div>
+                <div class="type">Education</div>
+              </div>
+              <div>
+                <div class="title">Artifical Intelligence</div>
+                <div class="location">CYB-1710</div>
+              </div>
+              <div>
+                <div class="hosts">Oleg, Adam</div>
+              </div>
+            </div>
+            <div class="event">
+              <div>
+                <div class="date">Fri Nov 21, 12:00 PM</div>
+                <div class="type">Education</div>
+              </div>
+              <div>
+                <div class="title">Artifical Intelligence</div>
+                <div class="location">CYB-1710</div>
+              </div>
+              <div>
+                <div class="hosts">Oleg, Adam</div>
+              </div>
+            </div>
+            <div class="event">
+              <div>
+                <div class="date">Fri Nov 21, 12:00 PM</div>
+                <div class="type">Education</div>
+              </div>
+              <div>
+                <div class="title">Artifical Intelligence</div>
+                <div class="location">CYB-1710</div>
+              </div>
+              <div>
+                <div class="hosts">Oleg, Adam</div>
+              </div>
+            </div>
+          </div>
+        </section>
     </main>
 
-    <footer>
-    </footer>
-
+    <Footer />
   </body>
 </html>
 
 <style is:global>
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
+    scroll-behavior: smooth;
+  }
+}
+
+  .event {
+    display: flex;
+    padding: 1rem;
+    border-bottom: 4px solid var(--orange-3);
+    gap: 1rem;
+    justify-content: space-between;
+  }
+
+  .date {
+    align-self: flex-start;
+  }
+
+  .type {
+    align-self: flex-end;
+  }
+
+  .title {
+    align-self: flex-start;
+  }
+
+  .location {
+    align-self: flex-end;
+  }
+
+  .hosts {
+    align-self: flex-end;
+  }
+
+  .event > div {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .about > p,
+  .schedule > p {
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  .schedule > div {
+    margin-top: 2rem;
+  }
+
+  .link img {
+    margin-bottom: 4px;
+  }
+
+  .involved .card {
+    max-width: 300px;
+    padding: 2rem;
+  }
+
+  .card {
+    display: block;
+    background-color: var(--orange-2);
+    clip-path: var(--path-lg);
+    border: 4px solid var(--orange-3);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .card a {
+    align-self: flex-start;
+  }
+
+  .card-content {
+    flex-grow: 1;
+  }
+
+  .card:hover,
+  .card:focus-within,
+  .card:focus {
+    background-color: var(--orange-3);
+    border: 4px solid var(--orange-4);
+  }
+
+  .card-header {
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+
+  .involved > .cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+
+  .involved > p {
+    text-align: center;
+    margin-top: 1rem;
+  }
+
 :root {
   --orange-1: #f6f5f3;
   --orange-2: #faeee4;
@@ -166,19 +383,6 @@ import Background from '@/components/Background.astro';
   --gray-11: #5a5a5a;
   --gray-12: #1f1f1f;
 
-  --gray-a1: #00000003;
-  --gray-a2: #00000008;
-  --gray-a3: #00000011;
-  --gray-a4: #0000001a;
-  --gray-a5: #00000022;
-  --gray-a6: #0000002a;
-  --gray-a7: #00000035;
-  --gray-a8: #00000049;
-  --gray-a9: #00000079;
-  --gray-a10: #00000085;
-  --gray-a11: #000000a2;
-  --gray-a12: #000000df;
-
   --gray-contrast: #FFFFFF;
   --gray-surface: #ffffffcc;
   --gray-indicator: #828282;
@@ -190,12 +394,33 @@ import Background from '@/components/Background.astro';
   --w-md: calc(min(100% - 2rem, 60rem));
   --w-lg: calc(min(100% - 2rem, 78rem));
 
-  font-family: Inter, sans-serif;
-  font-feature-settings: 'liga' 1, 'calt' 1, 'zero' 1;
-}
-
-@supports (font-variation-settings: normal) {
-  :root { font-family: InterVariable, sans-serif; }
+  --path-lg: polygon(
+    0px calc(100% - 8px),
+    8px calc(100% - 8px),
+    8px 100%,
+    calc(100% - 8px) 100%,
+    calc(100% - 8px) calc(100% - 8px),
+    100% calc(100% - 8px),
+    100% 8px,
+    calc(100% - 8px) 8px,
+    calc(100% - 8px) 0px,
+    8px 0px,
+    8px 8px,
+    0px 8px);
+  --path: polygon(
+    0px calc(100% - 4px),
+    4px calc(100% - 4px),
+    4px 100%,
+    calc(100% - 4px) 100%,
+    calc(100% - 4px) calc(100% - 4px),
+    100% calc(100% - 4px),
+    100% 4px,
+    calc(100% - 4px) 4px,
+    calc(100% - 4px) 0px,
+    4px 0px,
+    4px 4px,
+    0px 4px
+  );
 }
 
 @media (prefers-color-scheme: dark) {
@@ -247,19 +472,6 @@ import Background from '@/components/Background.astro';
   --gray-11: #b4b4b4;
   --gray-12: #eee;
 
-  --gray-a1: #00000000;
-  --gray-a2: #ffffff0a;
-  --gray-a3: #ffffff14;
-  --gray-a4: #ffffff1c;
-  --gray-a5: #ffffff23;
-  --gray-a6: #ffffff2d;
-  --gray-a7: #ffffff3c;
-  --gray-a8: #ffffff56;
-  --gray-a9: #ffffff65;
-  --gray-a10: #ffffff73;
-  --gray-a11: #ffffffaf;
-  --gray-a12: #ffffffed;
-
   --gray-contrast: #FFFFFF;
   --gray-surface: rgba(0, 0, 0, 0.05);
   --gray-indicator: #6f6f6f;
@@ -275,219 +487,203 @@ import Background from '@/components/Background.astro';
   margin: 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  html {
-    interpolate-size: allow-keywords;
-    scroll-behavior: smooth;
-  }
-}
-
-
 body {
   background-color: var(--color-background);
   color: var(--gray-12);
+  font-family: "Roboto Mono", monospace;
   font-size: 112.5%;
   line-height: 1.2;
 }
 
-html,body {
-  min-height: 100vh;
-  min-height: 100dvh;
-  position: relative;
-}
-
-main {
-  flex-grow: 1;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-main > * {
-  max-width: var(--w-md);
-  margin: auto;
-}
-
-h1 {
-  font-size: 3rem;
-  color: var(--orange-9);
-}
-
-h2 {
-  font-size: 4rem;
-  max-width: calc(min(40rem, 100% - 2rem));
-  margin: auto;
-}
-
-.hero {
-  text-align: center;
-  margin-top: 18rem;
-  position: relative;
-  min-height: 70vh;
-}
-
-.hero img {
-  position: absolute;
-}
-
-
-header {
-  max-width: var(--w-lg);
-  margin: auto;
-  margin-top: 0.5rem;
-}
-
-header nav {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-
-header nav .header-links {
-  display: flex;
-  gap: 0.5rem;
-}
-
-header nav a {
-  text-decoration: none;
-  color: inherit;
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  background-color: var(--gray-3);
-  border: 1px solid var(--gray-4);
-  border-radius: 0.5rem;
-}
-
-header nav a:hover,
-header nav a:focus,
-header nav a:active {
-  background-color: var(--gray-4);
-  border: 1px solid var(--gray-5);
-}
-
-header nav a[aria-current="page"],
-header nav a[aria-current="page"],
-header nav a[aria-current="page"]{
-  background-color: var(--orange-3);
-  border: 1px solid var(--orange-4);
-}
-
-header nav a[aria-current="page"]:hover,
-header nav a[aria-current="page"]:focus,
-header nav a[aria-current="page"]:active{
-  background-color: var(--orange-4);
-  border: 1px solid var(--orange-5);
-}
-
-
-.hero-images {
-    position: absolute;
-    left: 28rem;
-    top: 10rem;
-    width: 0;
-    height: 0; /* It is a 0x0 center point */
-    z-index: -1; /* Behind the text */
-    pointer-events: none; /* So you can click links through the images */
-  }
-.inner::before,
-  .outer::before {
-    content: ""; /* Necessary for pseudo-elements to render */
-    position: absolute;
-    
-    /* Center the ring on the 0x0 parent container */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    
-    /* Calculate diameter: Width/Height = Radius * 2 */
-    width: calc(var(--radius) * 2);
-    height: calc(var(--radius) * 2);
-    
-    /* Styling the ring */
-    border-radius: 50%; /* Makes it a circle */
-    /* Use a dashed border and one of your theme's semi-transparent colors */
-    border: 2px dashed var(--orange-a6); 
-    
-    /* Ensure it doesn't interfere with clicks */
-    pointer-events: none;
-    
-    /* Optional: Push it slightly further back so images definitely float above it */
-    z-index: -1;
+  h1 {
+    font-size: 6rem;
+    font-weight: 900;
+    text-align: center;
+    line-height: 1;
+    color: var(--orange-9);
   }
 
-  /* 2. Define the Rings */
-  .inner, .outer {
-    position: absolute;
-    top: 0;
-    left: 0;
+  .info,.links{
+    text-align: center;
   }
 
-  /* 3. Animation Variables */
-  .inner {
-    --radius: 400px; /* Distance from center */
-    --speed: 90s;
-    --direction: 1; /* Clockwise */
+  .info p {
+    font-size: 2rem;
   }
 
-  .outer {
-    --radius: 750px; /* Further out */
-    --speed: 160s;
-    --direction: -1; /* Counter-Clockwise */
+  .info a,
+  .links a,
+  .link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    line-height: 1;
+    margin-top: 1rem;
+    color: inherit;
+    text-decoration: none;
+    padding: 0.35rem 0.5rem 0.25rem 0.5rem;
+    border: 4px solid var(--orange-9);
+    background-color: var(--orange-1);
   }
 
-  /* 4. Target the Images generated by Astro */
-  .hero-images img {
-    position: absolute;
-    /* Center the image on its pivot point */
-    top: -75px; 
-    left: -75px;
-    width: 225px;
-    height: 150px;
-    max-width: none; /* <--- CRITICAL: prevents it from shrinking to 0 */
+  main > * {
+    max-width: var(--w-md);
+    width: 100%;
+    margin: auto;
+  }
+
+  header {
+    margin-top: 1rem;
+  }
+
+  .center > * {
+    image-rendering: pixelated;
+  }
+
+  .center {
+    text-align: center;
+    font-weight: 300;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 7rem;
+    color: var(--gray-9);
+  }
+
+  header div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    max-width: var(--w-lg);
+    width: 100%;
+    margin: auto;
+  }
+
+  .top-images, .bottom-images {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    justify-content: center;
+  }
+
+  .top-images {
+    align-items: flex-end;
+  }
+
+  .bottom-images {
+    align-items: flex-start;
+  }
+
+  .top-images > *, .bottom-images > * {
+    clip-path: var(--path-lg);
+    aspect-ratio: 16 / 9;
     object-fit: cover;
-    border-radius: 12px; /* Optional: looks nice */
-    
-    /* The Ferris Wheel Logic */
-    animation: orbit var(--speed) linear infinite;
   }
 
-  /* 5. Distribute Inner Ring (6 images) */
-  .inner img:nth-of-type(1) { --angle: 0deg; }
-  .inner img:nth-of-type(2) { --angle: 60deg; }
-  .inner img:nth-of-type(3) { --angle: 120deg; }
-  .inner img:nth-of-type(4) { --angle: 180deg; }
-  .inner img:nth-of-type(5) { --angle: 240deg; }
-  .inner img:nth-of-type(6) { --angle: 300deg; }
-
-  /* 6. Distribute Outer Ring (6 images, offset by 30deg) */
-  .outer img:nth-of-type(1) { --angle: 30deg; }
-  .outer img:nth-of-type(2) { --angle: 90deg; }
-  .outer img:nth-of-type(3) { --angle: 150deg; }
-  .outer img:nth-of-type(4) { --angle: 210deg; }
-  .outer img:nth-of-type(5) { --angle: 270deg; }
-  .outer img:nth-of-type(6) { --angle: 330deg; }
-
-  /* 7. The Animation Keyframes */
-  @keyframes orbit {
-    from {
-      transform: 
-        rotate(var(--angle)) 
-        translateX(var(--radius)) 
-        rotate(calc(-1 * var(--angle))); 
+  @media (max-width: 600px) {
+    .center {
+      display: none;
     }
-    to {
-      transform: 
-        rotate(calc(var(--angle) + 360deg * var(--direction))) 
-        translateX(var(--radius)) 
-        rotate(calc(-1 * (var(--angle) + 360deg * var(--direction))));
+
+    .intro {
+      margin-top: 2rem !important;
+    }
+
+    .top-images > *:nth-child(1){
+      display: none;
+    }
+
+    .top-images > *:nth-child(2){
+      display: none;
+    }
+    .top-images > *:nth-child(3){
+      margin-bottom: 1.5rem;
+      display: none;
+    }
+
+    .bottom-images > *:nth-child(1){
+      margin-top: 1.5rem;
+      display: none;
+    }
+
+    .bottom-images > *:nth-child(2){
+      margin-top: 2.5rem;
+    }
+    .bottom-images > *:nth-child(3){
+      margin-top: 1rem;
+      display: none;
     }
   }
-  
-  /* Mobile responsiveness: Hide orbit on small screens if it gets too messy */
-  @media (max-width: 768px) {
-    .hero-images { display: none; }
+
+  .top-images > *:nth-child(1){
+    margin-bottom: 1rem;
+  }
+
+  .top-images > *:nth-child(2){
+    margin-bottom: 2.5rem;
+  }
+  .top-images > *:nth-child(3){
+    margin-bottom: 1rem;
+  }
+
+  .bottom-images > *:nth-child(1){
+    margin-top: 1rem;
+  }
+
+  .bottom-images > *:nth-child(2){
+    margin-top: 2.5rem;
+  }
+  .bottom-images > *:nth-child(3){
+    margin-top: 1rem;
+  }
+
+  .intro {
+    margin-top: 8rem;
+    max-width: var(--w-lg);
+  }
+
+  header div a {
+    color: inherit;
+    display: inline-block;
+    line-height: 1;
+    text-decoration: none;
+    padding: 0.35rem 0.5rem 0.25rem 0.5rem;
+    border: 4px solid var(--orange-9);
+    background-color: var(--orange-1);
+  }
+
+  header div a[aria-current="page"] {
+    background-color: var(--orange-9);
+    color: var(--orange-1);
+  }
+
+  a:hover,
+  a:active,
+  a:focus {
+    border-color: var(--orange-10);
+    background-color: var(--orange-10);
+    color: var(--gray-1);
+  }
+
+  html,body {
+    min-height: 100vh;
+    min-height: 100dvh;
+    position: relative;
+  }
+
+  h2 {
+    font-weight: 700;
+    font-size: 2.5rem;
+    margin-top: 6rem;
+    text-align: center;
+    color: var(--orange-9);
+  }
+
+  .link[href^="#"] img {
+    transform: rotate(90deg);
+    margin-bottom: 4px;
   }
 </style>
