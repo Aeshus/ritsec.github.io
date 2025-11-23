@@ -1,0 +1,66 @@
+- id: President
+  name: Dan LaChance
+  grad_year: 2026
+  linked_in: https://www.linkedin.com/in/dan-lachance
+  email: president@ritsec.club
+  image: danl.webp
+- id: Vice President
+  name: David Girard
+  grad_year: 2027
+  linked_in: https://www.linkedin.com/in/david-wg2
+  email: vicepresident@ritsec.club
+  image: davidg.webp
+- id: Public Relations
+  name: Danny Nichols
+  grad_year: 2027
+  linked_in: https://www.linkedin.com/in/daniel-t-nichols
+  email: publicrelations@ritsec.club
+  image: dannyn.webp
+- id: Head of Education
+  name: Adam Braccia
+  grad_year: 2026
+  linked_in: https://www.linkedin.com/in/adam-braccia-350407251
+  email: education@ritsec.club
+  image: adamb.webp
+- id: Head of Research
+  name: Hayden Hartman
+  grad_year: 2029
+  linked_in: https://www.linkedin.com/in/hayden-hartman-60a042293
+  email: research@ritsec.club
+  image: haydenh.webp
+- id: ISTS CA
+  name: Leah Kvares
+  grad_year: 2027
+  linked_in: https://www.linkedin.com/in/leahkvares
+  email: ists@ritsec.club
+  image: leahk.webp
+- id: IRSeC CA
+  name: Arianna Schwartz
+  grad_year: 2026
+  linked_in: https://www.linkedin.com/in/arianna--schwartz
+  email: irsec@ritsec.club
+  image: ariannas.webp
+- id: Treasurer
+  name: Alex Noble
+  grad_year: 2026
+  linked_in: https://www.linkedin.com/in/alexnoble079
+  email: treasurer@ritsec.club
+  image: alexn.webp
+- id: Secretary
+  name: Lukasz Ozimek
+  grad_year: 2027
+  linked_in: https://www.linkedin.com/in/lukasz-ozimek-1376752a2
+  email: secretary@ritsec.club
+  image: lukaszo.webp
+- id: Operations Lead
+  name: John Arrandale
+  grad_year: 2026
+  linked_in: https://www.linkedin.com/in/john-arrandale
+  email: opeations@ritsec.club
+  image: johna.webp
+- id: Tech Lead
+  name: Owen Silsbee
+  grad_year: 2028
+  linked_in: https://www.linkedin.com/in/owensilsbee
+  email: tech@ritsec.club
+  image: owens.webp

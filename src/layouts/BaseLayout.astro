@@ -1,0 +1,188 @@
+---
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import Head from '@/components/Head.astro';
+import Background from '@/components/Background.astro';
+import Gradient from '@/components/Gradient.astro';
+
+interface Props {
+  title: string;
+  subtitle?: string;
+  description?: string;
+}
+
+const { title, subtitle, description } = Astro.props;
+---
+<!DOCTYPE HTML>
+<html lang="en" transition:name="root" transition:animate="none">
+  <Head title={title} description={description} />
+
+  <body>
+    <Gradient />
+    <Background />
+    <Header />
+    <main transition:animate="slide">
+      <h1>{title}</h1>
+      {subtitle && <div class="subtitle">{subtitle}</div>}
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style is:global>
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  * {
+    margin: 0;
+  }
+
+  :root {
+    font-family: Inter, sans-serif;
+    font-feature-settings: 'liga' 1, 'calt' 1, 'zero' 1;
+
+    /* Page widths */
+    --w-lg: calc(min(100% - 2rem, 64rem));
+    --w-md: calc(min(100% - 2rem, 50rem));
+    --w-sm: calc(min(100% - 2rem, 40rem));
+    --w-full: calc(80rem);
+
+    --bg: #f8f8f8;
+    --bg-surface: #eaeaea;
+    --bg-surface-hover: #e2e2e2;
+    --bg-primary: #ffdcb0;
+    --bg-primary-icons: #fff0dd;
+
+    --fg: #18181b;
+    --fg-primary: #E69132;
+
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1d232a;
+      --bg-surface: #2b3138;
+      --bg-surface-hover: #363E47;
+      --bg-primary: #4b321a;
+      --bg-primary-icons: var(--bg-primary);
+
+      --fg: #f5f5f5;
+      --fg-primary: #E69132;
+    }
+  }
+
+  @supports (font-variation-settings: normal) {
+    :root {
+      font-family: InterVariable, sans-serif;
+    }
+  }
+
+  html {
+    background-color: var(--bg);
+    color: var(--fg);
+
+    /* Go from (default) of 16 to 20px */
+    font-size: 125%;
+    line-height: 1.56;
+  }
+
+  @media (max-width: 800px) {
+    html {
+      font-size: 112.5%;
+    }
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh; 
+    min-height: 100dvh; 
+    position: relative;
+  }
+
+  main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  main > * {
+    max-width: var(--w-md);
+    width: 100%;
+    margin-top: 0.75rem;
+  }
+
+  main img {
+    max-width: var(--w-full);
+  }
+
+  h1 {
+    font-size: 5.5rem;
+    color: var(--fg-primary);
+    text-align: center;
+    text-shadow: 0 0 2px var(--fg), 0 0 7px var(--fg-primary);
+    font-weight: 700;
+    margin-top: 1rem;
+  }
+
+  h2 {
+    font-size: 2.5rem;
+  }
+
+  h2,h3,h4,h5,h6 {
+    margin-top: 4rem;
+  }
+
+  h1,h2,h3,h4,h5,h6 {
+    line-height: 1;
+  }
+
+  .subtitle {
+    font-weight: 300;
+    font-size: 1.75rem;
+    text-align: center;
+    margin-top: 0rem;
+  }
+
+  .link-button {
+    color: inherit;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 1rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--bg-surface-hover);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    margin: 0.5rem;
+    line-height: 1;
+    vertical-align: center;
+    display: inline-block;
+    transition: all 0.2s ease-in-out; 
+    box-shadow: 0 1px 3px 0 color-mix(in oklab, var(--fg) 10%, transparent), 0 1px 2px -1px color-mix(in oklab, var(--fg) 10%, transparent);
+  }
+
+  .link-button:hover,
+  .link-button:active,
+  .link-button:focus {
+    background: var(--bg-surface-hover);
+    border-color: var(--fg-primary);
+    box-shadow: 0 4px 10px 0 color-mix(in oklab, var(--fg-primary) 12%, transparent), 0 2px 4px -2px color-mix(in oklab, var(--fg-primary) 12%, transparent);
+  }
+
+  .w-lg {
+    max-width: var(--w-lg);
+  }
+  .w-md {
+    max-width: var(--w-md);
+  }
+  .w-sm {
+    max-width: var(--w-sm);
+  }
+</style>

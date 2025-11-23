@@ -1,0 +1,54 @@
+---
+import { getCollection } from 'astro:content';
+
+const alumnis = await getCollection('alumni');
+---
+
+{alumnis.map(({ data }) => (
+<section>
+  <h2>{data.id}</h2>
+  <div class="names">
+    {data.alumni.map((name) => (
+      <div class="alumnus">{name}</div>
+    ))}
+  </div>
+</section>
+))}
+
+<style>
+
+  section {
+    text-align: center;
+    max-width: var(--w-lg);
+  }
+
+  h2 {
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+  }
+
+  .names {
+    display: flex;
+    flex-flow: wrap;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .alumnus {
+    background: var(--bg);
+    border: 1px solid var(--bg-surface-hover);
+    border-radius: 0.5rem;
+    width: 250px;
+    box-shadow: 0 1px 3px 0 color-mix(in oklab, var(--fg) 10%, transparent), 0 1px 2px -1px color-mix(in oklab, var(--fg) 10%, transparent);
+    padding: 0.5rem;
+    transition: all 0.2s ease-in-out; 
+  }
+
+  .alumnus:hover,
+  .alumnus:focus,
+  .alumnus:focus-within {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px 0 color-mix(in oklab, var(--fg) 12%, transparent), 0 2px 4px -2px color-mix(in oklab, var(--fg) 12%, transparent);
+  }
+
+</style>

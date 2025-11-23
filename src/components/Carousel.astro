@@ -1,0 +1,104 @@
+---
+const {
+  loop = false,
+  autoplay = false,
+  autoplayDelay = 4000,
+  autoscroll = false,
+  autoscrollSpeed = 1,
+  dots = false,
+} = Astro.props;
+---
+
+<div class="embla">
+  <div class="embla__viewport" data-loop={loop} data-autoplay={autoplay} data-autoplay-delay={autoplayDelay} data-autoscroll={autoscroll} data-autoscroll-speed={autoscrollSpeed} data-dots={dots}>
+    <div class="embla__container">
+      <slot />
+    </div>
+  </div>
+</div>
+
+<script>
+  import EmblaCarousel from 'embla-carousel'
+  import Autoplay from "embla-carousel-autoplay";
+  import AutoScroll from "embla-carousel-auto-scroll";
+
+  function setup() {
+    const emblaNode = document.querySelectorAll('.embla__viewport')
+    emblaNode.forEach(element => {
+      const options = {};
+      const plugins = [];
+
+      options["loop"] = element.getAttribute("data-loop");
+
+      if (element.getAttribute("data-autoplay") == true) {
+        const autoplayOptions = {};
+        autoplayOptions["delay"] = Number(element.getAttribute("data-autoplay-delay")) || 4000;
+        plugins.push(Autoplay(autoplayOptions))
+      }
+
+      if (element.getAttribute("data-autoscroll") == true) {
+        const autoscrollOptions = {}
+        autoscrollOptions["speed"] = Number(element.getAttribute("data-autoscroll-speed")) || 1;
+        plugins.push(AutoScroll(autoscrollOptions));
+      }
+
+      const embla = EmblaCarousel(element, options, plugins);
+
+      const dots = [];
+      const createDots = () => {
+        const fragment = document.createDocumentFragment();
+        embla.scrollSnapList().forEach((_, index) => {
+          const button = document.createElement("button");
+          button.classList.add("embla__dot");
+          button.type = "button";
+          button.addEventListener("click", () => embla.scrollTo(index));
+          fragment.appendChild(button);
+        });
+
+        element.appendChild(fragment);
+      }
+
+      const selectDot = () => {
+        if (dots.length === 0) return;
+
+        const selected = embla.selectedScrollSnap();
+        dots.forEach((dot, index) => {
+          dot.classList.toggle('is-selected', index === selectedIndex);
+        })
+      }
+    })
+  }
+
+  document.addEventListener("astro:page-load", () => {
+    setup();
+  });
+</script>
+
+<style>
+  .embla {
+    overflow: hidden;
+    border-radius: 1rem;
+    box-shadow: 0 1px 3px 0 color-mix(in oklab, var(--fg) 10%, transparent), 0 1px 2px -1px color-mix(in oklab, var(--fg) 10%, transparent);
+  }
+
+  .embla__container {
+    display: flex;
+  }
+  :global(.embla__container > *) {
+    flex: 0 0 100%;
+    height: 750px;
+    min-width: 0;
+  }
+
+  @media (max-width: 800px) {
+    :global(.embla__container > *) {
+      height: 450px;
+    }
+  }
+  :global(.embla img) {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+</style>

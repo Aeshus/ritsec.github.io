@@ -1,0 +1,27 @@
+- id: irsec
+  name: IRSEC
+  date: November 1st, 2025
+  where: Rochester, NY
+  url: https://irsec.club
+  featured: true
+
+- id: ists
+  name: ISTS
+  date: February 27th - March 1st 2026
+  where: Rochester, NY
+  url: https://ists.io
+  featured: true
+
+- id: education
+  name: Education Meeting
+  date: Fridays 12:00-2:30 PM
+  where: Rochester, NY
+  url: /events/education
+  featured: true
+
+- id: research
+  name: Research Meeting
+  date: Fridays 2:30-4:00 PM
+  where: Rochester, NY
+  url: /events/research
+  featured: true
