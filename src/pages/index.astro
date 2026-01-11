@@ -11,6 +11,172 @@
 		<title>Astro</title>
 	</head>
 	<body>
-		<h1>Astro</h1>
+        <header>
+            <div>
+                <a href="/">
+                    <img src="ritsec_logo_final-05.png" />
+                </a>
+                <nav>
+                    <a href="/">Home</a>
+                    <a href="/about">About</a>
+                    <a href="/events">Events</a>
+                    <a href="/groups">Groups</a>
+                    <a href="/schedule">Schedule</a>
+                    <a href="/research">Research</a>
+                    <a href="/sponsors">Sponsors</a>
+                    <a href="/join" class="call-to-action">Join Us</a>
+                </nav>
+            </div>
+        </header>
+        <main>
+
+        </main>
+        <footer>
+        </footer>
 	</body>
 </html>
+
+<style is:global>
+/*
+  Josh's Custom CSS Reset
+  https://www.joshwcomeau.com/css/custom-css-reset/
+*/
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+*:not(dialog) {
+  margin: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
+  }
+}
+
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+p {
+  text-wrap: pretty;
+}
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+#root, #__next {
+  isolation: isolate;
+}
+
+/* ----------------------------- */
+
+:root {
+    --bg: #fefefe;
+    --bg-panel: #eeeeee;
+
+    --fg: #000;
+    --accent: #E69132;
+
+    --page-width: 120ch;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #0c0c0c;
+        --bg-panel: #545454;
+
+        --fg: #dfdfdf;
+    }
+}
+
+body {
+    color: var(--fg);
+    background-color: var(--bg);
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+html {
+    min-height: 100%;
+    height: 100%;
+}
+
+main {
+    flex-grow: 1;
+}
+
+header {
+    font-size: 1.125rem;
+    position: sticky;
+    top: 0;
+    border-bottom: 1px solid var(--bg-panel);
+}
+
+header div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    max-width: calc(min(100% - 2rem, var(--page-width)));
+    width: 100%;
+    margin: auto;
+}
+
+header img {
+    height: 3.25rem;
+    width: 100%;
+}
+
+header div > a {
+    display: inline-block;
+}
+
+header div > a:hover {
+    background-color: var(--bg-panel);
+}
+
+header nav {
+    display: flex;
+    flex-direction: row;
+    gap: 0.75rem;
+}
+
+header nav a {
+    text-decoration: none;
+    padding: 0.25rem 0.5rem;
+    color: inherit;
+    display: inline-block;
+}
+
+header nav a:hover {
+    background-color: var(--accent);
+    color: var(--bg);
+}
+
+.call-to-action {
+    background-color: var(--fg);
+    color: var(--bg);
+}
+.call-to-action:hover {
+    background-color: var(--accent);
+    color: var(--bg);
+}
+</style>
