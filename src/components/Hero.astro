@@ -1,0 +1,80 @@
+---
+---
+
+<div class="hero">
+    <div>
+        <div>
+            <p class="hero-message">Welcome to the Spring semester!</p>
+            <h1>Security through <strong>Community</strong></h1>
+            <p class="hero-copy">Student-run. Community focused. Hosting competitions and conducting research. We break things to learn how to fix them.</p>
+            <div class="hero-buttons">
+                <a class="link-button primary" href="/join">GET INVOLVED</a>
+                <a class="link-button secondary" href="/sponsors" >SPONSOR US</a>
+            </div>
+        </div>
+
+        <div class="hero-image">
+            <img src="/image7.jpg">
+            <p class="hero-caption">Letchworth State Park, 2024</p>
+        </div>
+    </div>
+</div>
+
+<style>
+.hero {
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--bg-panel);
+}
+
+.hero > div {
+    max-width: calc(min(100% - 2rem, var(--page-width)));
+    width: 100%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 1rem;
+}
+
+@media (max-width: 1000px) {
+    .hero > div {
+        display: flex;
+        flex-direction: column;
+        align-items: unset;
+    }
+}
+
+.hero-message {
+    background-color: var(--bg-panel);
+    display: inline-block;
+    color: var(--fg);
+    padding: 0.25rem 0.5rem;
+    margin: 0;
+}
+
+.hero h1 {
+    font-size: 4rem;
+    line-height: 1.125;
+}
+
+h1 strong {
+    color: var(--accent);
+}
+
+.hero-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.hero-image {
+    padding: 0.5rem;
+    outline: 1px solid var(--fg);
+    outline-offset: -1px;
+}
+
+.hero-image-caption {
+    font-family: var(--font-mono);
+}
+</style>
