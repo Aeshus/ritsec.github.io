@@ -8,7 +8,10 @@
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<title>RITSEC</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
 	</head>
 	<body>
         <header>
@@ -16,6 +19,11 @@
                 <a href="/">
                     <img src="ritsec_logo_final-05.png" />
                 </a>
+                <input type="checkbox" id="nav-toggle-checkbox">
+
+                <label for="nav-toggle-checkbox" class="nav-toggle-label">
+                    <span>☰</span>
+                </label>
                 <nav>
                     <a href="/">Home</a>
                     <a href="/about">About</a>
@@ -29,7 +37,35 @@
             </div>
         </header>
         <main>
+            <div class="hero">
+                <div>
+                    <div>
+                        <p class="hero-message">Welcome to the Spring semester!</p>
+                        <h1>Security through <strong>Community</strong></h1>
+                        <p class="hero-copy">Student-run. Community focused. Hosting competitions and conducting research. We break things to learn how to fix them.</p>
+                        <div class="hero-buttons">
+                            <a class="link-button filled" href="/join">BECOME A MEMBER</a>
+                            <a class="link-button unfilled" href="/sponsors" >SPONSOR US</a>
+                        </div>
+                    </div>
 
+                    <div class="hero-image">
+                        <img src="/image7.jpg">
+                        <p class="hero-caption">Letchworth State Park, 2024</p>
+                        <!-- left and right controls to go between images -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interest Groups -->
+
+            <!-- Events -->
+
+            <!-- Schedule -->
+
+            <!-- Research -->
+
+            <!-- Sponsors -->
         </main>
         <footer>
         </footer>
@@ -87,6 +123,8 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ----------------------------- */
 
+/* ----------------------------- */
+
 :root {
     --bg: #fefefe;
     --bg-panel: #eeeeee;
@@ -95,6 +133,15 @@ h1, h2, h3, h4, h5, h6 {
     --accent: #E69132;
 
     --page-width: 120ch;
+
+    --font-mono: "IBM Plex Mono", monospace;
+    --font-sans: "IBM Plex Sans", sans-serif;
+
+    font-family: var(--font-sans);
+}
+
+pre {
+    font-family: var(--font-mono);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -124,10 +171,11 @@ main {
 }
 
 header {
-    font-size: 1.125rem;
     position: sticky;
     top: 0;
+    padding: 0.25rem 0;
     border-bottom: 1px solid var(--bg-panel);
+    background-color: var(--bg);
 }
 
 header div {
@@ -138,6 +186,10 @@ header div {
     max-width: calc(min(100% - 2rem, var(--page-width)));
     width: 100%;
     margin: auto;
+}
+
+header div > * {
+    font-size: 1.125rem;
 }
 
 header img {
@@ -164,6 +216,7 @@ header nav a {
     padding: 0.25rem 0.5rem;
     color: inherit;
     display: inline-block;
+    font-family: var(--font-mono);
 }
 
 header nav a:hover {
@@ -179,4 +232,122 @@ header nav a:hover {
     background-color: var(--accent);
     color: var(--bg);
 }
+
+#nav-toggle-checkbox {
+  display: none;
+}
+
+.nav-toggle-label {
+    display: none; 
+}
+
+@media (max-width: 1000px) {
+    header div {
+        flex-wrap: wrap;
+    }
+
+    header nav {
+        display: none;
+        width: 100%; 
+        flex-direction: column; 
+        margin-top: 0.5rem;
+    }
+
+    #nav-toggle-checkbox:checked ~ nav {
+        display: flex;
+    }
+
+    .nav-toggle-label {
+        display: block;
+        cursor: pointer; 
+        user-select: none;
+    }
+
+    .hero h1 {
+        font-size: 3rem !important;
+    }
+}
+
+/* ------------------------- */
+
+.hero {
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--bg-panel);
+}
+
+.hero > div {
+    max-width: calc(min(100% - 2rem, var(--page-width)));
+    width: 100%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 1rem;
+}
+
+@media (max-width: 1000px) {
+    .hero > div {
+        display: flex;
+        flex-direction: column;
+        align-items: unset;
+    }
+}
+
+.hero-message {
+    background-color: var(--bg-panel);
+    display: inline-block;
+    color: var(--fg);
+    padding: 0.25rem 0.5rem;
+    margin: 0;
+}
+
+.hero h1 {
+    font-size: 4rem;
+    line-height: 1.125;
+}
+
+h1 strong {
+    color: var(--accent);
+}
+
+.hero-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.link-button {
+    padding: 0.25rem 0.5rem;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.link-button.filled {
+    color: var(--bg);
+    background-color: var(--fg);
+}
+.link-button.filled:hover {
+    background-color: var(--accent);
+}
+
+.link-button.unfilled {
+    color: inherit;
+    outline: 1px solid var(--fg);
+    outline-offset: -1px;
+}
+.link-button.unfilled:hover {
+    background: var(--bg-panel);
+}
+
+.hero-image {
+    padding: 0.5rem;
+    outline: 1px solid var(--fg);
+    outline-offset: -1px;
+}
+
+.hero-image-caption {
+    font-family: var(--font-mono);
+}
+
 </style>
