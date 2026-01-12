@@ -68,6 +68,8 @@ h1, h2, h3, h4, h5, h6 {
     --page-width: 120ch;
     --font-mono: "IBM Plex Mono", monospace;
     --font-sans: "IBM Plex Sans", sans-serif;
+
+    --padding: max(1rem, (100% - var(--page-width)) / 2);
 }
 
 :root {
@@ -129,7 +131,9 @@ strong {
     text-decoration: none;
     color: var(--fg);
 }
-.link-button:hover {
+.link-button:hover,
+.link-button:active,
+.link-button:focus {
     color: var(--bg);
     background-color: var(--fg);
 }
@@ -138,7 +142,9 @@ strong {
     color: var(--bg);
     background-color: var(--fg);
 }
-.link-button.primary:hover {
+.link-button.primary:hover,
+.link-button.primary:active,
+.link-button.primary:focus {
     background-color: var(--accent);
     color: var(--fg-accent);
 }
@@ -146,7 +152,15 @@ strong {
     outline: 1px solid var(--fg);
     outline-offset: -1px;
 }
-.link-button.secondary:hover {
+.link-button.secondary:hover,
+.link-button.secondary:active,
+.link-button.secondary:focus {
+    background-color: var(--bg-panel);
+    color: var(--fg);
+}
+.link-button.tertiary:hover,
+.link-button.tertiary:active,
+.link-button.tertiary:focus {
     background-color: var(--bg-panel);
     color: var(--fg);
 }

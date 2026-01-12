@@ -2,15 +2,16 @@
 ---
 
 <header>
-    <div>
-        <a href="/">
+        <a class="logo link-button tertiary" href="/">
             <img src="ritsec_logo_final-05.png" />
         </a>
-        <input type="checkbox" id="nav-toggle-checkbox">
 
-        <label for="nav-toggle-checkbox" class="nav-toggle-label">
+        <input type="checkbox" id="checkbox">
+
+        <label for="checkbox">
             <span>☰</span>
         </label>
+
         <nav>
             <a class="link-button" href="/">HOME</a>
             <a class="link-button" href="/about">ABOUT</a>
@@ -21,83 +22,72 @@
             <a class="link-button" href="/sponsors">SPONSORS</a>
             <a class="link-button primary" href="/join" class="call-to-action">JOIN US</a>
         </nav>
-    </div>
 </header>
 
 <style>
 header {
     position: sticky;
     top: 0;
-    padding: 0.25rem 0;
-    border-bottom: 1px solid var(--bg-panel);
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0.25rem var(--padding);
+    border-bottom: 1px solid var(--border);
     background-color: var(--bg);
 }
 
-header div {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    max-width: calc(min(100% - 2rem, var(--page-width)));
-    width: 100%;
-    margin: auto;
-}
-
-header div > * {
-    font-size: 1.125rem;
-}
-
-header img {
+.logo img {
     height: 3.25rem;
-    width: 100%;
+    width: auto;
 }
 
-header div > a {
+.logo {
     display: inline-block;
-}
-
-header div > a:hover {
-    background-color: var(--bg-panel);
 }
 
 header nav {
     display: flex;
     flex-direction: row;
     gap: 0.75rem;
+    align-items: center;
 }
 
-#nav-toggle-checkbox {
-  display: none;
+input {
+    display: none;
 }
 
-.nav-toggle-label {
-    display: none; 
+label {
+    display: none;
+    cursor: pointer;
+    user-select: none;
+    padding: 0.5rem;
 }
 
 @media (max-width: 1000px) {
-    header div {
-        flex-wrap: wrap;
+    label {
+        display: block;
     }
 
     header nav {
         display: none;
-        width: 100%; 
-        flex-direction: column; 
+        width: 100%;
+        flex-direction: column;
+        padding-top: 1rem;
         margin-top: 0.5rem;
+        border-top: 1px solid var(--border);
     }
 
-    #nav-toggle-checkbox:checked ~ nav {
+    input:checked ~ nav {
         display: flex;
     }
 
-    .nav-toggle-label {
-        display: block;
-        cursor: pointer; 
-        user-select: none;
-    }
-
-    .hero h1 {
-        font-size: 3rem !important;
+    header nav a {
+        width: 100%;
+        text-align: center;
+        padding: 0.75rem 0;
     }
 }
 </style>
