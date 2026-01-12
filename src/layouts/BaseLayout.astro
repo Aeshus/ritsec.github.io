@@ -107,10 +107,10 @@ import Head from "../components/Head.astro";
     @media (prefers-color-scheme: dark) {
         :root {
             --bg: #0c0c0c;
-            --bg-panel: #545454;
+            --bg-panel: #494949;
 
             --fg: #dfdfdf;
-            --border: var(--bg-panel);
+            --border: #2c2c2c;
 
             --accent: #e69132;
             --fg-accent: var(--fg);
@@ -151,6 +151,8 @@ import Head from "../components/Head.astro";
         padding: 0.25rem 0.5rem;
         text-decoration: none;
         color: var(--fg);
+        transition: color 0.1s linear;
+        transition: background-color 0.1s linear;
     }
     .link-button:hover,
     .link-button:active,
