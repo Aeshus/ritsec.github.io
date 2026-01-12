@@ -14,154 +14,175 @@ import Head from "../components/Head.astro";
 </html>
 
 <style is:global>
-/*
+    /*
   Josh's Custom CSS Reset
   https://www.joshwcomeau.com/css/custom-css-reset/
 */
 
-*, *::before, *::after {
-  box-sizing: border-box;
-}
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
 
-*:not(dialog) {
-  margin: 0;
-}
+    *:not(dialog) {
+        margin: 0;
+    }
 
-@media (prefers-reduced-motion: no-preference) {
-  html {
-    interpolate-size: allow-keywords;
-  }
-}
+    @media (prefers-reduced-motion: no-preference) {
+        html {
+            interpolate-size: allow-keywords;
+        }
+    }
 
-body {
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-}
+    body {
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+    }
 
-img, picture, video, canvas, svg {
-  display: block;
-  max-width: 100%;
-}
+    img,
+    picture,
+    video,
+    canvas,
+    svg {
+        display: block;
+        max-width: 100%;
+    }
 
-input, button, textarea, select {
-  font: inherit;
-}
+    input,
+    button,
+    textarea,
+    select {
+        font: inherit;
+    }
 
-p, h1, h2, h3, h4, h5, h6 {
-  overflow-wrap: break-word;
-}
+    p,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        overflow-wrap: break-word;
+    }
 
-p {
-  text-wrap: pretty;
-}
-h1, h2, h3, h4, h5, h6 {
-  text-wrap: balance;
-}
+    p {
+        text-wrap: pretty;
+    }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        text-wrap: balance;
+    }
 
-#root, #__next {
-  isolation: isolate;
-}
+    #root,
+    #__next {
+        isolation: isolate;
+    }
 
-/* ---- VARIABLE DEFINITIONS ---- */
+    /* ---- VARIABLE DEFINITIONS ---- */
 
-:root {
-    --page-width: 120ch;
-    --font-mono: "IBM Plex Mono", monospace;
-    --font-sans: "IBM Plex Sans", sans-serif;
-
-    --padding: max(1rem, (100% - var(--page-width)) / 2);
-}
-
-:root {
-    --bg: #fefefe;
-    --bg-panel: #eeeeee;
-
-    --fg: #000;
-    --border: var(--bg-panel);
-
-    --accent: #e69132;
-    --fg-accent: var(--bg);
-}
-
-@media (prefers-color-scheme: dark) {
     :root {
-        --bg: #0c0c0c;
-        --bg-panel: #545454;
+        --page-width: 120ch;
+        --font-mono: "IBM Plex Mono", monospace;
+        --font-sans: "IBM Plex Sans", sans-serif;
 
-        --fg: #dfdfdf;
+        --padding: max(1rem, (100% - var(--page-width)) / 2);
+    }
+
+    :root {
+        --bg: #fefefe;
+        --bg-panel: #eeeeee;
+
+        --fg: #000;
         --border: var(--bg-panel);
 
         --accent: #e69132;
-        --fg-accent: var(--fg);
+        --fg-accent: var(--bg);
     }
-}
 
-/* ----- BASE STYLES ---- */
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --bg: #0c0c0c;
+            --bg-panel: #545454;
 
-html {
-    font-family: var(--font-sans);
-    color: var(--fg);
-    background-color: var(--bg);
-    min-height: 100%;
-}
+            --fg: #dfdfdf;
+            --border: var(--bg-panel);
 
-body {
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
-}
+            --accent: #e69132;
+            --fg-accent: var(--fg);
+        }
+    }
 
-main {
-    flex-grow: 1;
-}
+    /* ----- BASE STYLES ---- */
 
-pre {
-    font-family: var(--font-mono);
-}
+    html {
+        font-family: var(--font-sans);
+        color: var(--fg);
+        background-color: var(--bg);
+        min-height: 100%;
+    }
 
-strong {
-    color: var(--accent);
-}
+    body {
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
 
-.link-button {
-    display: inline-block;
-    font-family: var(--font-mono);
-    font-size: 1.125rem;
-    padding: 0.25rem 0.5rem;
-    text-decoration: none;
-    color: var(--fg);
-}
-.link-button:hover,
-.link-button:active,
-.link-button:focus {
-    color: var(--bg);
-    background-color: var(--fg);
-}
+    main {
+        flex-grow: 1;
+    }
 
-.link-button.primary {
-    color: var(--bg);
-    background-color: var(--fg);
-}
-.link-button.primary:hover,
-.link-button.primary:active,
-.link-button.primary:focus {
-    background-color: var(--accent);
-    color: var(--fg-accent);
-}
-.link-button.secondary {
-    outline: 1px solid var(--fg);
-    outline-offset: -1px;
-}
-.link-button.secondary:hover,
-.link-button.secondary:active,
-.link-button.secondary:focus {
-    background-color: var(--bg-panel);
-    color: var(--fg);
-}
-.link-button.tertiary:hover,
-.link-button.tertiary:active,
-.link-button.tertiary:focus {
-    background-color: var(--bg-panel);
-    color: var(--fg);
-}
+    pre {
+        font-family: var(--font-mono);
+    }
+
+    strong {
+        color: var(--accent);
+    }
+
+    .link-button {
+        display: inline-block;
+        font-family: var(--font-mono);
+        font-size: 1.125rem;
+        padding: 0.25rem 0.5rem;
+        text-decoration: none;
+        color: var(--fg);
+    }
+    .link-button:hover,
+    .link-button:active,
+    .link-button:focus {
+        color: var(--bg);
+        background-color: var(--fg);
+    }
+
+    .link-button.primary {
+        color: var(--bg);
+        background-color: var(--fg);
+    }
+    .link-button.primary:hover,
+    .link-button.primary:active,
+    .link-button.primary:focus {
+        background-color: var(--accent);
+        color: var(--fg-accent);
+    }
+    .link-button.secondary {
+        outline: 1px solid var(--fg);
+        outline-offset: -1px;
+    }
+    .link-button.secondary:hover,
+    .link-button.secondary:active,
+    .link-button.secondary:focus {
+        background-color: var(--bg-panel);
+        color: var(--fg);
+    }
+    .link-button.tertiary:hover,
+    .link-button.tertiary:active,
+    .link-button.tertiary:focus {
+        background-color: var(--bg-panel);
+        color: var(--fg);
+    }
 </style>
