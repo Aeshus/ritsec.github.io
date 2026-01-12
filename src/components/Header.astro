@@ -87,12 +87,33 @@ const links = [
         display: none;
         cursor: pointer;
         user-select: none;
-        padding: 0.5rem;
+        padding: 1rem 1.25rem;;
+        transition: background-color 0.1s linear;
+    }
+
+    label:hover,
+    label:active,
+    label:focus {
+        background-color: var(--bg-panel);
     }
 
     @media (max-width: 1000px) {
         label {
             display: block;
+        }
+
+        input {
+            display: unset;
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+            overflow: hidden; 
+            z-index: -1;
+        }
+
+        input:focus-visible + label {
+            background-color: var(--bg-panel);
         }
 
         header nav {
