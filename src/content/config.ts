@@ -33,7 +33,7 @@ const groups = defineCollection({
                     }),
                 )
                 .default([]),
-            logo: image().optional(),
+            logo: z.string(),
         }),
 });
 
