@@ -15,6 +15,6 @@ const { entry } = Astro.props;
 const { Content } = await entry.render();
 ---
 
-<BaseLayout>
+<BaseLayout title={entry.data.name} description={entry.data.summary}>
     <Content />
 </BaseLayout>

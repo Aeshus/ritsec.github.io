@@ -1,31 +1,35 @@
 ---
 ---
 import Hero from "@/components/Hero.astro";
+import GroupCarousel from "@/components/GroupCarousel.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import heroImg from "@/assets/image7.jpg";
 
-<BaseLayout>
+<BaseLayout title="Home">
     <Hero 
             badge="Welcome to the spring semester!"
             image={heroImg}
             imageAlt="Letchworth State Park landscape"
         >
-            <span slot="title">
+            <Fragment slot="title">
                 Security through **Community**
-            </span>
+            </Fragment>
 
             Student-run. Community focused. Hosting competitions and conducting research. We break things to learn how to fix them.
 
-            <div slot="bottom" style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap'}}>
+            <Fragment slot="bottom">
                 <a class="link-button primary" href="/join">GET INVOLVED</a>
                 <a class="link-button secondary" href="/sponsors">SPONSOR US</a>
-            </div>
+            </Fragment>
     </Hero>
 
     <section>
+        ## Interest Groups
 
+         Beyond our general meetings, we run specialized sub-groups that dive deep into specific domains of cybersecurity.
+
+         <GroupCarousel />
     </section>
-
     {/* Interest Groups */}
     {/* Events */}
     {/* Schedule */}

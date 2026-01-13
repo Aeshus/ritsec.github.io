@@ -7,10 +7,23 @@ import "@fontsource/ibm-plex-sans/700.css";
 import "@fontsource/ibm-plex-sans/400-italic.css";
 import "@fontsource/ibm-plex-sans/700-italic.css";
 import "@fontsource/ibm-plex-mono";
+
+interface Props {
+    title: string;
+    description?: string;
+    image?: string;
+}
+
+const {
+    title,
+    description,
+    image,
+} = Astro.props;
+
 ---
 
 <html lang="en">
-    <Head />
+    <Head title={title} description={description} image={image} />
     <body>
         <Header />
         <main>
@@ -93,6 +106,7 @@ import "@fontsource/ibm-plex-mono";
 
     :root {
         --page-width: 120ch;
+        --text-width: 610px;
         --font-mono: "IBM Plex Mono", monospace;
         --font-sans: "IBM Plex Sans", sans-serif;
 
@@ -101,10 +115,10 @@ import "@fontsource/ibm-plex-mono";
 
     :root {
         --bg: #fefefe;
-        --bg-panel: #eeeeee;
+        --bg-panel: #f9f9f9;
 
         --fg: #000;
-        --border: var(--bg-panel);
+        --border: #e6e6e6;
 
         --accent: #e69132;
         --fg-accent: var(--bg);
@@ -113,7 +127,7 @@ import "@fontsource/ibm-plex-mono";
     @media (prefers-color-scheme: dark) {
         :root {
             --bg: #0c0c0c;
-            --bg-panel: #494949;
+            --bg-panel: #1b1b1b;
 
             --fg: #dfdfdf;
             --border: #2c2c2c;
@@ -194,9 +208,53 @@ import "@fontsource/ibm-plex-mono";
         color: var(--fg);
     }
 
+    .link-button.tertiary-accent {
+        outline: 1px solid var(--accent);
+        outline-offset: -1px;
+        color: var(--accent);
+    }
+
+    .link-button.tertiary-accent:hover,
+    .link-button.tertiary-accent:active,
+    .link-button.tertiary-accent:focus{
+        background-color: unset;
+        color: var(--fg);
+    }
+
+    .link-button.tertiary:hover,
+    .link-button.tertiary:active,
+    .link-button.tertiary:focus {
+        background-color: var(--bg-panel);
+        color: var(--fg);
+    }
+
     main > section {
         padding: 2rem var(--padding);
         border-bottom: 2px solid var(--border);
         background-color: var(--bg);
+    }
+
+    h2 {
+        font-size: 2.5rem;
+        line-height: 1.125;
+        margin-bottom: 1rem;
+    }
+
+    main > section > p {
+        max-width: var(--text-width);
+    }
+
+    @media (max-width: 1000px) {
+        main > section {
+            text-align: center;
+        }
+
+        main > section > p {
+            margin: auto;
+        }
+
+        main > section > h2 {
+            font-size: 2.25rem;
+        }
     }
 </style>

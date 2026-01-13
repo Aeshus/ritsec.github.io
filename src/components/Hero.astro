@@ -26,7 +26,7 @@ const {
         </div>
 
         {Astro.slots.has('bottom') && (
-          <div>
+          <div class="bottom">
             <slot name="bottom" />
           </div>
         )}
@@ -73,7 +73,7 @@ const {
 
     .copy {
         font-size: 1.125rem;
-        max-width: 60ch;
+        max-width: var(--text-width);
         margin-bottom: 2rem;
     }
 
@@ -81,12 +81,19 @@ const {
         padding: 0.5rem;
         outline: 2px solid var(--border);
         outline-offset: -1px;
+        background-color: var(--bg-panel);
     }
 
     img {
         display: block;
         width: 100%;
         height: auto;
+    }
+
+    .bottom {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
     }
 
     @media (max-width: 1000px) {
@@ -100,7 +107,7 @@ const {
             margin-bottom: 2rem;
         }
 
-        .buttons {
+        .bottom {
             justify-content: center;
         }
 
