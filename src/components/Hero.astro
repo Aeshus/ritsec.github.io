@@ -1,36 +1,55 @@
 ---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
 
+interface Props {
+  badge?: string;
+  image?: ImageMetadata;
+  imageAlt?: string;
+}
+
+const { 
+  badge, 
+  image, 
+  imageAlt, 
+} = Astro.props;
 ---
 
 <section>
     <div>
-        <p class="message">Welcome to the spring semester!</p>
-        <h1>Security through <strong>Community</strong></h1>
-        <p class="copy">
-            Student-run. Community focused. Hosting competitions and conducting
-            research. We break things to learn how to fix them.
-        </p>
-        <div class="buttons">
-            <a class="link-button primary" href="/join">GET INVOLVED</a>
-            <a class="link-button secondary" href="/sponsors">SPONSOR US</a>
+        {badge && <p class="message">{badge}</p>}
+
+        <h1><slot name="title" /></h1>
+
+        <div class="copy">
+            <slot />
         </div>
+
+        {Astro.slots.has('bottom') && (
+          <div>
+            <slot name="bottom" />
+          </div>
+        )}
     </div>
 
+    {image && 
     <div class="image">
-        <img src="/image7.jpg" alt="Letchworth State Park landscape" />
-        <p class="caption">Letchworth State Park, 2024</p>
+        <Image 
+            src={image} 
+            alt={imageAlt} 
+            width={800} 
+            loading="eager" 
+          />
     </div>
+    }
 </section>
 
 <style>
     section {
-        padding: 2rem var(--padding);
         display: grid;
         grid-template-columns: 1.2fr 1fr;
         align-items: center;
         gap: 2rem;
-        border-bottom: 2px solid var(--border);
-        background-color: var(--bg);
     }
 
     .message {
@@ -58,12 +77,6 @@
         margin-bottom: 2rem;
     }
 
-    .buttons {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1rem;
-    }
-
     .image {
         padding: 0.5rem;
         outline: 2px solid var(--border);
@@ -74,13 +87,6 @@
         display: block;
         width: 100%;
         height: auto;
-    }
-
-    .caption {
-        font-family: var(--font-mono);
-        font-size: 0.875rem;
-        margin-top: 0.5rem;
-        color: var(--fg);
     }
 
     @media (max-width: 1000px) {
