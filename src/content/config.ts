@@ -41,19 +41,19 @@ const schedule = defineCollection({
     type: "content",
     schema: z.object({
         title: z.string(),
-        start: z.date(), 
-        end: z.date(), 
+        start: z.date(),
+        end: z.date(),
         location: z.string().default("GOL 1400"),
-        group: z.union([
-                reference('groups'),
-                z.string()]).default('general'),
+        group: z.union([reference("groups"), z.string()]).default("general"),
         hosts: z.array(z.string()).default(["RITSEC Board"]),
         slides: z.string().url().optional(),
         video: z.string().url().optional(),
         zoom: z.string().url().optional(),
-        status: z.enum(["scheduled", "cancelled", "postponed"]).default("scheduled"),
+        status: z
+            .enum(["scheduled", "cancelled", "postponed"])
+            .default("scheduled"),
         featured: z.boolean().default(false),
-  })
+    }),
 });
 
 export const collections = { groups, schedule };

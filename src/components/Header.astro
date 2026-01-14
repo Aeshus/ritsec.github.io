@@ -1,6 +1,6 @@
 ---
-import { Image } from 'astro:assets';
-import logoLarge from '@/assets/logoLarge.png';
+import { Image } from "astro:assets";
+import logoLarge from "@/assets/logoLarge.png";
 
 const path = Astro.url.pathname;
 
@@ -17,7 +17,12 @@ const links = [
 
 <header>
     <a class="logo link-button tertiary" href="/">
-        <Image src={logoLarge} height="52px" alt="RITSEC Logo" loading="eager" />
+        <Image
+            src={logoLarge}
+            height="52px"
+            alt="RITSEC Logo"
+            loading="eager"
+        />
     </a>
 
     <input type="checkbox" id="checkbox" />
@@ -35,10 +40,7 @@ const links = [
 
                 return (
                     <a
-                        class:list={[
-                            "link-button",
-                            page ? "secondary" : ""
-                        ]}
+                        class:list={["link-button", page ? "secondary" : ""]}
                         href={link.href}
                         aria-current={page ? "page" : undefined}
                     >
@@ -48,9 +50,7 @@ const links = [
             })
         }
 
-        <a class="link-button primary" href="/join"
-            >JOIN US</a
-        >
+        <a class="link-button primary" href="/join">JOIN US</a>
     </nav>
 </header>
 
