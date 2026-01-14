@@ -1,0 +1,9 @@
+---
+import { getCollection } from "astro:content";
+
+const events = await getCollection("events");
+---
+
+<script define:vars={{ events: events }}>
+    console.log(events);
+</script>

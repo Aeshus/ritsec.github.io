@@ -1,0 +1,91 @@
+---
+import { getCollection } from "astro:content";
+const allEvents = await getCollection("schedule");
+
+const featuredCandidates = allEvents
+  .filter(e => e.data.featured === true)
+  .filter(e => e.data.end > new Date(new Date().getTime() - 86400000)) 
+  .sort((a, b) => a.data.start.valueOf() - b.data.start.valueOf()); 
+
+const formatEventDate = (start, end) => {
+  const checkOpts = { day: 'numeric' };
+  const isSameDay = 
+    new Intl.DateTimeFormat('en-US', checkOpts).format(start) === 
+    new Intl.DateTimeFormat('en-US', checkOpts).format(end);
+  
+  const dateOpts = { 
+    month: 'short', 
+    day: 'numeric', 
+  };
+  
+  const timeOpts = { 
+    hour: 'numeric', 
+    minute: '2-digit', 
+  };
+
+  if (isSameDay) {
+    const date = new Intl.DateTimeFormat('en-US', dateOpts).format(start);
+    const startTime = new Intl.DateTimeFormat('en-US', timeOpts).format(start);
+    const endTime = new Intl.DateTimeFormat('en-US', timeOpts).format(end);
+    return `${date} • ${startTime} – ${endTime}`;
+  } else {
+    const startDate = new Intl.DateTimeFormat('en-US', dateOpts).format(start);
+    const endDate = new Intl.DateTimeFormat('en-US', dateOpts).format(end);
+    return `${startDate} – ${endDate}`;
+  }
+};
+---
+
+<div id="featured-event-container">
+  {featuredCandidates.map((event) => (
+    <article 
+      class="featured-candidate" 
+      data-end={event.data.end.toISOString()}
+      hidden
+    >
+        <div class="group-name">FEATURED: {event.data.group.id.toUpperCase()}</div>
+        <h3>{event.data.title}</h3>
+        <div><time datetime={event.data.start.toISOString()}>{formatEventDate(event.data.start, event.data.end)}</time></div>
+        <a class="link-button tertiary-accent" href={"/schedule" + event.slug}>View Details</a>
+    </article>
+  ))}
+</div>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const container = document.getElementById('featured-event-container');
+    if (!container) return;
+
+    const candidates = container.querySelectorAll('.featured-candidate');
+    const now = new Date();
+
+    for (const card of candidates) {
+      const end = new Date(card.getAttribute('data-end'));
+      if (end > now) {
+        card.removeAttribute('hidden');
+        break; 
+      }
+    }
+  })
+</script>
+
+<style>
+    .group-name {
+        color: var(--accent);
+    }
+
+    .featured-candidate {
+        padding: 1rem;
+        background-color: var(--fg);
+        color: var(--bg);
+    }
+
+    h3 {
+        font-size: 1.5rem;
+    }
+
+    .link-button {
+        margin-top: 1rem;
+    }
+
+</style>

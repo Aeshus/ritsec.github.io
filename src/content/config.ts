@@ -52,6 +52,7 @@ const schedule = defineCollection({
         video: z.string().url().optional(),
         zoom: z.string().url().optional(),
         status: z.enum(["scheduled", "cancelled", "postponed"]).default("scheduled"),
+        featured: z.boolean().default(false),
   })
 });
 

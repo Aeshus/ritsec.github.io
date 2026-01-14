@@ -2,6 +2,7 @@
 ---
 import Hero from "@/components/Hero.astro";
 import GroupCarousel from "@/components/GroupCarousel.astro";
+import FeaturedSchedule from "@/components/FeaturedSchedule.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import heroImg from "@/assets/image7.jpg";
 
@@ -26,14 +27,20 @@ import heroImg from "@/assets/image7.jpg";
     <section>
         ## Interest Groups
 
-         Beyond our general meetings, we run specialized sub-groups that dive deep into specific domains of cybersecurity.
+        Beyond our general meetings, we run specialized sub-groups that dive deep into specific domains of cybersecurity.
 
-         <GroupCarousel />
+        <GroupCarousel />
+
+        <a class="link-button primary" href="/groups">View all groups</a>
     </section>
 
     {/* Schedule */}
     <section>
+        ## Schedule
 
+        RITSEC hosts frequent events, open to all RIT students. 
+
+        <FeaturedSchedule />
     </section>
 
     {/* Events */}
