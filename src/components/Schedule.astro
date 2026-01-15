@@ -57,7 +57,7 @@ const formatEventDate = (start, end) => {
 <div id="event-container" data-count={count} class="events-grid">
     {
         featuredCandidates.map((event) => (
-            <a href={"/schedule/" + event.data.slug} class="events">
+            <a href={"/schedule/" + event.slug} class="events">
                 <article
                     class="featured-candidate"
                     data-start={event.data.start.toISOString()} 
