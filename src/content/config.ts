@@ -56,4 +56,18 @@ const schedule = defineCollection({
     }),
 });
 
-export const collections = { groups, schedule };
+const events = defineCollection({
+    type: "content",
+    schema: ({ image}) => z.object({
+        title: z.string(),
+        start: z.date().optional(),
+        end: z.date().optional(),
+        location: z.string(),
+        access: z.string(),
+        summary: z.string(),
+        website: z.string().optional(),
+        image: image(),
+    })
+});
+
+export const collections = { groups, schedule, events };

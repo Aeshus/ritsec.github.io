@@ -1,9 +1,168 @@
 ---
 import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
 
 const events = await getCollection("events");
+
+const formatEventDate = (start, end) => {
+    const checkOpts = { day: "numeric", timeZone: "UTC" };
+    const isSameDay =
+        new Intl.DateTimeFormat("en-US", checkOpts).format(start) ===
+        new Intl.DateTimeFormat("en-US", checkOpts).format(end);
+
+    const dateOpts = {
+        timeZone: "UTC",
+        month: "short",
+        day: "numeric",
+    };
+
+    const timeOpts = {
+        timeZone: "UTC",
+        hour: "numeric",
+        minute: "2-digit",
+    };
+
+    const isMidnight = (d) => d.getUTCHours() === 0 && d.getUTCMinutes() === 0;
+    const hideTime = isMidnight(start) && isMidnight(end);
+
+    if (isSameDay) {
+        const date = new Intl.DateTimeFormat("en-US", dateOpts).format(start);
+
+        if (hideTime) {
+            return date;
+        }
+
+        const startTime = new Intl.DateTimeFormat("en-US", timeOpts).format(
+            start,
+        );
+        const endTime = new Intl.DateTimeFormat("en-US", timeOpts).format(end);
+        return `${date} • ${startTime} – ${endTime}`;
+    } else {
+        const startDate = new Intl.DateTimeFormat("en-US", dateOpts).format(
+            start,
+        );
+        const endDate = new Intl.DateTimeFormat("en-US", dateOpts).format(end);
+        return `${startDate} – ${endDate}`;
+    }
+};
 ---
 
-<script define:vars={{ events: events }}>
-    console.log(events);
-</script>
+<div class="event-list">
+    {events.map((event) => (
+        <article>
+            <Image src={event.data.image} alt={"Picture of "+event.data.title} layout='constrained' width={800} height={400} class="card-image" />
+
+            <div class="content">
+                <h3>{event.data.title}</h3>
+
+                <div class="time">
+                    {(event.data.start && event.data.end) ? 
+                        <time datetime={event.data.start.toISOString()}>
+                            {formatEventDate(event.data.start, event.data.end)}
+                        </time>
+                        : <div>TBD</div>}
+                </div>
+
+                <div class="location">
+                    {event.data.location} – {event.data.access}
+                </div>
+
+                <div class="summary">{event.data.summary}</div>
+
+                <div class="buttons">
+                    <a
+                        href={"/events#" + event.slug}
+                        class="link-button primary"
+                    >
+                        LEARN MORE
+                    </a>
+
+                    {event.data.website && 
+                    <a
+                        href={event.data.website}
+                        class="link-button secondary"
+                    >
+                        WEBSITE
+                    </a>
+                    }
+                </div>
+            </div>
+        </article>
+    ))}
+</div>
+
+<style>
+    article {
+        flex: 1 1 calc(33.333% - 2rem);
+        background-color: var(--bg-panel);
+        border: 2px solid var(--border);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .content {
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+
+    .event-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        margin-top: 1rem;
+    }
+
+    h3 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        line-height: 1.125;
+
+    }
+
+    .summary {
+        margin-bottom: 1rem;
+    }
+
+    .location {
+        margin-bottom: 1rem;
+    }
+
+    .buttons {
+        margin-top: auto;
+        display: flex;
+        gap: 1rem;
+    }
+
+    @media (max-width: 1000px) {
+        article {
+            flex: 1 1 calc(50% - 2rem);
+        }
+
+        .buttons {
+            justify-content: center;
+        }
+    }
+
+    @media (max-width: 700px) {
+        article {
+            flex: 1 1 100%;
+        }
+    }
+
+    .card-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover; 
+    }
+
+    .time,
+    .location {
+        font-variant-numeric: tabular-nums;
+        color: var(--fg);
+        white-space: nowrap;
+        font-size: 0.9rem;
+    }
+</style>
