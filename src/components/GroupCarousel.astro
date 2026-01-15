@@ -16,7 +16,7 @@ const groups = await getCollection("groups");
                             <p>{group.data.summary}</p>
                             <a
                                 href={"/groups/" + group.slug}
-                                class="link-button tertiary-accent"
+                                class="link-button secondary"
                             >
                                 LEARN MORE
                             </a>
@@ -45,9 +45,8 @@ const groups = await getCollection("groups");
                 {
                     loop: true,
                     align: "start",
-                    containScroll: "trimSnaps",
                 },
-                [Autoplay({ delay: 3000 })],
+                [Autoplay({ delay: 3000, stopOnMouseEnter: true })],
             );
         }
     });

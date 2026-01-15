@@ -110,7 +110,7 @@ const { title, description, image } = Astro.props;
 
     :root {
         --bg: #fefefe;
-        --bg-panel: #f9f9f9;
+        --bg-panel: rgba(0,0,0,0.02);
 
         --fg: #000;
         --border: #e6e6e6;
@@ -122,7 +122,7 @@ const { title, description, image } = Astro.props;
     @media (prefers-color-scheme: dark) {
         :root {
             --bg: #0c0c0c;
-            --bg-panel: #1b1b1b;
+            --bg-panel: rgba(255,255,255,0.08);
 
             --fg: #dfdfdf;
             --border: #2c2c2c;

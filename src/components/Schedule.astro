@@ -57,28 +57,30 @@ const formatEventDate = (start, end) => {
 <div id="event-container" data-count={count} class="events-grid">
     {
         featuredCandidates.map((event) => (
-            <article
-                class="featured-candidate"
-                data-start={event.data.start.toISOString()} 
-                data-end={event.data.end.toISOString()}
-                hidden
-            >
-                <div>
-                    <time class="event-time" datetime={event.data.start.toISOString()}>
-                        {formatEventDate(event.data.start, event.data.end)}
-                    </time>
-                </div>
+            <a href={"/schedule/" + event.data.slug} class="events">
+                <article
+                    class="featured-candidate"
+                    data-start={event.data.start.toISOString()} 
+                    data-end={event.data.end.toISOString()}
+                    hidden
+                >
+                    <div>
+                        <time class="event-time" datetime={event.data.start.toISOString()}>
+                            {formatEventDate(event.data.start, event.data.end)}
+                        </time>
+                    </div>
 
-                <h3>{event.data.title}</h3>
-                
-                <div class="group-name">
-                    {event.data.group.id.toUpperCase()}
-                </div>
+                    <h3>{event.data.title}</h3>
+                    
+                    <div class="group-name">
+                        {event.data.group.id.toUpperCase()}
+                    </div>
 
-                <a class="link-button secondary" href={"/schedule#" + event.slug}>
-                    VIEW DETAILS
-                </a>
-            </article>
+                    <div class="location">
+                        {event.data.location}
+                    </div>
+                </article>
+            </a>
         ))
     }
     <p id="no-events-msg" hidden>No upcoming events this week.</p>
@@ -96,8 +98,6 @@ const formatEventDate = (start, end) => {
         const oneWeekFromNow = new Date(now.getTime() + (86400000 * 7));
 
         let shownCount = 0;
-
-        console.log(candidates);
 
         for (const card of candidates) {
             const start = new Date(card.getAttribute("data-start")!);
@@ -123,6 +123,15 @@ const formatEventDate = (start, end) => {
         height: auto; 
     }
 
+    .events {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .events:hover > .featured-candidate {
+        border: 2px solid var(--accent);
+    }
+
     .featured-candidate {
         display: flex;
         flex-direction: row;
@@ -130,7 +139,7 @@ const formatEventDate = (start, end) => {
         align-items: center;
         
         background-color: var(--bg-panel);
-        border: 1px solid var(--border);
+        border: 2px solid var(--border);
         padding: 1.5rem;
         width: 100%;
     }
@@ -148,7 +157,8 @@ const formatEventDate = (start, end) => {
         line-height: 1.2;
     }
 
-    .event-time {
+    .event-time,
+    .location {
         font-variant-numeric: tabular-nums;
         color: var(--fg);
         white-space: nowrap;

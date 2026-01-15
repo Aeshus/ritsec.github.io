@@ -54,6 +54,7 @@ const formatEventDate = (start, end) => {
 <div id="featured-event-container">
     {
         featuredCandidates.map((event) => (
+        <a href={"/schedule/" + event.slug} class="event">
             <article
                 class="featured-candidate"
                 data-end={event.data.end.toISOString()}
@@ -68,13 +69,11 @@ const formatEventDate = (start, end) => {
                         {formatEventDate(event.data.start, event.data.end)}
                     </time>
                 </div>
-                <a
-                    class="link-button tertiary-accent"
-                    href={"/schedule" + event.slug}
-                >
-                    VIEW DETAILS
-                </a>
+                <div class="location">
+                    {event.data.location}
+                </div>
             </article>
+        </a>
         ))
     }
 </div>
@@ -105,9 +104,18 @@ const formatEventDate = (start, end) => {
         text-transform: uppercase;
     }
 
+    .event {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .event:hover > .featured-candidate {
+        border: 2px solid var(--accent);
+    }
+
     .featured-candidate {
         padding: 2rem;
-        min-height: 287px;
+        min-height: 260px;
         background-color: var(--fg);
         color: var(--bg);
         border: 2px solid var(--border);
@@ -116,12 +124,15 @@ const formatEventDate = (start, end) => {
         flex-direction: column;
     }
 
-    *[hidden] {
-        display: none !important;
+    .event-time,
+    .location {
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+        font-size: 1rem;
     }
 
-    .time {
-        flex-grow: 1;
+    *[hidden] {
+        display: none !important;
     }
 
     h3 {
@@ -134,11 +145,16 @@ const formatEventDate = (start, end) => {
 
     .link-button {
         margin-top: 1rem;
+        align-self: start;
     }
 
     @media (max-width: 1000px) {
         .featured-candidate {
             min-height: unset;
+        }
+
+        .link-button {
+            align-self: center;
         }
     }
 </style>
