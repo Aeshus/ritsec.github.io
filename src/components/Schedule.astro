@@ -1,0 +1,204 @@
+---
+import { getCollection } from "astro:content";
+const allEvents = await getCollection("schedule");
+
+interface Props {
+    group?: string;
+    count?: number;
+}
+
+const {
+    group,
+    count = 3,
+} = Astro.props;
+
+const featuredCandidates = allEvents
+    .filter((e) => {
+        if (!group) return true; 
+        return e.data.group.id === group;
+    })
+    .filter((e) => e.data.end > new Date(new Date().getTime()))
+    .sort((a, b) => a.data.start.valueOf() - b.data.start.valueOf());
+
+const formatEventDate = (start, end) => {
+    const checkOpts = { day: "numeric" };
+    const isSameDay =
+        new Intl.DateTimeFormat("en-US", checkOpts).format(start) ===
+        new Intl.DateTimeFormat("en-US", checkOpts).format(end);
+
+    const dateOpts = {
+        month: "short",
+        day: "numeric",
+    };
+
+    const timeOpts = {
+        hour: "numeric",
+        minute: "2-digit",
+    };
+
+    if (isSameDay) {
+        const date = new Intl.DateTimeFormat("en-US", dateOpts).format(start);
+        const startTime = new Intl.DateTimeFormat("en-US", timeOpts).format(
+            start,
+        );
+        const endTime = new Intl.DateTimeFormat("en-US", timeOpts).format(end);
+        return `${date} • ${startTime} – ${endTime}`;
+    } else {
+        const startDate = new Intl.DateTimeFormat("en-US", dateOpts).format(
+            start,
+        );
+        const endDate = new Intl.DateTimeFormat("en-US", dateOpts).format(end);
+        return `${startDate} – ${endDate}`;
+    }
+};
+
+---
+
+<div id="event-container" data-count={count} class="events-grid">
+    {
+        featuredCandidates.map((event) => (
+            <article
+                class="featured-candidate"
+                data-start={event.data.start.toISOString()} 
+                data-end={event.data.end.toISOString()}
+                hidden
+            >
+                <div>
+                    <time class="event-time" datetime={event.data.start.toISOString()}>
+                        {formatEventDate(event.data.start, event.data.end)}
+                    </time>
+                </div>
+
+                <h3>{event.data.title}</h3>
+                
+                <div class="group-name">
+                    {event.data.group.id.toUpperCase()}
+                </div>
+
+                <a class="link-button secondary" href={"/schedule#" + event.slug}>
+                    VIEW DETAILS
+                </a>
+            </article>
+        ))
+    }
+    <p id="no-events-msg" hidden>No upcoming events this week.</p>
+</div>
+
+<script>
+    document.addEventListener("astro:page-load", () => {
+        const container = document.getElementById("event-container");
+        if (!container) return;
+
+        const candidates = container.querySelectorAll(".featured-candidate");
+        const maxCount = parseInt(container.getAttribute("data-count") || "3");
+        
+        const now = new Date();
+        const oneWeekFromNow = new Date(now.getTime() + (86400000 * 7));
+
+        let shownCount = 0;
+
+        console.log(candidates);
+
+        for (const card of candidates) {
+            const start = new Date(card.getAttribute("data-start")!);
+            const end = new Date(card.getAttribute("data-end")!);
+            const timeEl = card.querySelector('.event-time');
+
+            card.removeAttribute("hidden");
+            shownCount++;
+
+            if (shownCount >= maxCount) break;
+        }
+        
+        if (shownCount === 0) {
+            document.getElementById("no-events-msg")?.removeAttribute("hidden");
+        }
+    });
+</script>
+<style>
+    .events-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        height: auto; 
+    }
+
+    .featured-candidate {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        
+        background-color: var(--bg-panel);
+        border: 1px solid var(--border);
+        padding: 1.5rem;
+        width: 100%;
+    }
+
+    .group-name { 
+        color: var(--accent);
+        font-size: 1rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+    }
+
+    h3 {
+        font-size: 1rem;
+        line-height: 1.2;
+    }
+
+    .event-time {
+        font-variant-numeric: tabular-nums;
+        color: var(--fg);
+        white-space: nowrap;
+        font-size: 0.9rem;
+    }
+    
+    .link-button {
+        white-space: nowrap;
+    }
+
+    #no-events-msg {
+        text-align: center;
+        padding: 2rem;
+        color: var(--fg);
+        opacity: 0.7;
+        font-style: italic;
+    }
+
+    @media (max-width: 700px) {
+        .featured-candidate {
+            flex-direction: column;
+            gap: 0rem;
+        }
+
+        .featured-candidate > *:nth-child(3) {
+          order: 1;
+        }
+
+        .featured-candidate > *:nth-child(2) {
+          order: 2;
+        }
+
+        .featured-candidate > *:nth-child(1) {
+          order: 3;
+        }
+
+        .featured-candidate > *:nth-child(4) {
+          order: 4;
+        }
+
+        .group-name {
+            font-size: 1rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        a {
+            margin-top: 1rem;
+        }
+    }
+</style>

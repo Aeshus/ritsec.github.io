@@ -2,9 +2,20 @@
 import { getCollection } from "astro:content";
 const allEvents = await getCollection("schedule");
 
+interface Props {
+    group?: string;
+}
+
+const {
+    group,
+} = Astro.props;
+
 const featuredCandidates = allEvents
+    .filter((e) => {
+        if (!group) return true; return e.data.group.id === group;
+    })
     .filter((e) => e.data.featured === true)
-    .filter((e) => e.data.end > new Date(new Date().getTime() - 86400000))
+    .filter((e) => e.data.end > new Date(new Date().getTime()))
     .sort((a, b) => a.data.start.valueOf() - b.data.start.valueOf());
 
 const formatEventDate = (start, end) => {
@@ -52,7 +63,7 @@ const formatEventDate = (start, end) => {
                     FEATURED: {event.data.group.id.toUpperCase()}
                 </div>
                 <h3>{event.data.title}</h3>
-                <div>
+                <div class="time">
                     <time datetime={event.data.start.toISOString()}>
                         {formatEventDate(event.data.start, event.data.end)}
                     </time>
@@ -61,7 +72,7 @@ const formatEventDate = (start, end) => {
                     class="link-button tertiary-accent"
                     href={"/schedule" + event.slug}
                 >
-                    View Details
+                    VIEW DETAILS
                 </a>
             </article>
         ))
@@ -89,13 +100,28 @@ const formatEventDate = (start, end) => {
 <style>
     .group-name {
         color: var(--accent);
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
     }
 
     .featured-candidate {
         padding: 2rem;
+        min-height: 287px;
         background-color: var(--fg);
         color: var(--bg);
         border: 2px solid var(--border);
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    *[hidden] {
+        display: none !important;
+    }
+
+    .time {
+        flex-grow: 1;
     }
 
     h3 {
@@ -108,5 +134,11 @@ const formatEventDate = (start, end) => {
 
     .link-button {
         margin-top: 1rem;
+    }
+
+    @media (max-width: 1000px) {
+        .featured-candidate {
+            min-height: unset;
+        }
     }
 </style>
