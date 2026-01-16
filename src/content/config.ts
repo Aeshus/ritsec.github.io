@@ -1,4 +1,5 @@
 import { z, reference, defineCollection } from "astro:content";
+import { file } from 'astro/loaders'; 
 
 const groups = defineCollection({
     type: "content",
@@ -70,4 +71,36 @@ const events = defineCollection({
     })
 });
 
-export const collections = { groups, schedule, events };
+const research = defineCollection({
+    type: "content",
+    schema: ({ image}) => z.object({
+        title: z.string(),
+        authors: z
+            .array(
+                z.object({
+                    name: z.string(),
+                    handle: z.string().optional(),
+                    avatar: image().optional(),
+                    url: z.string().url().optional(),
+                }),
+            )
+            .default([]),
+        date: z.date(),
+        image: image().optional(),
+        imageAlt: z.string().optional(),
+        group: reference("groups").optional(),
+    })
+});
+
+const sponsors = defineCollection({
+  loader: file("src/content/sponsors.yaml"), 
+  schema: ({ image }) => z.object({
+    title: z.string(),
+    image: image(),
+    url: z.string().url(),
+    tier: z.enum(['diamond', 'platinum', 'gold', 'silver', 'educational']),
+    type: z.enum(['company', 'individual']).optional(),
+  }),
+});
+
+export const collections = { groups, schedule, events, research, sponsors };
