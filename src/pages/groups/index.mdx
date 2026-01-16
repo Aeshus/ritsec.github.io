@@ -1,0 +1,71 @@
+---
+---
+
+import Hero from "@/components/Hero.astro";
+import GroupCarousel from "@/components/GroupCarousel.astro";
+import FeaturedEvent from "@/components/FeaturedEvent.astro";
+import ShortSchedule from "@/components/ShortSchedule.astro";
+import EventsList from "@/components/EventsList.astro";
+import ResearchList from "@/components/ResearchList.astro";
+import SponsorsList from "@/components/SponsorsList.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import heroImg from "@/assets/image5.jpg";
+
+<BaseLayout title="Groups">
+    <Hero 
+            image={heroImg}
+            imageAlt="Letchworth State Park landscape"
+        >
+            <Fragment slot="title">
+                RITSEC Groups
+            </Fragment>
+
+            Competitive events for competetive game's sake.
+
+            <Fragment slot="bottom">
+                <a class="link-button primary" href="https://github.com/ritsec/constitution">VIEW CONSTITUTION</a>
+            </Fragment>
+    </Hero>
+
+    <section>
+      ## WiCys
+
+    </section>
+
+    <section>
+      ## Incident Response
+
+    </section>
+
+    <section>
+      ## OT Security
+
+    </section>
+
+    <section>
+      ## Physical Security
+
+    </section>
+
+    <section>
+      ## Red Team Recruiting
+
+    </section>
+
+    <section>
+      ## Operations
+
+    </section>
+
+    <section>
+      ## RVAPT
+
+    </section>
+
+    <section>
+      ## Reversing
+
+    </section>
+
+</BaseLayout>
+
