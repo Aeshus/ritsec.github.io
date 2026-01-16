@@ -6,12 +6,13 @@ interface Props {
     badge?: string;
     image?: ImageMetadata;
     imageAlt?: string;
+    reverse?: boolean;
 }
 
-const { badge, image, imageAlt } = Astro.props;
+const { badge, image, imageAlt, reverse = false } = Astro.props;
 ---
 
-<section>
+<section class:list={[{ reverse }]}>
     <div>
         {badge && <p class="message">{badge}</p>}
 
@@ -45,6 +46,13 @@ const { badge, image, imageAlt } = Astro.props;
         grid-template-columns: 1.2fr 1fr;
         align-items: center;
         gap: 2rem;
+    }
+
+    .reverse {
+        grid-template-columns: 1fr 1.2fr;
+    }
+    .reverse .image {
+        order: -1;
     }
 
     .message {
