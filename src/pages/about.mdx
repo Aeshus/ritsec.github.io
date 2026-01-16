@@ -1,0 +1,46 @@
+---
+---
+
+import Hero from "@/components/Hero.astro";
+import GroupCarousel from "@/components/GroupCarousel.astro";
+import FeaturedEvent from "@/components/FeaturedEvent.astro";
+import ShortSchedule from "@/components/ShortSchedule.astro";
+import EventsList from "@/components/EventsList.astro";
+import ResearchList from "@/components/ResearchList.astro";
+import SponsorsList from "@/components/SponsorsList.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import heroImg from "@/assets/image1.jpg";
+
+<BaseLayout title="About">
+    <Hero 
+            image={heroImg}
+            imageAlt="Letchworth State Park landscape"
+            reverse="true"
+        >
+            <Fragment slot="title">
+                About RITSEC
+            </Fragment>
+
+            Student-run. Community focused. Hosting competitions and conducting research. We break things to learn how to fix them.
+
+            <Fragment slot="bottom">
+                <a class="link-button primary" href="https://github.com/ritsec/constitution">VIEW CONSTITUTION</a>
+            </Fragment>
+    </Hero>
+
+    <section>
+      ## RITSEC History
+
+    </section>
+
+    <section>
+      ## Current E-Board
+
+      ## Current A-Board
+    </section>
+
+    <section>
+      ## Legacy E-Board
+
+    </section>
+</BaseLayout>
