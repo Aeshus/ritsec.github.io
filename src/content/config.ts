@@ -93,7 +93,7 @@ const research = defineCollection({
 });
 
 const sponsors = defineCollection({
-  loader: file("src/content/sponsors.yaml"), 
+  loader: file("src/content/sponsors.yml"), 
   schema: ({ image }) => z.object({
     title: z.string(),
     image: image(),
@@ -103,4 +103,27 @@ const sponsors = defineCollection({
   }),
 });
 
-export const collections = { groups, schedule, events, research, sponsors };
+const eboard = defineCollection({
+    loader: file("src/content/eboard.yml"),
+    schema: ({ image }) => z.object({
+        id: z.string(),
+        name: z.string(),
+        grad_year: z.number(),
+        linked_in: z.string(),
+        image: image(),
+    }),
+});
+
+const legacyEboard = defineCollection({
+    loader: file("src/content/legacy-eboard.yml"),
+    schema: z.object({
+        term: z.string(),
+        organization: z.string(),
+        eboard: z.array(z.object({
+            position: z.string(),
+            name: z.string(),
+        })),
+    }),
+});
+
+export const collections = { groups, schedule, events, research, sponsors, eboard, legacyEboard };

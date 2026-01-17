@@ -1,0 +1,116 @@
+---
+import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
+
+const legacy = (await getCollection("legacyEboard")).sort((a, b) => {
+    return b.data.term.localeCompare(a.data.term);
+});;
+---
+
+<div class="event-list">
+    {legacy.map((board) => (
+        <article>
+            <h3>{board.data.term} - {board.data.organization}</h3>
+            <div class="board">
+                {board.data.eboard.map((person) => (
+                    <h4>{person.name}</h4>
+                    <p>{person.position}</p>
+                ))}
+            </div>
+
+        </article>
+    ))}
+</div>
+
+<style>
+    article {
+        flex: 1 1 calc(33.333% - 2rem);
+        background-color: var(--bg-panel);
+        border: 2px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        padding: 2rem;
+    }
+
+    p {
+        margin-bottom: 1rem;
+    }
+
+    h3 {
+        color: var(--accent);
+    }
+
+    h4 {
+        font-size: 1.5rem;
+    }
+
+    h5 {
+        font-size: 1.3rem;
+    }
+
+    .content {
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+
+    .event-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        margin-top: 1rem;
+    }
+
+    h3 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        line-height: 1.125;
+
+    }
+
+    .summary {
+        margin-bottom: 1rem;
+    }
+
+    .location {
+        margin-bottom: 1rem;
+    }
+
+    .buttons {
+        margin-top: auto;
+        display: flex;
+        gap: 1rem;
+    }
+
+    .time,
+    .location {
+        font-variant-numeric: tabular-nums;
+        color: var(--fg);
+        white-space: nowrap;
+    }
+
+    @media (max-width: 1000px) {
+        article {
+            flex: 1 1 calc(50% - 2rem);
+        }
+
+        .buttons {
+            justify-content: center;
+        }
+    }
+
+    @media (max-width: 700px) {
+        article {
+            flex: 1 1 100%;
+        }
+    }
+
+    .card-image {
+        width: 100%;
+        height: 300px;
+        object-fit: cover; 
+    }
+
+</style>

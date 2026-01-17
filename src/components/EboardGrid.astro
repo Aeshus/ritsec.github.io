@@ -1,0 +1,119 @@
+---
+import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
+
+const eboard = await getCollection("eboard");
+---
+
+<div class="event-list">
+    {eboard.map((member) => (
+        <article>
+            <Image src={member.data.image} alt={"Picture of "+member.data.title} layout='constrained' width={800} height={400} class="card-image" />
+
+            <div class="content">
+                <h3>{member.data.name}</h3>
+
+                <div class="time">
+                    {member.data.id}
+                </div>
+
+                <div class="location">
+                    {member.data.grad_year}
+                </div>
+
+                <div class="buttons">
+                    <a
+                            href={"mailto:" + member.data.id + "@ritsec.club"}
+                        class="link-button primary"
+                    >
+                        EMAIL
+                    </a>
+
+                    <a
+                        href={member.data.linked_in}
+                        class="link-button secondary"
+                    >
+                        LINKEDIN
+                    </a>
+                </div>
+            </div>
+        </article>
+    ))}
+</div>
+
+<style>
+    article {
+        flex: 1 1 calc(33.333% - 2rem);
+        background-color: var(--bg-panel);
+        border: 2px solid var(--border);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .content {
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+
+    .event-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        margin-top: 1rem;
+    }
+
+    h3 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        line-height: 1.125;
+
+    }
+
+    .summary {
+        margin-bottom: 1rem;
+    }
+
+    .location {
+        margin-bottom: 1rem;
+    }
+
+    .buttons {
+        margin-top: auto;
+        display: flex;
+        gap: 1rem;
+    }
+
+    .time,
+    .location {
+        font-variant-numeric: tabular-nums;
+        color: var(--fg);
+        white-space: nowrap;
+    }
+
+    @media (max-width: 1000px) {
+        article {
+            flex: 1 1 calc(50% - 2rem);
+        }
+
+        .buttons {
+            justify-content: center;
+        }
+    }
+
+    @media (max-width: 700px) {
+        article {
+            flex: 1 1 100%;
+        }
+    }
+
+    .card-image {
+        width: 100%;
+        height: 300px;
+        object-fit: cover; 
+    }
+
+</style>
+
