@@ -6,39 +6,44 @@ const eboard = await getCollection("eboard");
 ---
 
 <div class="event-list">
-    {eboard.map((member) => (
-        <article>
-            <Image src={member.data.image} alt={"Picture of "+member.data.title} layout='constrained' width={800} height={400} class="card-image" />
+    {
+        eboard.map((member) => (
+            <article>
+                <Image
+                    src={member.data.image}
+                    alt={"Picture of " + member.data.title}
+                    layout="constrained"
+                    width={800}
+                    height={400}
+                    class="card-image"
+                />
 
-            <div class="content">
-                <h3>{member.data.name}</h3>
+                <div class="content">
+                    <h3>{member.data.name}</h3>
 
-                <div class="time">
-                    {member.data.id}
-                </div>
+                    <div class="time">{member.data.id}</div>
 
-                <div class="location">
-                    {member.data.grad_year}
-                </div>
+                    <div class="location">{member.data.grad_year}</div>
 
-                <div class="buttons">
-                    <a
+                    <div class="buttons">
+                        <a
                             href={"mailto:" + member.data.id + "@ritsec.club"}
-                        class="link-button primary"
-                    >
-                        EMAIL
-                    </a>
+                            class="link-button primary"
+                        >
+                            EMAIL
+                        </a>
 
-                    <a
-                        href={member.data.linked_in}
-                        class="link-button secondary"
-                    >
-                        LINKEDIN
-                    </a>
+                        <a
+                            href={member.data.linked_in}
+                            class="link-button secondary"
+                        >
+                            LINKEDIN
+                        </a>
+                    </div>
                 </div>
-            </div>
-        </article>
-    ))}
+            </article>
+        ))
+    }
 </div>
 
 <style>
@@ -69,7 +74,6 @@ const eboard = await getCollection("eboard");
         margin-bottom: 0.5rem;
         font-weight: 600;
         line-height: 1.125;
-
     }
 
     .summary {
@@ -112,8 +116,6 @@ const eboard = await getCollection("eboard");
     .card-image {
         width: 100%;
         height: 300px;
-        object-fit: cover; 
+        object-fit: cover;
     }
-
 </style>
-

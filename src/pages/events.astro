@@ -58,48 +58,61 @@ const formatEventDate = (start, end) => {
 ---
 
 <BaseLayout title="Events">
-    <Hero 
-            image={heroImg}
-            imageAlt="Letchworth State Park landscape"
-            reverse="true"
-        >
-            <Fragment slot="title">
-                Competitions and <strong>Events</strong>
-            </Fragment>
+    <Hero
+        image={heroImg}
+        imageAlt="Letchworth State Park landscape"
+        reverse="true"
+    >
+        <Fragment slot="title">
+            Competitions and <strong>Events</strong>
+        </Fragment>
 
-            Attack. Defense. Response. Bridging the gap between theory and practice. Where students become security professionals.
+        Attack. Defense. Response. Bridging the gap between theory and practice.
+        Where students become security professionals.
     </Hero>
 
     {
         events.map(async (event) => {
             const { Content } = await event.render();
-            
+
             return (
                 <section>
                     <div class="content">
                         <h2 id={event.slug}>{event.data.title}</h2>
                         <div class="properties">
-                            {(event.data.start && event.data.end) ? 
+                            {event.data.start && event.data.end ? (
                                 <time datetime={event.data.start.toISOString()}>
-                                    {formatEventDate(event.data.start, event.data.end)}
-                                </time> : <span>TBD</span>}
-                            •
-                            {event.data.location}
-                            •
-                            {event.data.access}
+                                    {formatEventDate(
+                                        event.data.start,
+                                        event.data.end,
+                                    )}
+                                </time>
+                            ) : (
+                                <span>TBD</span>
+                            )}
+                            •{event.data.location}•{event.data.access}
                         </div>
 
                         <div class="stuff">
                             <Content />
                         </div>
 
-                        {event.data.website &&
-                            <a class="link-button primary" href={event.data.website}>VISIT WEBSITE</a>
-                        }
+                        {event.data.website && (
+                            <a
+                                class="link-button primary"
+                                href={event.data.website}
+                            >
+                                VISIT WEBSITE
+                            </a>
+                        )}
                     </div>
 
                     <div class="image">
-                        <Image src={event.data.image} width={800} alt={"Picture of" + event.data.title} />
+                        <Image
+                            src={event.data.image}
+                            width={800}
+                            alt={"Picture of" + event.data.title}
+                        />
                     </div>
                 </section>
             );
@@ -147,9 +160,9 @@ const formatEventDate = (start, end) => {
     }
 
     .content {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start; 
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
     }
 
     .link-button {

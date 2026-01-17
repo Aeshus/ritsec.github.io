@@ -6,13 +6,12 @@ interface Props {
     group?: string;
 }
 
-const {
-    group,
-} = Astro.props;
+const { group } = Astro.props;
 
 const featuredCandidates = allEvents
     .filter((e) => {
-        if (!group) return true; return e.data.group.id === group;
+        if (!group) return true;
+        return e.data.group.id === group;
     })
     .filter((e) => e.data.featured === true)
     .filter((e) => e.data.end > new Date(new Date().getTime()))
@@ -64,26 +63,24 @@ const formatEventDate = (start, end) => {
 <div id="featured-event-container">
     {
         featuredCandidates.map((event) => (
-        <a href={"/schedule/" + event.slug} class="event">
-            <article
-                class="featured-candidate"
-                data-end={event.data.end.toISOString()}
-                hidden
-            >
-                <div class="group-name">
-                    FEATURED: {event.data.group.id.toUpperCase()}
-                </div>
-                <h3>{event.data.title}</h3>
-                <div class="time">
-                    <time datetime={event.data.start.toISOString()}>
-                        {formatEventDate(event.data.start, event.data.end)}
-                    </time>
-                </div>
-                <div class="location">
-                    {event.data.location}
-                </div>
-            </article>
-        </a>
+            <a href={"/schedule/" + event.slug} class="event">
+                <article
+                    class="featured-candidate"
+                    data-end={event.data.end.toISOString()}
+                    hidden
+                >
+                    <div class="group-name">
+                        FEATURED: {event.data.group.id.toUpperCase()}
+                    </div>
+                    <h3>{event.data.title}</h3>
+                    <div class="time">
+                        <time datetime={event.data.start.toISOString()}>
+                            {formatEventDate(event.data.start, event.data.end)}
+                        </time>
+                    </div>
+                    <div class="location">{event.data.location}</div>
+                </article>
+            </a>
         ))
     }
 </div>

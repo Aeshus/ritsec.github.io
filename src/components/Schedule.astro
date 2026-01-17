@@ -7,19 +7,15 @@ interface Props {
     count?: number;
 }
 
-const {
-    group,
-    count = 3,
-} = Astro.props;
+const { group, count = 3 } = Astro.props;
 
 const featuredCandidates = allEvents
     .filter((e) => {
-        if (!group) return true; 
+        if (!group) return true;
         return e.data.group.id === group;
     })
     .filter((e) => e.data.end > new Date(new Date().getTime()))
     .sort((a, b) => a.data.start.valueOf() - b.data.start.valueOf());
-
 
 const formatEventDate = (start, end) => {
     const checkOpts = { day: "numeric", timeZone: "UTC" };
@@ -62,7 +58,6 @@ const formatEventDate = (start, end) => {
         return `${startDate} – ${endDate}`;
     }
 };
-
 ---
 
 <div id="event-container" data-count={count} class="events-grid">
@@ -71,25 +66,26 @@ const formatEventDate = (start, end) => {
             <a href={"/schedule/" + event.slug} class="events">
                 <article
                     class="featured-candidate"
-                    data-start={event.data.start.toISOString()} 
+                    data-start={event.data.start.toISOString()}
                     data-end={event.data.end.toISOString()}
                     hidden
                 >
                     <div>
-                        <time class="event-time" datetime={event.data.start.toISOString()}>
+                        <time
+                            class="event-time"
+                            datetime={event.data.start.toISOString()}
+                        >
                             {formatEventDate(event.data.start, event.data.end)}
                         </time>
                     </div>
 
                     <h3>{event.data.title}</h3>
-                    
+
                     <div class="group-name">
                         {event.data.group.id.toUpperCase()}
                     </div>
 
-                    <div class="location">
-                        {event.data.location}
-                    </div>
+                    <div class="location">{event.data.location}</div>
                 </article>
             </a>
         ))
@@ -104,23 +100,23 @@ const formatEventDate = (start, end) => {
 
         const candidates = container.querySelectorAll(".featured-candidate");
         const maxCount = parseInt(container.getAttribute("data-count") || "3");
-        
+
         const now = new Date();
-        const oneWeekFromNow = new Date(now.getTime() + (86400000 * 7));
+        const oneWeekFromNow = new Date(now.getTime() + 86400000 * 7);
 
         let shownCount = 0;
 
         for (const card of candidates) {
             const start = new Date(card.getAttribute("data-start")!);
             const end = new Date(card.getAttribute("data-end")!);
-            const timeEl = card.querySelector('.event-time');
+            const timeEl = card.querySelector(".event-time");
 
             card.removeAttribute("hidden");
             shownCount++;
 
             if (shownCount >= maxCount) break;
         }
-        
+
         if (shownCount === 0) {
             document.getElementById("no-events-msg")?.removeAttribute("hidden");
         }
@@ -131,7 +127,7 @@ const formatEventDate = (start, end) => {
         display: flex;
         flex-direction: column;
         gap: 1rem;
-        height: auto; 
+        height: auto;
     }
 
     .events {
@@ -148,14 +144,14 @@ const formatEventDate = (start, end) => {
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        
+
         background-color: var(--bg-panel);
         border: 2px solid var(--border);
         padding: 1.5rem;
         width: 100%;
     }
 
-    .group-name { 
+    .group-name {
         color: var(--accent);
         font-size: 1rem;
         font-weight: 700;
@@ -175,7 +171,7 @@ const formatEventDate = (start, end) => {
         white-space: nowrap;
         font-size: 0.9rem;
     }
-    
+
     .link-button {
         white-space: nowrap;
     }
@@ -194,19 +190,19 @@ const formatEventDate = (start, end) => {
         }
 
         .featured-candidate > *:nth-child(3) {
-          order: 1;
+            order: 1;
         }
 
         .featured-candidate > *:nth-child(2) {
-          order: 2;
+            order: 2;
         }
 
         .featured-candidate > *:nth-child(1) {
-          order: 3;
+            order: 3;
         }
 
         .featured-candidate > *:nth-child(4) {
-          order: 4;
+            order: 4;
         }
 
         .group-name {

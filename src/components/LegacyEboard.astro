@@ -4,22 +4,27 @@ import { Image } from "astro:assets";
 
 const legacy = (await getCollection("legacyEboard")).sort((a, b) => {
     return b.data.term.localeCompare(a.data.term);
-});;
+});
 ---
 
 <div class="event-list">
-    {legacy.map((board) => (
-        <article>
-            <h3>{board.data.term} - {board.data.organization}</h3>
-            <div class="board">
-                {board.data.eboard.map((person) => (
-                    <h4>{person.name}</h4>
-                    <p>{person.position}</p>
-                ))}
-            </div>
-
-        </article>
-    ))}
+    {
+        legacy.map((board) => (
+            <article>
+                <h3>
+                    {board.data.term} - {board.data.organization}
+                </h3>
+                <div class="board">
+                    {board.data.eboard.map((person) => (
+                        <>
+                            <h4>{person.name}</h4>
+                            <p>{person.position}</p>
+                        </>
+                    ))}
+                </div>
+            </article>
+        ))
+    }
 </div>
 
 <style>
@@ -67,7 +72,6 @@ const legacy = (await getCollection("legacyEboard")).sort((a, b) => {
         margin-bottom: 0.5rem;
         font-weight: 600;
         line-height: 1.125;
-
     }
 
     .summary {
@@ -110,7 +114,6 @@ const legacy = (await getCollection("legacyEboard")).sort((a, b) => {
     .card-image {
         width: 100%;
         height: 300px;
-        object-fit: cover; 
+        object-fit: cover;
     }
-
 </style>

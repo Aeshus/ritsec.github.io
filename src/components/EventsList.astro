@@ -48,47 +48,61 @@ const formatEventDate = (start, end) => {
 ---
 
 <div class="event-list">
-    {events.map((event) => (
-        <article>
-            <Image src={event.data.image} alt={"Picture of "+event.data.title} layout='constrained' width={800} height={400} class="card-image" />
+    {
+        events.map((event) => (
+            <article>
+                <Image
+                    src={event.data.image}
+                    alt={"Picture of " + event.data.title}
+                    layout="constrained"
+                    width={800}
+                    height={400}
+                    class="card-image"
+                />
 
-            <div class="content">
-                <h3>{event.data.title}</h3>
+                <div class="content">
+                    <h3>{event.data.title}</h3>
 
-                <div class="time">
-                    {(event.data.start && event.data.end) ? 
-                        <time datetime={event.data.start.toISOString()}>
-                            {formatEventDate(event.data.start, event.data.end)}
-                        </time>
-                        : <div>TBD</div>}
+                    <div class="time">
+                        {event.data.start && event.data.end ? (
+                            <time datetime={event.data.start.toISOString()}>
+                                {formatEventDate(
+                                    event.data.start,
+                                    event.data.end,
+                                )}
+                            </time>
+                        ) : (
+                            <div>TBD</div>
+                        )}
+                    </div>
+
+                    <div class="location">
+                        {event.data.location} – {event.data.access}
+                    </div>
+
+                    <div class="summary">{event.data.summary}</div>
+
+                    <div class="buttons">
+                        <a
+                            href={"/events#" + event.slug}
+                            class="link-button primary"
+                        >
+                            LEARN MORE
+                        </a>
+
+                        {event.data.website && (
+                            <a
+                                href={event.data.website}
+                                class="link-button secondary"
+                            >
+                                WEBSITE
+                            </a>
+                        )}
+                    </div>
                 </div>
-
-                <div class="location">
-                    {event.data.location} – {event.data.access}
-                </div>
-
-                <div class="summary">{event.data.summary}</div>
-
-                <div class="buttons">
-                    <a
-                        href={"/events#" + event.slug}
-                        class="link-button primary"
-                    >
-                        LEARN MORE
-                    </a>
-
-                    {event.data.website && 
-                    <a
-                        href={event.data.website}
-                        class="link-button secondary"
-                    >
-                        WEBSITE
-                    </a>
-                    }
-                </div>
-            </div>
-        </article>
-    ))}
+            </article>
+        ))
+    }
 </div>
 
 <style>
@@ -119,7 +133,6 @@ const formatEventDate = (start, end) => {
         margin-bottom: 0.5rem;
         font-weight: 600;
         line-height: 1.125;
-
     }
 
     .summary {
@@ -155,7 +168,7 @@ const formatEventDate = (start, end) => {
     .card-image {
         width: 100%;
         height: 200px;
-        object-fit: cover; 
+        object-fit: cover;
     }
 
     .time,

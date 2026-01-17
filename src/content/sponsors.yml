@@ -92,7 +92,7 @@
 - title: Travelers Insurance
   id: travelers
   image: "@/assets/sponsors/travelers.png"
-  url: https://www.travelers.com/ 
+  url: https://www.travelers.com/
   tier: silver
   type: company
 
@@ -116,7 +116,7 @@
   url: https://www.mindex.com/
   tier: silver
   type: company
-      
+
 - title: Crowdstrike
   id: crowdstrike
   image: "@/assets/sponsors/crowdstrike.png"

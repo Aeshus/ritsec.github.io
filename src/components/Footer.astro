@@ -1,50 +1,56 @@
 ---
 import { Image } from "astro:assets";
-import logo from "@/assets/logoLarge.png"; 
+import logo from "@/assets/logoLarge.png";
 
 const currentYear = new Date().getFullYear();
 
 const socials = [
-  { text: "Discord", href: "https://discord.gg/ritsec" },
-  { text: "GitHub", href: "https://github.com/RITRedteam" },
-  { text: "Instagram", href: "https://www.instagram.com/ritsecclub/" },
-  { text: "LinkedIn", href: "https://www.linkedin.com/company/ritsec-club" },
-  { text: "Twitter", href: "https://twitter.com/RITSEC" },
-  { text: "YouTube", href: "https://www.youtube.com/c/RITSEC" },
+    { text: "Discord", href: "https://discord.gg/ritsec" },
+    { text: "GitHub", href: "https://github.com/RITRedteam" },
+    { text: "Instagram", href: "https://www.instagram.com/ritsecclub/" },
+    { text: "LinkedIn", href: "https://www.linkedin.com/company/ritsec-club" },
+    { text: "Twitter", href: "https://twitter.com/RITSEC" },
+    { text: "YouTube", href: "https://www.youtube.com/c/RITSEC" },
 ];
 ---
 
 <footer>
     <div>
-      <a href="/" class="link-button tertiary">
-        <Image src={logo} alt="RITSEC Logo" width={180} />
-      </a>
+        <a href="/" class="link-button tertiary">
+            <Image src={logo} alt="RITSEC Logo" width={180} />
+        </a>
     </div>
 
     <div class="socials">
-        {socials.map((link) => (
-        <a class="link-button secondary" href={link.href} target="_blank" rel="noopener noreferrer">
-          {link.text}
-        </a>
-        ))}
+        {
+            socials.map((link) => (
+                <a
+                    class="link-button secondary"
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    {link.text}
+                </a>
+            ))
+        }
     </div>
 </footer>
 
 <style>
-  footer {
+    footer {
         padding: 1rem var(--padding);
         display: flex;
         align-items: center;
         justify-content: space-between;
         flex-wrap: wrap;
         gap: 1.5rem;
-  }
+    }
 
-  .socials {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-  }
-
+    .socials {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
 </style>

@@ -8,14 +8,11 @@ interface Props {
     count?: number;
 }
 
-const {
-    group,
-    count = 3,
-} = Astro.props;
+const { group, count = 3 } = Astro.props;
 
 const featuredResearch = allResearch
     .filter((post) => {
-        if (!group) return true; 
+        if (!group) return true;
         return post.data.group?.id === group;
     })
     .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
@@ -36,9 +33,11 @@ const formatDate = (date: Date) => {
         featuredResearch.map((post) => (
             <a href={"/research/" + post.slug} class="research-link">
                 <article class="research-card">
-                    
                     <div class="card-meta">
-                        <time datetime={post.data.date.toISOString()} class="mono-date">
+                        <time
+                            datetime={post.data.date.toISOString()}
+                            class="mono-date"
+                        >
                             {formatDate(post.data.date)}
                         </time>
 
@@ -53,20 +52,26 @@ const formatDate = (date: Date) => {
 
                     <div class="authors">
                         {post.data.authors.length > 0 ? (
-                            <span>by {post.data.authors.map(a => a.name).join(", ")}</span>
+                            <span>
+                                by{" "}
+                                {post.data.authors
+                                    .map((a) => a.name)
+                                    .join(", ")}
+                            </span>
                         ) : (
                             <span class="mute">RITSEC</span>
                         )}
                     </div>
-
                 </article>
             </a>
         ))
     }
 
-    {featuredResearch.length === 0 && (
-        <p class="no-data">No research papers found.</p>
-    )}
+    {
+        featuredResearch.length === 0 && (
+            <p class="no-data">No research papers found.</p>
+        )
+    }
 </div>
 
 <style>
@@ -128,7 +133,7 @@ const formatDate = (date: Date) => {
     .authors {
         font-size: 0.9rem;
         color: var(--fg-mute);
-        margin-top: auto; 
+        margin-top: auto;
     }
 
     .no-data {

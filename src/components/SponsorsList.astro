@@ -1,36 +1,43 @@
 ---
-import { getCollection } from 'astro:content';
-import { Image } from 'astro:assets';
+import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
 
-const allSponsors = await getCollection('sponsors');
-const tiers = ['diamond', 'platinum', 'gold', 'silver', 'educational'];
-const getByTier = (tier: string) => allSponsors.filter(s => s.data.tier === tier);
+const allSponsors = await getCollection("sponsors");
+const tiers = ["diamond", "platinum", "gold", "silver", "educational"];
+const getByTier = (tier: string) =>
+    allSponsors.filter((s) => s.data.tier === tier);
 ---
 
 <section class="sponsor-container">
-    {tiers.map((tier) => {
-        const sponsors = getByTier(tier);
-        if (sponsors.length === 0) return null;
+    {
+        tiers.map((tier) => {
+            const sponsors = getByTier(tier);
+            if (sponsors.length === 0) return null;
 
-        return (
-            <div class={`tier-block ${tier}`}>
-                <h3 class="tier-title">{tier}</h3>
-                <div class="logo-grid">
-                    {sponsors.map((s) => (
-                        <a href={s.data.url} target="_blank" class="sponsor-card">
-                            <Image 
-                                src={s.data.image} 
-                                alt={s.data.title}
-                                class="logo-img"
-                                width={600}
-                                density={[1.5, 2]}
-                            />
-                        </a>
-                    ))}
+            return (
+                <div class={`tier-block ${tier}`}>
+                    <h3 class="tier-title">{tier}</h3>
+                    <div class="logo-grid">
+                        {sponsors.map((s) => (
+                            <a
+                                href={s.data.url}
+                                target="_blank"
+                                class="sponsor-card"
+                            >
+                                <Image
+                                    src={s.data.image}
+                                    alt={s.data.title}
+                                    class="logo-img"
+                                    width={600}
+                                    density={[1.5, 2]}
+                                />
+                            </a>
+                        ))}
+                    </div>
                 </div>
-            </div>
-        );
-    })}
+            );
+        })
+    }
 </section>
 
 <style>
@@ -47,14 +54,13 @@ const getByTier = (tier: string) => allSponsors.filter(s => s.data.tier === tier
         align-items: center;
     }
 
-
     .logo-img {
         max-width: 11rem;
         height: auto;
     }
 
     a {
-        display: block
+        display: block;
     }
 
     h3 {
