@@ -111,11 +111,12 @@ const { title, description, image } = Astro.props;
     }
 
     :root {
-        --bg: #fefefe;
+        --bg: #fcfcfc;
         --bg-panel: rgba(0, 0, 0, 0.02);
+        --bg-header: #f3f3f3;
 
         --fg: #000;
-        --border: #e6e6e6;
+        --border: #d3d3d3;
 
         --accent: #e69132;
         --fg-accent: var(--bg);
@@ -125,9 +126,10 @@ const { title, description, image } = Astro.props;
         :root {
             --bg: #0d131a;
             --bg-panel: rgba(255, 255, 255, 0.08);
+            --bg-header: #20262c;
 
             --fg: #dfdfdf;
-            --border: #2c2c2c;
+            --border: #4d4d4d;
 
             --accent: #e69132;
             --fg-accent: var(--fg);
@@ -229,6 +231,10 @@ const { title, description, image } = Astro.props;
         padding: 2rem var(--padding);
         border-bottom: 2px solid var(--border);
         background-color: var(--bg);
+    }
+
+    main > section:nth-child(even) {
+        background-color: var(--bg-panel);
     }
 
     section > * {
