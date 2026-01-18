@@ -2,6 +2,12 @@
 import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
 
+interface Props {
+    individuals: boolean;
+}
+
+const { individuals = false } = Astro.props;
+
 const allSponsors = await getCollection("sponsors");
 const tiers = ["diamond", "platinum", "gold", "silver", "educational"];
 const getByTier = (tier: string) =>
@@ -11,58 +17,89 @@ const getByTier = (tier: string) =>
 <section class="sponsor-container">
     {
         tiers.map((tier) => {
-            const sponsors = getByTier(tier);
+            const sponsors = getByTier(tier).filter(s => (s.data.type == "company" && !individuals) || (s.data.type == "individual" && individuals));
             if (sponsors.length === 0) return null;
 
-            return (
-                <div class={`tier-block ${tier}`}>
-                    <h3 class="tier-title">{tier}</h3>
-                    <div class="logo-grid">
-                        {sponsors.map((s) => (
-                            <a
-                                href={s.data.url}
-                                target="_blank"
-                                class="sponsor-card"
-                            >
-                                <Image
-                                    src={s.data.image}
-                                    alt={s.data.title}
-                                    class="logo-img"
-                                    width={600}
-                                    density={[1.5, 2]}
-                                />
-                            </a>
-                        ))}
-                    </div>
+            return sponsors.map((s) => (
+                <div class="sponsor">
+                    <Image src={s.data.image} alt={s.data.title + "'s logo"}/>
+                    <h3 class="title">{s.data.title}</h4>
+                    <div class={"tier " +s.data.tier}>{tier.charAt(0).toUpperCase() + tier.slice(1)}</div>
+                    <a class="link-button primary" href={s.data.url}>LEARN MORE</a>
                 </div>
-            );
+            ));
         })
     }
 </section>
 
 <style>
-    .tier-block {
-        background-color: var(--bg-panel);
-        padding: 2rem;
-        border: 2px solid var(--border);
-    }
-
-    .logo-grid {
-        display: flex;
-        gap: 2rem;
-        justify-content: start;
-        align-items: center;
-    }
-
-    .logo-img {
-        max-width: 11rem;
-        height: auto;
-    }
-
-    a {
-        display: block;
-    }
-
     h3 {
+        font-size: 1.5rem;
+    }
+
+    section {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        margin-top: 1rem;
+    }
+
+    .sponsor {
+        flex: 0 1 calc(33.333% - 2rem);
+        background-color: var(--bg-panel);
+        border: 2px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        padding: 2rem;
+    }
+
+    img {
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+        aspect-ratio: 1/1;
+        background-color: white;
+    }
+
+    @media (max-width: 1000px) {
+        .sponsor {
+            flex: 0 1 calc(50% - 2rem);
+        }
+
+        .buttons {
+            justify-content: center;
+        }
+    }
+
+    @media (max-width: 700px) {
+        .sponsor {
+            flex: 0 1 100%;
+        }
+
+        h4 {
+            font-size: 1.5rem;
+        }
+    }
+
+    .tier {
+        font-size: 1.25rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+
+    .diamond {
+        color: #63bdd2;
+    }
+
+    .platinum {
+        color: #77a5a4;
+    }
+
+    .silver {
+        color: #9d9688;
+    }
+
+    .gold {
+        color: #c8aa07;
     }
 </style>
