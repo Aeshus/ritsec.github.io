@@ -29,7 +29,7 @@ const legacy = (await getCollection("legacyEboard")).sort((a, b) => {
 
 <style>
     article {
-        flex: 1 1 calc(33.333% - 2rem);
+        flex: 0 1 calc(33.333% - 2rem);
         background-color: var(--bg-panel);
         border: 2px solid var(--border);
         display: flex;
@@ -97,7 +97,7 @@ const legacy = (await getCollection("legacyEboard")).sort((a, b) => {
 
     @media (max-width: 1000px) {
         article {
-            flex: 1 1 calc(50% - 2rem);
+            flex: 0 1 calc(50% - 2rem);
         }
 
         .buttons {
@@ -107,7 +107,7 @@ const legacy = (await getCollection("legacyEboard")).sort((a, b) => {
 
     @media (max-width: 700px) {
         article {
-            flex: 1 1 100%;
+            flex: 0 1 100%;
         }
     }
 
