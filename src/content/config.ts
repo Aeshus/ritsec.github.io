@@ -28,11 +28,8 @@ const groups = defineCollection({
                 .array(
                     z.object({
                         name: z.string(),
-                        handle: z.string().optional(),
-                        avatar: image().optional(),
-                        url: z.string().url().optional(),
                     }),
-                )
+                ),
                 .default([]),
             logo: z.string(),
         }),
