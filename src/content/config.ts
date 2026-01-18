@@ -29,7 +29,7 @@ const groups = defineCollection({
                     z.object({
                         name: z.string(),
                     }),
-                ),
+                )
                 .default([]),
             logo: z.string(),
         }),
