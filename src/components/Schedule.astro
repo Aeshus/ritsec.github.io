@@ -63,13 +63,14 @@ const formatEventDate = (start, end) => {
 <div id="event-container" data-count={count} class="events-grid">
     {
         featuredCandidates.map((event) => (
-        <a href={"/schedule/" + event.slug} class="events-links" hidden
-                    data-start={event.data.start.toISOString()}
-                    data-end={event.data.end.toISOString()}
+            <a
+                href={"/schedule/" + event.slug}
+                class="events-links"
+                hidden
+                data-start={event.data.start.toISOString()}
+                data-end={event.data.end.toISOString()}
             >
-                <article
-                    class="featured-candidate"
-                >
+                <article class="featured-candidate">
                     <div>
                         <time
                             class="event-time"

@@ -5,22 +5,21 @@ const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 const groups = await getCollection("groups");
 
 const calendar = {};
-days.forEach((d) => calendar[d] = []);
+days.forEach((d) => (calendar[d] = []));
 groups.forEach((group) => {
-  const groupName = group.data.name;
-  if (!group.data.meetings)
-      return;
+    const groupName = group.data.name;
+    if (!group.data.meetings) return;
 
-  group.data.meetings.forEach((meeting) => {
-    const day = meeting.day;
+    group.data.meetings.forEach((meeting) => {
+        const day = meeting.day;
 
-    calendar[day].push({
-      name: groupName, 
-      start: meeting.start,
-      end: meeting.end,
-      location: meeting.location,
+        calendar[day].push({
+            name: groupName,
+            start: meeting.start,
+            end: meeting.end,
+            location: meeting.location,
+        });
     });
-  });
 });
 
 calendar["Friday"].push({
@@ -38,32 +37,45 @@ calendar["Friday"].push({
 });
 
 Object.keys(calendar).forEach((day) => {
-  calendar[day].sort((a, b) => {
-    return a.start.localeCompare(b.start);
-  });
+    calendar[day].sort((a, b) => {
+        return a.start.localeCompare(b.start);
+    });
 });
 ---
 
 <div class="calendar">
-    {days.map(d => {
-        const matching = calendar[d];
+    {
+        days.map((d) => {
+            const matching = calendar[d];
 
-        return (
-        <div class="column">
-            <h3 class={"day" + (new Date().getDay() != 0 && new Date().getDay() != 6 && calendar[new Date().getDay() - 1] == matching ? " active " : "")}>
-                {d}
-            </h3>
+            return (
+                <div class="column">
+                    <h3
+                        class={
+                            "day" +
+                            (new Date().getDay() != 0 &&
+                            new Date().getDay() != 6 &&
+                            calendar[new Date().getDay() - 1] == matching
+                                ? " active "
+                                : "")
+                        }
+                    >
+                        {d}
+                    </h3>
 
-            {matching.map((s) => (
-                <div class="e">
-                    <div class="name">{s.name}</div>
-                    <div class="time">{s.start} – {s.end}</div>
-                    <div class="location">{s.location}</div>
+                    {matching.map((s) => (
+                        <div class="e">
+                            <div class="name">{s.name}</div>
+                            <div class="time">
+                                {s.start} – {s.end}
+                            </div>
+                            <div class="location">{s.location}</div>
+                        </div>
+                    ))}
                 </div>
-            ))}
-        </div>
-        )
-    })}
+            );
+        })
+    }
 </div>
 
 <style>

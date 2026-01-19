@@ -17,15 +17,23 @@ const getByTier = (tier: string) =>
 <section class="sponsor-container">
     {
         tiers.map((tier) => {
-            const sponsors = getByTier(tier).filter(s => (s.data.type == "company" && !individuals) || (s.data.type == "individual" && individuals));
+            const sponsors = getByTier(tier).filter(
+                (s) =>
+                    (s.data.type == "company" && !individuals) ||
+                    (s.data.type == "individual" && individuals),
+            );
             if (sponsors.length === 0) return null;
 
             return sponsors.map((s) => (
                 <div class="sponsor">
-                    <Image src={s.data.image} alt={s.data.title + "'s logo"}/>
-                    <h3 class="title">{s.data.title}</h4>
-                    <div class={"tier " +s.data.tier}>{tier.charAt(0).toUpperCase() + tier.slice(1)}</div>
-                    <a class="link-button primary" href={s.data.url}>LEARN MORE</a>
+                    <Image src={s.data.image} alt={s.data.title + "'s logo"} />
+                    <h3 class="title">{s.data.title}</h3>
+                    <div class={"tier " + s.data.tier}>
+                        {tier.charAt(0).toUpperCase() + tier.slice(1)}
+                    </div>
+                    <a class="link-button primary" href={s.data.url}>
+                        LEARN MORE
+                    </a>
                 </div>
             ));
         })

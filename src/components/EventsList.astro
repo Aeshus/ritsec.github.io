@@ -50,63 +50,65 @@ const formatEventDate = (start, end) => {
 <div class="event-list">
     <div class="embla__viewport">
         <div class="embla__container">
-    {
-        events.map((event) => (
-            <div class="embla__slide">
-            <article>
-                <Image
-                    src={event.data.image}
-                    alt={"Picture of " + event.data.title}
-                    layout="constrained"
-                    width={800}
-                    height={400}
-                    class="card-image"
-                />
+            {
+                events.map((event) => (
+                    <div class="embla__slide">
+                        <article>
+                            <Image
+                                src={event.data.image}
+                                alt={"Picture of " + event.data.title}
+                                layout="constrained"
+                                width={800}
+                                height={400}
+                                class="card-image"
+                            />
 
-                <div class="content">
-                    <h3>{event.data.title}</h3>
+                            <div class="content">
+                                <h3>{event.data.title}</h3>
 
-                    <div class="time">
-                        {event.data.start && event.data.end ? (
-                            <time datetime={event.data.start.toISOString()}>
-                                {formatEventDate(
-                                    event.data.start,
-                                    event.data.end,
-                                )}
-                            </time>
-                        ) : (
-                            <div>TBD</div>
-                        )}
+                                <div class="time">
+                                    {event.data.start && event.data.end ? (
+                                        <time
+                                            datetime={event.data.start.toISOString()}
+                                        >
+                                            {formatEventDate(
+                                                event.data.start,
+                                                event.data.end,
+                                            )}
+                                        </time>
+                                    ) : (
+                                        <div>TBD</div>
+                                    )}
+                                </div>
+
+                                <div class="location">
+                                    {event.data.location} – {event.data.access}
+                                </div>
+
+                                <div class="summary">{event.data.summary}</div>
+
+                                <div class="buttons">
+                                    <a
+                                        href={"/events#" + event.slug}
+                                        class="link-button primary"
+                                    >
+                                        LEARN MORE
+                                    </a>
+
+                                    {event.data.website && (
+                                        <a
+                                            href={event.data.website}
+                                            class="link-button secondary"
+                                        >
+                                            WEBSITE
+                                        </a>
+                                    )}
+                                </div>
+                            </div>
+                        </article>
                     </div>
-
-                    <div class="location">
-                        {event.data.location} – {event.data.access}
-                    </div>
-
-                    <div class="summary">{event.data.summary}</div>
-
-                    <div class="buttons">
-                        <a
-                            href={"/events#" + event.slug}
-                            class="link-button primary"
-                        >
-                            LEARN MORE
-                        </a>
-
-                        {event.data.website && (
-                            <a
-                                href={event.data.website}
-                                class="link-button secondary"
-                            >
-                                WEBSITE
-                            </a>
-                        )}
-                    </div>
-                </div>
-            </article>
-            </div>
-        ))
-    }
+                ))
+            }
         </div>
     </div>
 </div>
@@ -115,9 +117,7 @@ const formatEventDate = (start, end) => {
     import EmblaCarousel from "embla-carousel";
     import Autoplay from "embla-carousel-autoplay";
     document.addEventListener("astro:page-load", () => {
-        const emblaNode = document.querySelector(
-            ".event-list",
-        ) as HTMLElement;
+        const emblaNode = document.querySelector(".event-list") as HTMLElement;
         const viewportNode = emblaNode.querySelector(
             ".embla__viewport",
         ) as HTMLElement;
@@ -221,7 +221,6 @@ const formatEventDate = (start, end) => {
         white-space: nowrap;
         font-size: 0.9rem;
     }
-
 
     @media (max-width: 1000px) {
         .embla__slide {

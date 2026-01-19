@@ -14,19 +14,20 @@ const groups = await getCollection("groups");
 ---
 
 <BaseLayout title="Research">
-    <Hero 
-            image={heroImg}
-            imageAlt="Letchworth State Park landscape"
-        >
-            <Fragment slot="title">
-                Student-produced <strong>Research</strong>
-            </Fragment>
+    <Hero image={heroImg} imageAlt="Letchworth State Park landscape">
+        <Fragment slot="title">
+            Student-produced <strong>Research</strong>
+        </Fragment>
 
-            Specialized tracks. Deep dives. From physical security to malware analysis. Small teams tackling the hardest problems.
+        Specialized tracks. Deep dives. From physical security to malware
+        analysis. Small teams tackling the hardest problems.
 
-            <Fragment slot="bottom">
-                <a class="link-button primary" href="https://github.com/ritsec/constitution">VIEW CONSTITUTION</a>
-            </Fragment>
+        <Fragment slot="bottom">
+            <a
+                class="link-button primary"
+                href="https://github.com/ritsec/constitution"
+                >VIEW CONSTITUTION</a
+            >
+        </Fragment>
     </Hero>
 </BaseLayout>
-

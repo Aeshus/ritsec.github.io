@@ -9,24 +9,28 @@ import SponsorsList from "@/components/SponsorsList.astro";
 import Calendar from "@/components/Calendar.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import heroImg from "@/assets/image6.jpg";
-
 ---
 
 <BaseLayout title="Schedule">
-    <Hero 
-            image={heroImg}
-            imageAlt="Letchworth State Park landscape"
-            reverse="true"
-        >
-            <Fragment slot="title">
-                The Packed <strong>Schedule</strong>
-            </Fragment>
+    <Hero
+        image={heroImg}
+        imageAlt="Letchworth State Park landscape"
+        reverse="true"
+    >
+        <Fragment slot="title">
+            The Packed <strong>Schedule</strong>
+        </Fragment>
 
-            Weekly meetings. Expert demos. Guest speakers from across the industry. Your roadmap to everything happening this semester.
+        Weekly meetings. Expert demos. Guest speakers from across the industry.
+        Your roadmap to everything happening this semester.
 
-            <Fragment slot="bottom">
-                <a class="link-button primary" href="https://github.com/ritsec/constitution">VIEW CONSTITUTION</a>
-            </Fragment>
+        <Fragment slot="bottom">
+            <a
+                class="link-button primary"
+                href="https://github.com/ritsec/constitution"
+                >VIEW CONSTITUTION</a
+            >
+        </Fragment>
     </Hero>
 
     <section>
@@ -39,9 +43,5 @@ import heroImg from "@/assets/image6.jpg";
 
     <section>
         <h2>Schedule</h2>
-
-
     </section>
-
 </BaseLayout>
-
