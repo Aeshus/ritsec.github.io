@@ -1,5 +1,4 @@
 ---
-import { getCollection } from "astro:content";
 import Hero from "@/components/Hero.astro";
 import GroupCarousel from "@/components/GroupCarousel.astro";
 import FeaturedEvent from "@/components/FeaturedEvent.astro";
@@ -7,50 +6,10 @@ import ShortSchedule from "@/components/ShortSchedule.astro";
 import EventsList from "@/components/EventsList.astro";
 import ResearchList from "@/components/ResearchList.astro";
 import SponsorsList from "@/components/SponsorsList.astro";
+import Calendar from "@/components/Calendar.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import heroImg from "@/assets/image6.jpg";
 
-const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
-const groups = await getCollection("groups");
-
-const calendar = {};
-days.forEach((d) => calendar[d] = []);
-groups.forEach((group) => {
-  const groupName = group.data.name;
-  if (!group.data.meetings)
-      return;
-
-  group.data.meetings.forEach((meeting) => {
-    const day = meeting.day;
-
-    calendar[day].push({
-      name: groupName, 
-      start: meeting.start,
-      end: meeting.end,
-      location: meeting.location,
-    });
-  });
-});
-
-calendar["Friday"].push({
-    name: "General Education",
-    start: "12:00:00",
-    end: "14:30:00",
-    location: "GOL-1710/20/30",
-});
-
-calendar["Friday"].push({
-    name: "General Research",
-    start: "14:30:00",
-    end: "16:00:00",
-    location: "GOL-1710/20/30",
-});
-
-Object.keys(calendar).forEach((day) => {
-  calendar[day].sort((a, b) => {
-    return a.start.localeCompare(b.start);
-  });
-});
 ---
 
 <BaseLayout title="Schedule">
@@ -75,66 +34,14 @@ Object.keys(calendar).forEach((day) => {
 
         <p>These are the events that generally occur each week</p>
 
-        <div class="calendar">
-            {days.map(d => {
-                const matching = calendar[d];
-
-                return (
-                <div class="column">
-                    <h3 class="day">
-                        {d}
-                    </h3>
-
-                    {matching.map((s) => (
-                        <div class="e">
-                            <div class="name">{s.name}</div>
-                            <div class="time">{s.start} – {s.end}</div>
-                            <div class="location">{s.location}</div>
-                        </div>
-                    ))}
-                </div>
-                )
-            })}
-        </div>
-
+        <Calendar />
     </section>
 
     <section>
         <h2>Schedule</h2>
 
+
     </section>
 
 </BaseLayout>
 
-<style>
-    .calendar {
-        display: flex;
-        gap: 1.5rem;
-    }
-
-    .column {
-        flex: 1 1 100%;
-        background: var(--bg-panel);
-        border: 2px solid var(--border);
-    }
-
-    .e {
-        border-bottom: 2px solid var(--border);
-        padding: 1rem;
-        padding-top: 0.5rem;
-        padding-bottom: 0.5rem;
-    }
-
-    .e:nth-child(odd) {
-        background-color: var(--bg-panel);
-    }
-
-    .day {
-        padding: 2rem;
-        background: var(--fg);
-        color: var(--bg);
-        text-align: center;
-        font-size: 1.5rem;
-    }
-
-</style>
