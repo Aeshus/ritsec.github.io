@@ -50,7 +50,7 @@ Object.keys(calendar).forEach((day) => {
 
         return (
         <div class="column">
-            <h3 class="day">
+            <h3 class={"day" + (new Date().getDay() != 0 && new Date().getDay() != 6 && calendar[new Date().getDay() - 1] == matching ? " active " : "")}>
                 {d}
             </h3>
 
@@ -95,5 +95,9 @@ Object.keys(calendar).forEach((day) => {
         color: var(--bg);
         text-align: center;
         font-size: 1.5rem;
+    }
+
+    .active {
+        color: var(--accent);
     }
 </style>
