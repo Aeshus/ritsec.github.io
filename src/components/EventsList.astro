@@ -48,8 +48,11 @@ const formatEventDate = (start, end) => {
 ---
 
 <div class="event-list">
+    <div class="embla__viewport">
+        <div class="embla__container">
     {
         events.map((event) => (
+            <div class="embla__slide">
             <article>
                 <Image
                     src={event.data.image}
@@ -101,13 +104,41 @@ const formatEventDate = (start, end) => {
                     </div>
                 </div>
             </article>
+            </div>
         ))
     }
+        </div>
+    </div>
 </div>
+
+<script>
+    import EmblaCarousel from "embla-carousel";
+    import Autoplay from "embla-carousel-autoplay";
+    document.addEventListener("astro:page-load", () => {
+        const emblaNode = document.querySelector(
+            ".event-list",
+        ) as HTMLElement;
+        const viewportNode = emblaNode.querySelector(
+            ".embla__viewport",
+        ) as HTMLElement;
+
+        if (emblaNode && viewportNode) {
+            const emblaApi = EmblaCarousel(
+                viewportNode,
+                {
+                    loop: true,
+                    align: "start",
+                },
+                [Autoplay({ delay: 3000, stopOnMouseEnter: true })],
+            );
+        }
+    });
+</script>
 
 <style>
     article {
-        flex: 0 1 calc(33.333% - 2rem);
+        height: 100%;
+
         background-color: var(--bg-panel);
         border: 2px solid var(--border);
         display: flex;
@@ -122,10 +153,22 @@ const formatEventDate = (start, end) => {
     }
 
     .event-list {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1.5rem;
         margin-top: 1rem;
+    }
+
+    .embla__viewport {
+        overflow: hidden;
+    }
+
+    .embla__container {
+        display: flex;
+        margin-left: -1.5rem;
+    }
+
+    .embla__slide {
+        flex: 0 0 33.333%;
+        min-width: 0;
+        padding-left: 1.5rem;
     }
 
     h3 {
@@ -177,5 +220,18 @@ const formatEventDate = (start, end) => {
         color: var(--fg);
         white-space: nowrap;
         font-size: 0.9rem;
+    }
+
+
+    @media (max-width: 1000px) {
+        .embla__slide {
+            flex: 0 0 50%;
+        }
+    }
+
+    @media (max-width: 700px) {
+        .embla__slide {
+            flex: 0 0 100%;
+        }
     }
 </style>
