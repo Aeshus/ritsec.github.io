@@ -132,7 +132,7 @@ const { title, description, image } = Astro.props;
             --border: #4d4d4d;
 
             --accent: #e69132;
-            --fg-accent: var(--fg);
+            --fg-accent: var(--bg);
         }
     }
 
@@ -234,9 +234,10 @@ const { title, description, image } = Astro.props;
         background-color: var(--bg);
     }
 
-    main > section:nth-child(even) {
+    /*main > section:nth-child(even) {
         background-color: var(--bg-panel);
     }
+     */
 
     section > * {
         margin-bottom: 1rem;
