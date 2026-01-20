@@ -41,6 +41,7 @@ Object.keys(calendar).forEach((day) => {
         return a.start.localeCompare(b.start);
     });
 });
+
 ---
 
 <div class="calendar">
@@ -51,14 +52,7 @@ Object.keys(calendar).forEach((day) => {
             return (
                 <div class="column">
                     <h3
-                        class={
-                            "day" +
-                            (new Date().getDay() != 0 &&
-                            new Date().getDay() != 6 &&
-                            calendar[new Date().getDay() - 1] == matching
-                                ? " active "
-                                : "")
-                        }
+                        class="day"
                     >
                         {d}
                     </h3>
