@@ -78,7 +78,8 @@ const events = await getCollection("events");
     }
     section {
         display: grid;
-        grid-template-columns: 1fr 1.2fr;
+        /* Intentionally flipped to make it more legible */
+        grid-template-columns: 1.2fr 1fr;
         gap: var(--padding-lg);
     }
 
@@ -97,7 +98,7 @@ const events = await getCollection("events");
     }
 
     .card-img {
-        height: 400px;
+        height: 350px;
     }
 
     @media (max-width: 1000px) {
