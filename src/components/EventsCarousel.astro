@@ -6,7 +6,8 @@ import { formatDate } from "@/utils.js";
 const events = await getCollection("events");
 ---
 
-<div class="carousel" id="events-carousel">
+<div>
+    <div class="carousel" id="events-carousel">
         <div class="slide-container">
             {
                 events.map((event) => (
@@ -41,7 +42,8 @@ const events = await getCollection("events");
                                     </div>
 
                                     <div class="location">
-                                        {event.data.location} • {event.data.access}
+                                        {event.data.location} •{" "}
+                                        {event.data.access}
                                     </div>
                                 </div>
 
@@ -73,12 +75,18 @@ const events = await getCollection("events");
     </div>
 </div>
 
+<noscript>
+    <a href="/events" class="link-button primary">VIEW ALL EVENTS</a>
+</noscript>
+
 <script>
     import EmblaCarousel from "embla-carousel";
     import Autoplay from "embla-carousel-autoplay";
 
     document.addEventListener("astro:page-load", () => {
-        const carousel = document.querySelector("#events-carousel") as HTMLElement;
+        const carousel = document.querySelector(
+            "#events-carousel",
+        ) as HTMLElement;
 
         if (carousel) {
             const emblaApi = EmblaCarousel(

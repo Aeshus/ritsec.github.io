@@ -4,34 +4,42 @@ import { getCollection, getEntry } from "astro:content";
 const groups = await getCollection("groups");
 ---
 
-<div class="carousel" id="group-carousel">
-    <div class="slide-container">
-        {
-            groups.map((group) => (
-                <div class="slide">
-                    <article class="card">
-                        <div aria-hidden="true" class="card-header">
-                            <h2><strong>{group.data.logo}</strong></h2>
-                        </div>
-
-                        <div class="card-content">
-                            <h3>{group.data.name}</h3>
-                            <p class="expand">{group.data.summary}</p>
-
-                            <div class="list">
-                                <a
-                                    href={"/groups/" + group.slug}
-                                    class="link-button primary"
-                                >
-                                    LEARN MORE
-                                </a>
+<div>
+    <div class="carousel" id="group-carousel">
+        <div class="slide-container">
+            {
+                groups.map((group) => (
+                    <div class="slide">
+                        <article class="card">
+                            <div aria-hidden="true" class="card-header">
+                                <h2>
+                                    <strong>{group.data.logo}</strong>
+                                </h2>
                             </div>
-                        </div>
-                    </article>
-                </div>
-            ))
-        }
+
+                            <div class="card-content">
+                                <h3>{group.data.name}</h3>
+                                <p class="expand">{group.data.summary}</p>
+
+                                <div class="list">
+                                    <a
+                                        href={"/groups/" + group.slug}
+                                        class="link-button primary"
+                                    >
+                                        LEARN MORE
+                                    </a>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                ))
+            }
+        </div>
     </div>
+
+    <noscript>
+        <a href="/groups" class="link-button primary">VIEW ALL GROUPS</a>
+    </noscript>
 </div>
 
 <script>
@@ -39,7 +47,9 @@ const groups = await getCollection("groups");
     import Autoplay from "embla-carousel-autoplay";
 
     document.addEventListener("astro:page-load", () => {
-        const carousel = document.querySelector("#group-carousel") as HTMLElement;
+        const carousel = document.querySelector(
+            "#group-carousel",
+        ) as HTMLElement;
 
         if (carousel) {
             const emblaApi = EmblaCarousel(

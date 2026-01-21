@@ -5,7 +5,7 @@ import Hero from "@/components/Hero.astro";
 import GroupCarousel from "@/components/GroupCarousel.astro";
 import FeaturedEvent from "@/components/FeaturedEvent.astro";
 import ShortSchedule from "@/components/ShortSchedule.astro";
-import EventsList from "@/components/EventsList.astro";
+import EventsCarousel from "@/components/EventsCarousel.astro";
 import ResearchList from "@/components/ResearchList.astro";
 import SponsorsList from "@/components/SponsorsList.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
@@ -35,6 +35,7 @@ import heroImg from "@/assets/image7.jpg";
         Beyond our general meetings, we run specialized sub-groups that dive deep into specific domains of cybersecurity.
 
         <GroupCarousel />
+
     </section>
 
     {/* Schedule */}
@@ -45,8 +46,6 @@ import heroImg from "@/assets/image7.jpg";
 
 
         <ShortSchedule />
-
-        <a class="link-button primary" href="/schedule">VIEW COMPLETE SCHEDULE</a>
     </section>
 
     {/* Events */}
@@ -55,7 +54,7 @@ import heroImg from "@/assets/image7.jpg";
 
         Home to nationally recognized Attack/Defense competitions, Capture the Flags, and our exclusive Career Fair Eve networking event.
 
-        <EventsList />
+        <EventsCarousel />
     </section>
 
     {/* Research */}
