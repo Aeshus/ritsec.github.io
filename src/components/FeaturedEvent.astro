@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 const allEvents = await getCollection("schedule");
+import { formatDates } from "@/utils.js";
 
 interface Props {
     group?: string;
@@ -16,48 +17,6 @@ const featuredCandidates = allEvents
     .filter((e) => e.data.featured === true)
     .filter((e) => e.data.end > new Date(new Date().getTime()))
     .sort((a, b) => a.data.start.valueOf() - b.data.start.valueOf());
-
-const formatEventDate = (start, end) => {
-    const checkOpts = { day: "numeric", timeZone: "UTC" };
-    const isSameDay =
-        new Intl.DateTimeFormat("en-US", checkOpts).format(start) ===
-        new Intl.DateTimeFormat("en-US", checkOpts).format(end);
-
-    const dateOpts = {
-        timeZone: "UTC",
-        month: "short",
-        day: "numeric",
-    };
-
-    const timeOpts = {
-        timeZone: "UTC",
-        hour: "numeric",
-        minute: "2-digit",
-    };
-
-    const isMidnight = (d) => d.getUTCHours() === 0 && d.getUTCMinutes() === 0;
-    const hideTime = isMidnight(start) && isMidnight(end);
-
-    if (isSameDay) {
-        const date = new Intl.DateTimeFormat("en-US", dateOpts).format(start);
-
-        if (hideTime) {
-            return date;
-        }
-
-        const startTime = new Intl.DateTimeFormat("en-US", timeOpts).format(
-            start,
-        );
-        const endTime = new Intl.DateTimeFormat("en-US", timeOpts).format(end);
-        return `${date} • ${startTime} – ${endTime}`;
-    } else {
-        const startDate = new Intl.DateTimeFormat("en-US", dateOpts).format(
-            start,
-        );
-        const endDate = new Intl.DateTimeFormat("en-US", dateOpts).format(end);
-        return `${startDate} – ${endDate}`;
-    }
-};
 ---
 
 <div id="featured-event-container">
@@ -75,7 +34,7 @@ const formatEventDate = (start, end) => {
                     <h3>{event.data.title}</h3>
                     <div class="time">
                         <time datetime={event.data.start.toISOString()}>
-                            {formatEventDate(event.data.start, event.data.end)}
+                            {formatDates(event.data.start, event.data.end)}
                         </time>
                     </div>
                     <div class="location">{event.data.location}</div>

@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
-import { formatDate } from "@/utils.js";
+import { formatDates } from "@/utils.js";
 
 const events = await getCollection("events");
 ---
@@ -31,7 +31,7 @@ const events = await getCollection("events");
                                             <time
                                                 datetime={event.data.start.toISOString()}
                                             >
-                                                {formatDate(
+                                                {formatDates(
                                                     event.data.start,
                                                     event.data.end,
                                                 )}
