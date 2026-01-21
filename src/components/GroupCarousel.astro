@@ -4,44 +4,46 @@ import { getCollection, getEntry } from "astro:content";
 const groups = await getCollection("groups");
 ---
 
-<div class="interest-groups-embla">
-    <div class="embla__viewport">
-        <div class="embla__container">
-            {
-                groups.map((group) => (
-                    <div class="embla__slide">
-                        <article class="card">
-                            <div class="card-icon">{group.data.logo}</div>
+<div class="carousel" id="group-carousel">
+    <div class="slide-container">
+        {
+            groups.map((group) => (
+                <div class="slide">
+                    <article class="card">
+                        <div aria-hidden="true" class="card-header">
+                            <h2><strong>{group.data.logo}</strong></h2>
+                        </div>
+
+                        <div class="card-content">
                             <h3>{group.data.name}</h3>
-                            <p>{group.data.summary}</p>
-                            <a
-                                href={"/groups/" + group.slug}
-                                class="link-button primary"
-                            >
-                                LEARN MORE
-                            </a>
-                        </article>
-                    </div>
-                ))
-            }
-        </div>
+                            <p class="expand">{group.data.summary}</p>
+
+                            <div class="list">
+                                <a
+                                    href={"/groups/" + group.slug}
+                                    class="link-button primary"
+                                >
+                                    LEARN MORE
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            ))
+        }
     </div>
 </div>
 
 <script>
     import EmblaCarousel from "embla-carousel";
     import Autoplay from "embla-carousel-autoplay";
-    document.addEventListener("astro:page-load", () => {
-        const emblaNode = document.querySelector(
-            ".interest-groups-embla",
-        ) as HTMLElement;
-        const viewportNode = emblaNode.querySelector(
-            ".embla__viewport",
-        ) as HTMLElement;
 
-        if (emblaNode && viewportNode) {
+    document.addEventListener("astro:page-load", () => {
+        const carousel = document.querySelector("#group-carousel") as HTMLElement;
+
+        if (carousel) {
             const emblaApi = EmblaCarousel(
-                viewportNode,
+                carousel,
                 {
                     loop: true,
                     align: "start",
@@ -53,73 +55,12 @@ const groups = await getCollection("groups");
 </script>
 
 <style>
-    .interest-groups-embla {
-        overflow: hidden;
-        margin-top: 1rem;
+    .card-header {
+        text-align: center;
     }
 
-    .embla__container {
-        display: flex;
-        margin-left: -1.5rem;
-    }
-
-    .embla__slide {
-        flex: 0 0 33.333%;
-        min-width: 0;
-        padding-left: 1.5rem;
-    }
-
-    .card {
-        background: var(--bg-panel);
-        border: 2px solid var(--border);
-        padding: 2rem;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        text-align: start;
-    }
-
-    h3 {
-        font-size: 1.5rem;
-        margin-bottom: 0.5rem;
-        font-weight: 600;
-    }
-
-    p {
-        margin-bottom: 1.5rem;
-        flex-grow: 1;
-        line-height: 1.5;
-        opacity: 0.9;
-    }
-
-    .card-icon {
-        font-size: 2rem;
-        font-family: var(--font-mono);
-        color: var(--accent);
-    }
-
-    @media (max-width: 1000px) {
-        .embla__slide {
-            flex: 0 0 50%;
-        }
-    }
-
-    @media (max-width: 700px) {
-        .embla__slide {
-            flex: 0 0 100%;
-        }
-
-        .card {
-            padding: 1rem;
-        }
-
-        h3 {
-            font-size: 1.25rem;
-        }
-
-        .card-icon {
-            font-size: 1.5rem;
-        }
+    .list {
+        margin-top: auto;
+        padding-top: var(--padding);
     }
 </style>

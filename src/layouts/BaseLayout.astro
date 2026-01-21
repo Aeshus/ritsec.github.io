@@ -274,12 +274,18 @@ const { title, description, image } = Astro.props;
 
     .card-content {
         padding: var(--padding-lg);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        flex-grow: 1;
     }
 
     .card-header {
         padding: var(--padding-lg);
-        background-color: var(--bg);
-        color: var(--fg);
+        background-color: var(--fg);
+        color: var(--bg);
+        padding-bottom: 1rem;
+        width: 100%;
     }
 
     .card-img > img {
@@ -318,6 +324,10 @@ const { title, description, image } = Astro.props;
         border-color: var(--accent);
     }
 
+    .carousel .card {
+        height: 100%;
+    }
+
     @media (max-width: 1000px) {
         .list {
             justify-content: center;
@@ -326,18 +336,23 @@ const { title, description, image } = Astro.props;
 
     /* Slideshow */
 
-    .slide_container {
+    .carousel {
+        overflow: hidden;
+    }
+
+    .slide-container {
         display: flex;
-        margin-left: calc(-1 * var(--padding));
+        flex-direction: row;
+        margin-left: calc(var(--padding) * -1);
     }
 
     .slide {
-        flex: 0 0 33.333%;
+        flex: 0 0 33.333333333333%;
         min-width: 0;
         padding-left: var(--padding);
     }
 
-    @media (mxa-width: 1000px) {
+    @media (max-width: 1000px) {
         .slide {
             flex: 0 0 50%;
         }
