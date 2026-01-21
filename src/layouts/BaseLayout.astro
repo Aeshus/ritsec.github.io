@@ -218,7 +218,8 @@ const { title, description, image } = Astro.props;
         color: var(--accent);
     }
 
-    main > section > p {
+    main > section > p,
+    .text {
         max-width: var(--text-width);
     }
 
@@ -227,7 +228,8 @@ const { title, description, image } = Astro.props;
             text-align: center;
         }
 
-        main > section > p {
+        main > section > p,
+        .text {
             margin: auto;
             margin-bottom: var(--padding);
         }
@@ -251,6 +253,16 @@ const { title, description, image } = Astro.props;
 
     /* Common Styles */
 
+    .accent {
+        color: var(--accent);
+    }
+
+    time {
+        white-space: nowrap;
+    }
+
+    /* Cards */
+
     .card {
         background-color: var(--bg-panel);
         border: var(--border);
@@ -270,9 +282,14 @@ const { title, description, image } = Astro.props;
         color: var(--fg);
     }
 
-    .card-image {
+    .card-img > img {
         object-fit: cover;
         width: 100%;
+        object-position: center;
+    }
+
+    .img-card {
+        padding: var(--padding-sm);
     }
 
     .chip {
@@ -283,6 +300,11 @@ const { title, description, image } = Astro.props;
         margin-bottom: var(--padding);
     }
 
+    .list {
+        display: flex;
+        gap: var(--padding);
+        flex-wrap: wrap;
+    }
 
     a.card {
         border-color: var(--border-color-interactable);
@@ -296,12 +318,10 @@ const { title, description, image } = Astro.props;
         border-color: var(--accent);
     }
 
-    .accent {
-        color: var(--accent);
-    }
-
-    time {
-        white-space: nowrap;
+    @media (max-width: 1000px) {
+        .list {
+            justify-content: center;
+        }
     }
 
     /* Slideshow */
@@ -365,9 +385,9 @@ const { title, description, image } = Astro.props;
     .link-button.secondary:hover,
     .link-button.secondary:active,
     .link-button.secondary:focus {
-        background-color: var(--fg);
-        color: var(--bg);
-        outline-color: unset);
+        background-color: var(--accent);
+        color: var(--fg-accent);
+        outline-color: var(--accent);
     }
 
     .link-button.secondary-accent {

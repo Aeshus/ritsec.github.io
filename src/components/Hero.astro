@@ -14,17 +14,17 @@ const { badge, image, imageAlt, reverse = false } = Astro.props;
 
 <section class:list={[{ reverse }]}>
     <div>
-        {badge && <p class="message">{badge}</p>}
+        {badge && <p class="chip">{badge}</p>}
 
         <h1><slot name="title" /></h1>
 
-        <div class="copy">
+        <div class="text">
             <slot />
         </div>
 
         {
             Astro.slots.has("bottom") && (
-                <div class="bottom">
+                <div class="list">
                     <slot name="bottom" />
                 </div>
             )
@@ -33,8 +33,9 @@ const { badge, image, imageAlt, reverse = false } = Astro.props;
 
     {
         image && (
-            <div class="image">
-                <Image src={image} alt={imageAlt} width={800} loading="eager" />
+            <div class="card card-img img-card">
+                {/* The image is w=1000 so that it can be full-width when max-width 1000px */}
+                <Image src={image} alt={imageAlt} width={1000} loading="eager" />
             </div>
         )
     }
@@ -45,59 +46,25 @@ const { badge, image, imageAlt, reverse = false } = Astro.props;
         display: grid;
         grid-template-columns: 1.2fr 1fr;
         align-items: center;
-        gap: 2rem;
+        gap: var(--padding-lg);
+    }
+
+    .text {
+        font-size: var(--md);
+        max-width: var(--text-width);
+        margin-bottom: var(--padding-lg);
     }
 
     .reverse {
         grid-template-columns: 1fr 1.2fr;
     }
-    .reverse .image {
+
+    .reverse.image {
         order: -1;
     }
 
-    .message {
-        background-color: var(--bg-panel);
-        display: inline-block;
-        color: var(--fg);
-        padding: 0.25rem 0.5rem;
-        margin-bottom: 1rem;
-        font-weight: 500;
-    }
-
-    h1 {
-        font-size: 4rem;
-        line-height: 1.1;
-        margin-bottom: 1rem;
-    }
-
-    h1 strong {
-        color: var(--accent);
-    }
-
-    .copy {
-        font-size: 1.125rem;
-        max-width: var(--text-width);
-        margin-bottom: 2rem;
-    }
-
-    .image {
-        padding: 0.5rem;
-        outline: 2px solid var(--border);
-        outline-offset: -1px;
-        background-color: var(--bg-panel);
-    }
-
     img {
-        display: block;
-        height: 290px;
-        object-fit: cover;
-        object-position: center;
-    }
-
-    .bottom {
-        display: flex;
-        gap: 1rem;
-        flex-wrap: wrap;
+        height: 300px;
     }
 
     @media (max-width: 1000px) {
@@ -110,23 +77,6 @@ const { badge, image, imageAlt, reverse = false } = Astro.props;
         }
         .reverse .image {
             order: 999;
-        }
-
-        .copy {
-            margin: auto;
-            margin-bottom: 2rem;
-        }
-
-        .bottom {
-            justify-content: center;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-        }
-
-        .image {
-            margin-inline: auto;
         }
     }
 </style>
