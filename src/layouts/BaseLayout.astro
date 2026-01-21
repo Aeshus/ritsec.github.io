@@ -370,14 +370,28 @@ const { title, description, image } = Astro.props;
         padding-left: var(--padding);
     }
 
+    .grid-content {
+        display: flex;
+        padding: unset;
+        flex: 0 0 calc((100% - (var(--padding) * 2)) / 3);
+    }
+
     @media (max-width: 1000px) {
         .slide {
             flex: 0 0 50%;
+        }
+
+        .grid-content {
+            flex: 0 0 calc((100% - var(--padding)) / 2);
         }
     }
 
     @media (max-width: 700px) {
         .slide {
+            flex: 0 0 100%;
+        }
+
+        .grid-content {
             flex: 0 0 100%;
         }
     }
