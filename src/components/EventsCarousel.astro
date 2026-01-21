@@ -1,0 +1,113 @@
+---
+import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
+import { formatDate } from "@/utils.js";
+
+const events = await getCollection("events");
+---
+
+<div class="carousel" id="events-carousel">
+        <div class="slide-container">
+            {
+                events.map((event) => (
+                    <div class="slide">
+                        <article class="card">
+                            <div class="card-img">
+                                <Image
+                                    src={event.data.image}
+                                    alt={"Picture of " + event.data.title}
+                                    width={800}
+                                    height={400}
+                                />
+                            </div>
+
+                            <div class="card-content">
+                                <h3>{event.data.title}</h3>
+
+                                <div class="header-content">
+                                    <div class="time">
+                                        {event.data.start && event.data.end ? (
+                                            <time
+                                                datetime={event.data.start.toISOString()}
+                                            >
+                                                {formatDate(
+                                                    event.data.start,
+                                                    event.data.end,
+                                                )}
+                                            </time>
+                                        ) : (
+                                            <div>TBD</div>
+                                        )}
+                                    </div>
+
+                                    <div class="location">
+                                        {event.data.location} • {event.data.access}
+                                    </div>
+                                </div>
+
+                                <div class="summary">{event.data.summary}</div>
+
+                                <div class="list">
+                                    <a
+                                        href={"/events#" + event.slug}
+                                        class="link-button primary"
+                                    >
+                                        LEARN MORE
+                                    </a>
+
+                                    {event.data.website && (
+                                        <a
+                                            href={event.data.website}
+                                            class="link-button secondary"
+                                        >
+                                            WEBSITE
+                                        </a>
+                                    )}
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    import EmblaCarousel from "embla-carousel";
+    import Autoplay from "embla-carousel-autoplay";
+
+    document.addEventListener("astro:page-load", () => {
+        const carousel = document.querySelector("#events-carousel") as HTMLElement;
+
+        if (carousel) {
+            const emblaApi = EmblaCarousel(
+                carousel,
+                {
+                    loop: true,
+                    align: "start",
+                },
+                [Autoplay({ delay: 3000, stopOnMouseEnter: true })],
+            );
+        }
+    });
+</script>
+
+<style>
+    .card-img {
+        height: 200px;
+    }
+
+    .list {
+        margin-top: auto;
+        padding-top: var(--padding);
+    }
+
+    h3 {
+        margin-bottom: 0;
+    }
+
+    .header-content {
+        margin-bottom: var(--padding);
+    }
+</style>
