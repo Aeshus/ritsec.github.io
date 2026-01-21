@@ -48,6 +48,7 @@ const { title, description, image } = Astro.props;
     @media (prefers-reduced-motion: no-preference) {
         html {
             interpolate-size: allow-keywords;
+            scroll-behavior: smooth;
         }
     }
 
@@ -205,6 +206,7 @@ const { title, description, image } = Astro.props;
         line-height: 1.125;
         margin-bottom: var(--padding);
         font-weight: var(--w-bold);
+        scroll-margin-top: 100px;
     }
 
     h3,
@@ -215,6 +217,7 @@ const { title, description, image } = Astro.props;
         line-height: 1.125;
         margin-bottom: var(--padding);
         font-weight: var(--w-bold);
+        scroll-margin-top: 100px;
     }
 
     h1 strong,

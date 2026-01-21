@@ -1,0 +1,33 @@
+---
+---
+import Hero from "@/components/Hero.astro";
+import EventsCarousel from "@/components/EventsCarousel.astro";
+import EventsList from "@/components/EventsList.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import heroImg from "@/assets/image2.jpg";
+
+<BaseLayout title="Events">
+    <Hero
+        image={heroImg}
+        imageAlt="Letchworth State Park landscape"
+        reverse="true"
+    >
+        <Fragment slot="title">
+            Competitions and <strong>Events</strong>
+        </Fragment>
+
+        Attack. Defense. Response. Bridging the gap between theory and practice.
+        Where students become security professionals.
+    </Hero>
+
+    <section>
+        ## Events
+
+        Home to nationally recognized Attack/Defense competitions, Capture the Flags, and our exclusive Career Fair Eve networking event.
+
+        <EventsCarousel />
+    </section>
+
+    <EventsList />
+
+</BaseLayout>
