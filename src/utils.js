@@ -10,7 +10,16 @@ function isMidnight(a) {
     return !(a.getUTCHours() || a.getUTCMinutes());
 }
 
-export const formatDate = (start, end) => {
+export function formatDate(date) {
+    return new Intl.DateTimeFormat("en-US", {
+        timeZone: "UTC",
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+    }).format(date);
+}
+
+export const formatDates = (start, end) => {
     /* We leave all the dates as UTC because that's what the
      * parsing defaults to, and is it NOT fun to deal with dates in JS... */
     const dateOpts = {
