@@ -5,27 +5,27 @@ import { Image } from "astro:assets";
 const eboard = await getCollection("eboard");
 ---
 
-<div class="event-list">
+<div class="list">
     {
         eboard.map((member) => (
-            <article>
-                <Image
-                    src={member.data.image}
-                    alt={"Picture of " + member.data.title}
-                    layout="constrained"
-                    width={800}
-                    height={800}
-                    class="card-image"
-                />
+            <article class="card grid-content">
+                <div class="card-img">
+                    <Image
+                        src={member.data.image}
+                        alt={"Picture of " + member.data.title}
+                        width={800}
+                        height={800}
+                    />
+                </div>
 
-                <div class="content">
+                <div class="card-content">
                     <h3>{member.data.name}</h3>
 
-                    <div class="time">{member.data.id}</div>
+                    <div>{member.data.id}</div>
 
-                    <div class="location">{member.data.grad_year}</div>
+                    <div>{member.data.grad_year}</div>
 
-                    <div class="buttons">
+                    <div class="list">
                         <a
                             href={"mailto:" + member.data.id + "@ritsec.club"}
                             class="link-button primary"
@@ -47,75 +47,21 @@ const eboard = await getCollection("eboard");
 </div>
 
 <style>
-    article {
-        flex: 0 1 calc(33.333% - 2rem);
-        background-color: var(--bg-panel);
-        border: 2px solid var(--border);
+    .slide {
         display: flex;
-        flex-direction: column;
-    }
-
-    .content {
-        padding: 2rem;
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1;
-    }
-
-    .event-list {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1.5rem;
-        margin-top: 1rem;
+        padding: unset;
     }
 
     h3 {
-        font-size: 1.5rem;
-        margin-bottom: 0.5rem;
-        font-weight: 600;
-        line-height: 1.125;
+        margin-bottom: 0;
     }
 
-    .summary {
-        margin-bottom: 1rem;
-    }
-
-    .location {
-        margin-bottom: 1rem;
-    }
-
-    .buttons {
+    .card-content .list {
+        padding-top: 1rem;
         margin-top: auto;
-        display: flex;
-        gap: 1rem;
     }
 
-    .time,
-    .location {
-        font-variant-numeric: tabular-nums;
-        color: var(--fg);
-        white-space: nowrap;
-    }
-
-    @media (max-width: 1000px) {
-        article {
-            flex: 0 1 calc(50% - 2rem);
-        }
-
-        .buttons {
-            justify-content: center;
-        }
-    }
-
-    @media (max-width: 700px) {
-        article {
-            flex: 0 1 100%;
-        }
-    }
-
-    .card-image {
-        width: 100%;
+    .card-img {
         height: 300px;
-        object-fit: cover;
     }
 </style>
