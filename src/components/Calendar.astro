@@ -24,15 +24,15 @@ groups.forEach((group) => {
 
 calendar["Friday"].push({
     name: "General Education",
-    start: "12:00:00",
-    end: "14:30:00",
+    start: "12:00",
+    end: "14:30",
     location: "GOL-1710/20/30",
 });
 
 calendar["Friday"].push({
     name: "General Research",
-    start: "14:30:00",
-    end: "16:00:00",
+    start: "14:30",
+    end: "16:00",
     location: "GOL-1710/20/30",
 });
 
@@ -41,69 +41,95 @@ Object.keys(calendar).forEach((day) => {
         return a.start.localeCompare(b.start);
     });
 });
-
 ---
 
-<div class="calendar">
-    {
-        days.map((d) => {
-            const matching = calendar[d];
+<div class="carousel" id="calendar-carousel">
+    <div class="slide-container">
+        {
+            days.map((d) => {
+                const matching = calendar[d];
 
-            return (
-                <div class="column">
-                    <h3
-                        class="day"
-                    >
-                        {d}
-                    </h3>
+                return (
+                    <div class="slide">
+                        <div class="card">
+                            <h3 class="card-header" id={d}>{d}</h3>
 
-                    {matching.map((s) => (
-                        <div class="e">
-                            <div class="name">{s.name}</div>
-                            <div class="time">
-                                {s.start} – {s.end}
-                            </div>
-                            <div class="location">{s.location}</div>
+                            {matching.map((s) => (
+                                <div class="content">
+                                    <div class="name"><strong>{s.name}</strong></div>
+                                    <div class="time">
+                                        {s.start} – {s.end}
+                                    </div>
+                                    <div class="location">{s.location}</div>
+                                </div>
+                            ))}
                         </div>
-                    ))}
-                </div>
-            );
-        })
-    }
+                    </div>
+                );
+            })
+        }
+    </div>
 </div>
 
+
+<script>
+    import EmblaCarousel from "embla-carousel";
+    import Autoplay from "embla-carousel-autoplay";
+
+    document.addEventListener("astro:page-load", () => {
+        const carousel = document.querySelector(
+            "#calendar-carousel",
+        ) as HTMLElement;
+
+        if (carousel) {
+            const emblaApi = EmblaCarousel(
+                carousel,
+                {
+                    loop: true,
+                    align: "start",
+                },
+                [Autoplay({ delay: 3000, stopOnMouseEnter: true })],
+            );
+        }
+    });
+</script>
+
 <style>
-    .calendar {
-        display: flex;
-        gap: 1.5rem;
-    }
-
-    .column {
-        flex: 1 1 100%;
-        background: var(--bg-panel);
-        border: 2px solid var(--border);
-    }
-
-    .e {
-        border-bottom: 2px solid var(--border);
-        padding: 1rem;
-        padding-top: 0.5rem;
-        padding-bottom: 0.5rem;
-    }
-
-    .e:nth-child(odd) {
-        background-color: var(--bg-panel);
-    }
-
-    .day {
-        padding: 2rem;
-        background: var(--fg);
-        color: var(--bg);
+    h3 {
+        margin-bottom: 0;
         text-align: center;
-        font-size: 1.5rem;
+        font-size: var(--lg);
     }
 
-    .active {
-        color: var(--accent);
+    .slide {
+        flex: 0 0 20%;
+    }
+
+    .content {
+        border-bottom: var(--border);
+        width: 100%;
+        padding: calc(var(--padding) / 2) var(--padding);
+    }
+
+    .content:last-child {
+        border-bottom: unset;
+    }
+
+    @media (max-width: 1000px) {
+        .slide {
+            flex: 0 0 33.3333%;
+        }
+    }
+
+    @media (max-width: 700px) {
+        .slide {
+            flex: 0 0 50%;
+        }
+    }
+
+    @media (max-width: 500px) {
+        .slide {
+            flex: 0 0 100%;
+        }
     }
 </style>
