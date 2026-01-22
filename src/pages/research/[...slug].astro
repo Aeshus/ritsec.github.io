@@ -1,0 +1,49 @@
+---
+import { getCollection } from "astro:content";
+
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Hero from "@/components/Hero.astro";
+import logo from "@/assets/logoLarge.png";
+
+export async function getStaticPaths() {
+    const groupEntries = await getCollection("research");
+    return groupEntries.map((entry) => ({
+        params: { slug: entry.slug },
+        props: { entry },
+    }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<BaseLayout title={entry.data.title} description={entry.data.summary} >
+    <Hero image={logo} imageAlt="logo">
+        <Fragment slot="title">
+            {entry.data.title}
+        </Fragment>
+
+        {entry.data.summary}
+    </Hero>
+
+    <section>
+        <Content />
+    </section>
+</BaseLayout>
+
+<style is:global>
+    main > section > p {
+        max-width: 100%;
+    }
+
+    main > section * {
+        text-align: start;
+    }
+</style>
+
+<style>
+    section {
+        --page-width: 90ch;
+        --page-padding: max(1rem, (100% - var(--page-width)) / 2)
+    }
+</style>

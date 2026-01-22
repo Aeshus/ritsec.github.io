@@ -1,17 +1,9 @@
 ---
-import { getCollection } from "astro:content";
+---
 import Hero from "@/components/Hero.astro";
-import GroupCarousel from "@/components/GroupCarousel.astro";
-import FeaturedEvent from "@/components/FeaturedEvent.astro";
-import ShortSchedule from "@/components/ShortSchedule.astro";
-import EventsList from "@/components/EventsList.astro";
 import ResearchList from "@/components/ResearchList.astro";
-import SponsorsList from "@/components/SponsorsList.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import heroImg from "@/assets/image5.jpg";
-
-const groups = await getCollection("groups");
----
 
 <BaseLayout title="Research">
     <Hero image={heroImg} imageAlt="Letchworth State Park landscape">
@@ -26,8 +18,15 @@ const groups = await getCollection("groups");
             <a
                 class="link-button primary"
                 href="https://github.com/ritsec/constitution"
-                >VIEW CONSTITUTION</a
-            >
+                >VIEW CONSTITUTION</a>
         </Fragment>
     </Hero>
+
+    <section>
+        ## Research
+
+        Pushing the boundaries of security through student-led innovation and blog posts.
+
+        <ResearchList />
+    </section>
 </BaseLayout>
