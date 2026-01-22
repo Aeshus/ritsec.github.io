@@ -12,7 +12,7 @@ const groups = await getCollection("groups");
                     <div class="slide">
                         <article class="card">
                             <div aria-hidden="true" class="card-header">
-                                <h2>
+                                <h2 class="logo">
                                     <strong>{group.data.logo}</strong>
                                 </h2>
                             </div>
@@ -28,6 +28,14 @@ const groups = await getCollection("groups");
                                     >
                                         LEARN MORE
                                     </a>
+                                    {group.data.website &&
+                                    <a
+                                        href={group.data.website}
+                                        class="link-button secondary"
+                                    >
+                                        WEBSITE
+                                    </a>
+                                    }
                                 </div>
                             </div>
                         </article>
@@ -67,6 +75,14 @@ const groups = await getCollection("groups");
 <style>
     .card-header {
         text-align: center;
+        min-height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .logo {
+        font-size: 6rem;
     }
 
     .list {
