@@ -2,16 +2,16 @@
 import { getCollection } from "astro:content";
 import {formatDate} from "@/utils.js";
 
-const allResearch = await getCollection("research");
-
 interface Props {
     group?: string;
     count?: number;
 }
 
-const { group, count } = Astro.props;
+const { group, count = 9999999 } = Astro.props;
 
-const featuredResearch = allResearch
+const allResearch = await getCollection("research");
+
+const research = allResearch
     .filter((post) => {
         if (!group) return true;
         return post.data.group?.id === group;
@@ -22,7 +22,7 @@ const featuredResearch = allResearch
 
 <div class="list">
     {
-        featuredResearch.map((post) => (
+        research.map((post) => (
             <a href={"/research/" + post.slug} class="card">
                 <article class="card-content">
                     <div>
@@ -54,8 +54,8 @@ const featuredResearch = allResearch
     }
 
     {
-        featuredResearch.length === 0 && (
-            <p>No research papers found.</p>
+        research.length === 0 && (
+            <p>No research found, please check again later.</p>
         )
     }
 </div>
