@@ -89,6 +89,7 @@ const research = defineCollection({
             image: image().optional(),
             imageAlt: z.string().optional(),
             group: reference("groups").optional(),
+            summary: z.string(),
         }),
 });
 
