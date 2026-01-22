@@ -14,7 +14,7 @@ const getByTier = (tier: string) =>
     allSponsors.filter((s) => s.data.tier === tier);
 ---
 
-<section class="sponsor-container">
+<div class="list">
     {
         tiers.map((tier) => {
             const sponsors = getByTier(tier).filter(
@@ -25,68 +25,47 @@ const getByTier = (tier: string) =>
             if (sponsors.length === 0) return null;
 
             return sponsors.map((s) => (
-                <div class="sponsor">
-                    <Image src={s.data.image} alt={s.data.title + "'s logo"} />
-                    <h3 class="title">{s.data.title}</h3>
-                    <div class={"tier " + s.data.tier}>
-                        {tier.charAt(0).toUpperCase() + tier.slice(1)}
+                <div class="card grid-content">
+                    <div class="card-img">
+                        <Image src={s.data.image} alt={s.data.title + "'s logo"} />
                     </div>
-                    <a class="link-button primary" href={s.data.url}>
-                        LEARN MORE
-                    </a>
+
+                    <div class="card-content">
+                        <h3>{s.data.title}</h3>
+
+                        <div class={"tier " + s.data.tier}>
+                            {tier.charAt(0).toUpperCase() + tier.slice(1)}
+                        </div>
+
+                        <div class="list">
+                            <a class="link-button primary" href={s.data.url}>
+                                LEARN MORE
+                            </a>
+                        </div>
+                    </div>
                 </div>
             ));
         })
     }
-</section>
+</div>
 
 <style>
     h3 {
-        font-size: 1.5rem;
+        margin-bottom: 0;
     }
 
-    section {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1.5rem;
-        margin-top: 1rem;
+
+    .card-content .list {
+        padding-top: 1rem;
+        margin-top: auto;
     }
 
-    .sponsor {
-        flex: 0 1 calc(33.333% - 2rem);
-        background-color: var(--bg-panel);
-        border: 2px solid var(--border);
-        display: flex;
-        flex-direction: column;
-        padding: 2rem;
-    }
-
-    img {
+    .card-img > img {
         height: 100%;
         width: 100%;
         object-fit: contain;
         aspect-ratio: 1/1;
         background-color: white;
-    }
-
-    @media (max-width: 1000px) {
-        .sponsor {
-            flex: 0 1 calc(50% - 2rem);
-        }
-
-        .buttons {
-            justify-content: center;
-        }
-    }
-
-    @media (max-width: 700px) {
-        .sponsor {
-            flex: 0 1 100%;
-        }
-
-        h4 {
-            font-size: 1.5rem;
-        }
     }
 
     .tier {
