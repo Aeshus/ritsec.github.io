@@ -6,16 +6,17 @@ import Schedule from "@/components/Schedule.jsx";
 interface Props {
     group?: string;
     count?: number;
+    ascending?: boolean;
 }
 
-const { group, count } = Astro.props;
+const { group, count, ascending = true } = Astro.props;
 
 const allEvents = await getCollection("schedule");
 console.log(count);
 ---
 
 <Fragment>
-    <Schedule data={allEvents} count={count} group={group} client:load />
+    <Schedule data={allEvents} count={count} group={group} ascending={ascending} client:load />
     <noscript>
         Sorry, schedule requires JavaScript at this time.
     </noscript>
