@@ -19,7 +19,7 @@ export function formatDate(date) {
     }).format(date);
 }
 
-export const formatDates = (start, end) => {
+export const formatDates = (start, end, separator = " • ") => {
     /* We leave all the dates as UTC because that's what the
      * parsing defaults to, and is it NOT fun to deal with dates in JS... */
     const dateOpts = {
@@ -44,7 +44,7 @@ export const formatDates = (start, end) => {
             return date;
         }
 
-        return `${date} • ${formatTime(startTime, endTime)}`;
+        return `${date}${separator}${formatTime(startTime, endTime)}`;
     } else {
         return formatTime(startTime, endTime);
     }

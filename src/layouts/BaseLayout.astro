@@ -149,7 +149,7 @@ const { title, description, image } = Astro.props;
             --bg-panel: rgba(255, 255, 255, 0.06);
             --bg-header: #20262c;
 
-            --fg: #dfdfdf;
+            --fg: #f1f1f1;
             --border-color: #4d4d4d;
 
             --accent: #e69132;
@@ -297,14 +297,18 @@ const { title, description, image } = Astro.props;
         flex-direction: column;
         align-items: flex-start;
         flex-grow: 1;
+        width: 100%;
     }
 
     .card-header {
         padding: var(--padding-lg);
         background-color: var(--fg);
         color: var(--bg);
-        padding-bottom: 1rem;
         width: 100%;
+    }
+
+    .card-header:has(+ .card-content) {
+        padding-bottom: 1rem;
     }
 
     .card-img {
@@ -336,6 +340,11 @@ const { title, description, image } = Astro.props;
         display: flex;
         gap: var(--padding);
         flex-wrap: wrap;
+        flex-direction: row;
+    }
+
+    .col {
+        flex-direction: column;
     }
 
     a.card {
@@ -456,5 +465,50 @@ const { title, description, image } = Astro.props;
     .link-button.secondary-accent:focus {
         background-color: unset;
         color: var(--fg);
+    }
+
+    /* Schedule */
+
+    .schedule-left {
+        display: flex;
+        gap: var(--padding);
+        width: 150px;
+        white-space: pre-wrap;
+    }
+
+    .schedule-middle {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .schedule-right {
+        text-align: end;
+    }
+
+    @media (max-width: 700px) {
+        .schedule {
+            flex-direction: column;
+        }
+
+        .schedule-left {
+            text-align: center;
+            margin: auto;
+        }
+
+        .schedule-middle {
+            align-items: center;
+            order: -1;
+            font-size: var(--lg);
+        }
+
+        .schedule-right {
+            text-align: center;
+        }
+    }
+
+    astro-island {
+        /* This is a really ugly hack but this makes it so the schedule works */
+        display: block !important; 
     }
 </style>

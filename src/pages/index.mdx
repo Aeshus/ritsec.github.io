@@ -4,7 +4,7 @@
 import Hero from "@/components/Hero.astro";
 import GroupCarousel from "@/components/GroupCarousel.astro";
 import FeaturedEvent from "@/components/FeaturedEvent.astro";
-import ShortSchedule from "@/components/ShortSchedule.astro";
+import Schedule from "@/components/Schedule.astro";
 import EventsCarousel from "@/components/EventsCarousel.astro";
 import ResearchList from "@/components/ResearchList.astro";
 import SponsorsList from "@/components/SponsorsList.astro";
@@ -44,8 +44,9 @@ import heroImg from "@/assets/image7.jpg";
 
         Stay up to date with our weekly meetings, workshops, and interest group sessions.
 
+        <Schedule count={3} />
 
-        <ShortSchedule />
+        <a class="link-button primary" href="/schedule">VIEW SCHEDULE</a>
     </section>
 
     {/* Events */}
