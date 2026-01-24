@@ -7,16 +7,17 @@ interface Props {
     group?: string;
     count?: number;
     ascending?: boolean;
+    showOld?: boolean;
 }
 
-const { group, count, ascending = true } = Astro.props;
+const { group, count, ascending = true, showOld = false } = Astro.props;
 
 const allEvents = await getCollection("schedule");
 console.log(count);
 ---
 
 <Fragment>
-    <Schedule data={allEvents} count={count} group={group} ascending={ascending} client:load />
+    <Schedule data={allEvents} count={count} group={group} ascending={ascending} showOld={showOld} client:load />
     <noscript>
         Sorry, schedule requires JavaScript at this time.
     </noscript>

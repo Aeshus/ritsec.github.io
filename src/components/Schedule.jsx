@@ -2,9 +2,18 @@ import React from 'react';
 import { formatDates } from "@/utils.js";
 
 function Schedule(data) {
-    let d = data.data.sort((a, b) => a.data.start - b.data.start).slice(0, data.count);
+    let d = data.data.sort((a, b) => a.data.start - b.data.start);
+
+    if (!data.showOld)
+        d = d.filter((a) => a.data.end > new Date());
+
+    // Don't show events too far into the future (mainly for general meetings)
+    d = d.filter((a) => a.data.start < new Date(new Date().getTime() + 7 * 86400000));
+
     if (!data.ascending)
-        d.reverse()
+        d.reverse();
+
+    d = d.slice(0, data.count);
 
     return (
         <div class="list col">
