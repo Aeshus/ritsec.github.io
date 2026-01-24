@@ -1,9 +1,11 @@
 import React from 'react';
 
 function Schedule(data) {
+    let d = data.data.sort((a, b) => a.start - b.start).slice(0, data.count);
+
     return (
         <div>
-            {data.data.map((e) => (
+            {d.map((e) => (
                 <div class="card card-interactable">
                     <div class="card-content">
                         {e.data.title}

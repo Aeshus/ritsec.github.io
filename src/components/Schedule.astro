@@ -11,10 +11,11 @@ interface Props {
 const { group, count } = Astro.props;
 
 const allEvents = await getCollection("schedule");
+console.log(count);
 ---
 
 <Fragment>
-    <Schedule data={allEvents} client:load />
+    <Schedule data={allEvents} count={count} group={group} client:load />
     <noscript>
         Sorry, schedule requires JavaScript at this time.
     </noscript>
