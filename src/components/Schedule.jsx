@@ -3,6 +3,8 @@ import { formatDates } from "@/utils.js";
 
 function Schedule(data) {
     let d = data.data.sort((a, b) => a.data.start - b.data.start).slice(0, data.count);
+    if (!data.ascending)
+        d.reverse()
 
     return (
         <div class="list col">
@@ -21,7 +23,12 @@ function Schedule(data) {
                             </strong>
                         </div>
                         <div class="schedule-right">
+                            <div>
                             {e.data.location}
+                            </div>
+                            <div>
+                            {e.data.hosts.join(", ")}
+                            </div>
                         </div>
                     </div>
                 </a>
