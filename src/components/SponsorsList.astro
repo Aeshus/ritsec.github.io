@@ -1,6 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import { Image } from "astro:assets";
+import { Picture } from "astro:assets";
 
 interface Props {
     individuals: boolean;
@@ -27,7 +27,7 @@ const getByTier = (tier: string) =>
             return sponsors.map((s) => (
                 <div class="card grid-content">
                     <div class="card-img">
-                        <Image src={s.data.image} alt={s.data.title + "'s logo"} />
+                        <Picture src={s.data.image} alt={s.data.title + "'s logo"} />
                     </div>
 
                     <div class="card-content">
@@ -60,7 +60,8 @@ const getByTier = (tier: string) =>
         margin-top: auto;
     }
 
-    .card-img > img {
+    .card-img img,
+    .card-img picture {
         height: 100%;
         width: 100%;
         object-fit: contain;

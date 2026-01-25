@@ -1,6 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import { Image } from "astro:assets";
+import { Picture } from "astro:assets";
 import { formatDates } from "@/utils.js";
 
 const events = await getCollection("events");
@@ -14,9 +14,9 @@ const events = await getCollection("events");
                     <div class="slide">
                         <article class="card">
                             <div class="card-img">
-                                <Image
+                                <Picture
                                     src={event.data.image}
-                                    alt={"Picture of " + event.data.title}
+                                    alt={event.data.title}
                                     width={800}
                                     height={400}
                                 />

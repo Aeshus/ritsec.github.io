@@ -1,5 +1,6 @@
 ---
 ---
+import { Picture } from 'astro:assets';
 
 import Hero from "@/components/Hero.astro";
 import GroupCarousel from "@/components/GroupCarousel.astro";
@@ -9,6 +10,7 @@ import EventsCarousel from "@/components/EventsCarousel.astro";
 import ResearchList from "@/components/ResearchList.astro";
 import SponsorsList from "@/components/SponsorsList.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
+
 import heroImg from "@/assets/image7.jpg";
 
 <BaseLayout title="Home">
@@ -26,6 +28,10 @@ import heroImg from "@/assets/image7.jpg";
             <Fragment slot="bottom">
                 <a class="link-button primary" href="/join">GET INVOLVED</a>
                 <a class="link-button secondary" href="/sponsors">SPONSOR US</a>
+            </Fragment>
+
+            <Fragment slot="image">
+                <Picture src={heroImg} width={1000} formats={['avif', 'webp']} alt="Fall 2024 RITSEC Letchworth State Park group photo" />
             </Fragment>
     </Hero>
 

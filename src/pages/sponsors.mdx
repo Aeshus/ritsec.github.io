@@ -1,5 +1,6 @@
 ---
 ---
+import { Picture } from 'astro:assets';
 
 import Hero from "@/components/Hero.astro";
 import GroupCarousel from "@/components/GroupCarousel.astro";
@@ -9,6 +10,7 @@ import EventsList from "@/components/EventsList.astro";
 import ResearchList from "@/components/ResearchList.astro";
 import SponsorsList from "@/components/SponsorsList.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
+
 import heroImg from "@/assets/image4.jpg";
 
 <BaseLayout title="Sponsors">
@@ -25,6 +27,10 @@ import heroImg from "@/assets/image4.jpg";
 
             <Fragment slot="bottom">
                 <a class="link-button primary" href="https://ritsec.club/assets/sponsorship.pdf">SPONSORSHIP DOCUMENT</a>
+            </Fragment>
+
+            <Fragment slot="image">
+                <Picture src={heroImg} width={1000} formats={['avif', 'webp']} alt="RITSEC working in the club room, with ISTS flags in the background." />
             </Fragment>
     </Hero>
 

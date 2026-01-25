@@ -1,9 +1,12 @@
 ---
 ---
+import { Picture } from 'astro:assets';
+
 import Hero from "@/components/Hero.astro";
 import EventsCarousel from "@/components/EventsCarousel.astro";
 import EventsList from "@/components/EventsList.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
+
 import heroImg from "@/assets/image2.jpg";
 
 <BaseLayout title="Events">
@@ -18,6 +21,10 @@ import heroImg from "@/assets/image2.jpg";
 
         Attack. Defense. Response. Bridging the gap between theory and practice.
         Where students become security professionals.
+
+        <Fragment slot="image">
+            <Picture src={heroImg} width={1000} formats={['avif', 'webp']} alt="RITSEC members working on their computers at a general meeting." />
+        </Fragment>
     </Hero>
 
     <section>

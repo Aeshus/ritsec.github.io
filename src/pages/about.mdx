@@ -1,5 +1,6 @@
 ---
 ---
+import { Picture } from 'astro:assets';
 
 import Hero from "@/components/Hero.astro";
 import EboardGrid from "@/components/EboardGrid.astro";
@@ -10,8 +11,6 @@ import heroImg from "@/assets/image1.jpg";
 
 <BaseLayout title="About">
     <Hero 
-            image={heroImg}
-            imageAlt="Letchworth State Park landscape"
             reverse="true"
         >
             <Fragment slot="title">
@@ -22,6 +21,10 @@ import heroImg from "@/assets/image1.jpg";
 
             <Fragment slot="bottom">
                 <a class="link-button primary" href="https://github.com/ritsec/constitution">VIEW CONSTITUTION</a>
+            </Fragment>
+
+            <Fragment slot="image">
+                <Picture src={heroImg} width={1000} formats={['avif', 'webp']} alt="Fall 2025 RITSEC Barbeque, showing off club members." />
             </Fragment>
     </Hero>
 

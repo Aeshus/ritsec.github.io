@@ -1,6 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import { Image } from "astro:assets";
+import { Picture } from "astro:assets";
 
 const eboard = await getCollection("eboard");
 ---
@@ -10,7 +10,7 @@ const eboard = await getCollection("eboard");
         eboard.map((member) => (
             <article class="card grid-content">
                 <div class="card-img">
-                    <Image
+                    <Picture
                         src={member.data.image}
                         alt={"Picture of " + member.data.title}
                         width={800}
@@ -23,7 +23,7 @@ const eboard = await getCollection("eboard");
 
                     <div>{member.data.id}</div>
 
-                    <div>{member.data.grad_year}</div>
+                    <div>Graduating: {member.data.grad_year}</div>
 
                     <div class="list">
                         <a

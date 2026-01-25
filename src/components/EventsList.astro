@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import { formatDates } from "@/utils.js";
-import { Image } from "astro:assets";
+import { Picture } from "astro:assets";
 
 const events = await getCollection("events");
 ---
@@ -46,7 +46,7 @@ const events = await getCollection("events");
 
                     <div class="card card-img img-card">
                         {/* The image is w=1000 so that it can be full-width when max-width 1000px */}
-                        <Image src={event.data.image} alt={event.data.title} width={1000} loading="eager" />
+                        <Picture src={event.data.image} alt={event.data.title} width={1000} loading="eager" />
                     </div>
                 </section>
             );
