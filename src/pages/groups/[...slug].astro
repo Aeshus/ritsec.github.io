@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import Hero from "@/components/Hero.astro";
 
 export async function getStaticPaths() {
     const groupEntries = await getCollection("groups");
@@ -16,5 +17,38 @@ const { Content } = await entry.render();
 ---
 
 <BaseLayout title={entry.data.name} description={entry.data.summary}>
+    <Hero>
+        <Fragment slot="title">
+            {entry.data.name}
+        </Fragment>
+
+        {entry.data.summary}
+
+        <Fragment slot="bottom">
+            {entry.data.website && <a class="link-button primary" href={entry.data.website}>Website</a>
+        </Fragment>
+
+        <Fragment slot="image">
+            <div class="card card-img card-header">
+                <div class="accent">{entry.data.logo}</div>
+            </div>
+        </Fragment>
+        
+    </Hero>
+
     <Content />
 </BaseLayout>
+
+<style>
+    .card {
+        min-height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .accent {
+        font-size: 8rem;
+        line-height: 1;
+    }
+</style>

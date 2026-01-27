@@ -82,7 +82,10 @@ const groups = await getCollection("groups");
 
     section {
         display: grid;
-        /* Intentionally flipped to make it more legible */
+        /* 
+         * Intentionally flipped to make it more legible, plus it looks
+         * strange to me if there's a perfect vertical line.
+         */
         grid-template-columns: 1.2fr 1fr;
         gap: var(--padding-lg);
     }
