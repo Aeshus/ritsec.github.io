@@ -26,7 +26,12 @@ const { Content } = await entry.render();
         {entry.data.summary}
 
         <Fragment slot="bottom">
-            
+        </Fragment>
+
+        <Fragment slot="image">
+            <div class="card card-img card-header">
+                <div class="accent">{entry.data.group.logo}</div>
+            </div>
         </Fragment>
     </Hero>
 
