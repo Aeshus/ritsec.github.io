@@ -23,7 +23,7 @@ const research = allResearch
 <div class="list">
     {
         research.map((post) => (
-            <a href={"/research/" + post.slug} class="card">
+            <a href={import.meta.env.BASE_URL + "/research/" + post.slug} class="card">
                 <article class="card-content">
                     <div>
                         <time datetime={post.data.date.toISOString()}>

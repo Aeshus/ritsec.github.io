@@ -41,7 +41,7 @@ const links = [
                 return (
                     <a
                         class:list={["link-button", page ? "secondary" : ""]}
-                        href={link.href}
+                        href={import.meta.env.BASE_URL + link.href}
                         aria-current={page ? "page" : undefined}
                     >
                         {link.text}

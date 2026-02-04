@@ -18,7 +18,7 @@ function Schedule(data) {
     return (
         <div class="list col">
             {d.map((e) => (
-                <a href={"/schedule/" + e.slug} class="card card-interactable">
+                <a href={import.meta.env.BASE_URL + "/schedule/" + e.slug} class="card card-interactable">
                     <div className={(e.data.featured ? "card-header" : "card-content") + " list schedule"}>
                         <div class="schedule-left">
                             {formatDates(e.data.start, e.data.end, "\n")}                            

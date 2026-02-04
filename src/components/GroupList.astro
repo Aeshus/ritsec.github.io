@@ -26,7 +26,7 @@ const groups = await getCollection("groups");
                     <div class="list">
                         <a
                             class="link-button primary"
-                            href={"/groups/" + group.slug}
+                            href={import.meta.env.BASE_URL + "/groups/" + group.slug}
                         >
                             LEARN MORE
                         </a>
