@@ -7,9 +7,10 @@ interface Props {
 }
 
 const { badge, reverse = false } = Astro.props;
+const i = !Astro.slots.has("image");
 ---
 
-<section class:list={[{ reverse }]}>
+<section class:list={[{ reverse, i }]}>
     <div>
         {badge && <p class="chip">{badge}</p>}
 
@@ -38,6 +39,11 @@ const { badge, reverse = false } = Astro.props;
 </section>
 
 <style>
+    section.i {
+        --page-width: 90ch;
+        --page-padding: max(1rem, (100% - var(--page-width)) / 2)
+    }
+
     section {
         display: grid;
         grid-template-columns: 1.2fr 1fr;

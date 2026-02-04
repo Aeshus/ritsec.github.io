@@ -22,7 +22,8 @@
         "embla-carousel-autoplay": "^8.6.0",
         "embla-carousel-fade": "^8.6.0",
         "react": "^19.2.3",
-        "react-dom": "^19.2.3"
+        "react-dom": "^19.2.3",
+        "sharp": "^0.34.5"
     },
     "devDependencies": {
         "prettier": "^3.7.4",
