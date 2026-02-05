@@ -141,7 +141,7 @@ sections:
             description: Hardware Security Fundamentals
             url: https://docs.google.com/presentation/d/1_J8Tr370di-4vF6po9H_WcUZzB6T_J395gCfwbbezeE/edit?slide=id.g38f20c7b97a_0_412#slide=id.g38f20c7b97a_0_412
           - title: Demo Challenges
-            description:
+            description: Deploy the VM from the stack
             url: https://flags.ritsec.club
       - title: Week 12 | Artificial Intelligence in Cybersecurity
         description: Introduction to Artificial Intelligence in Cybersecurity
@@ -150,5 +150,5 @@ sections:
             description: Artificial Intelligence in Cybersecurity
             url: https://docs.google.com/presentation/d/1PQskkLsIpFj3Y83pSQOsOz815xBcYz3mLW1QF7ved-0/edit?slide=id.g38f20c7b97a_0_412#slide=id.g38f20c7b97a_0_412
           - title: Demo Challenges
-            description:
+            description: Deploy the VM from the stack
             url: https://flags.ritsec.club
