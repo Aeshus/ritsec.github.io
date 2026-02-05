@@ -516,4 +516,17 @@ const { title, description, image } = Astro.props;
         /* This is a really ugly hack but this makes it so the schedule works */
         display: block !important; 
     }
+
+    table {
+        width: 100%;
+        background-color: var(--bg-panel);
+        border: var(--border);
+        border-collapse: collapse;
+    }
+
+    th,td {
+        border: var(--border);
+        padding: var(--padding);
+    }
+
 </style>

@@ -2,7 +2,7 @@
 import { Picture } from "astro:assets";
 import logoLarge from "@/assets/logoLarge.png";
 
-const path = Astro.url.pathname;
+const path = Astro.url.pathname.substring(import.meta.env.BASE_URL.length);
 
 const links = [
     { text: "HOME", href: "/" },
@@ -50,7 +50,7 @@ const links = [
             })
         }
 
-        <a class="link-button primary" href="/join">JOIN US</a>
+        <a class="link-button primary" href={import.meta.env.BASE_URL + "/join"}>JOIN US</a>
     </nav>
 </header>
 
