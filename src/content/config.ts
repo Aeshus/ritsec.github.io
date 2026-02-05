@@ -18,8 +18,8 @@ const groups = defineCollection({
                             "Thursday",
                             "Friday",
                         ]),
-                        start: z.string().time(),
-                        end: z.string().time(),
+                        start: z.string(),
+                        end: z.string(),
                         location: z.string(),
                     }),
                 )
