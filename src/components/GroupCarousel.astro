@@ -23,19 +23,23 @@ const groups = await getCollection("groups");
 
                                 <div class="list">
                                     <a
-                                        href={import.meta.env.BASE_URL + "/groups/" + group.slug}
+                                        href={
+                                            import.meta.env.BASE_URL +
+                                            "/groups/" +
+                                            group.slug
+                                        }
                                         class="link-button primary"
                                     >
                                         LEARN MORE
                                     </a>
-                                    {group.data.website &&
-                                    <a
-                                        href={group.data.website}
-                                        class="link-button secondary"
-                                    >
-                                        WEBSITE
-                                    </a>
-                                    }
+                                    {group.data.website && (
+                                        <a
+                                            href={group.data.website}
+                                            class="link-button secondary"
+                                        >
+                                            WEBSITE
+                                        </a>
+                                    )}
                                 </div>
                             </div>
                         </article>
@@ -45,12 +49,13 @@ const groups = await getCollection("groups");
         </div>
     </div>
 
-    <div class="carousel-scroll-text">
-        ← Scroll To View More →
-    </div>
+    <div class="carousel-scroll-text">← Scroll To View More →</div>
 
     <noscript>
-	    <a href={import.meta.env.BASE_URL + "/groups"} class="link-button primary">VIEW ALL GROUPS</a>
+        <a
+            href={import.meta.env.BASE_URL + "/groups"}
+            class="link-button primary">VIEW ALL GROUPS</a
+        >
     </noscript>
 </div>
 

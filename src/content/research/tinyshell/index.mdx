@@ -1,8 +1,8 @@
 ---
 title: "Reversing Macos Malware (Tinyshell)"
-summary: "Analyzing malware." 
-date: 2022-04-07 
-authors: 
+summary: "Analyzing malware."
+date: 2022-04-07
+authors:
     - name: Emmanuel Adewale
 ---
 
@@ -10,6 +10,7 @@ authors:
 In my little journey of learning about macOS/Apple security, I will be documenting things I have learned via blogpost. This might not be useful to most researches since they probably know more about this topic but this should be a good resource for other beginners in this field.
 
 For the first post, I will document my step in reversing a simple yet interesting malware, TinyShell. It’s important to not, I used [Mitten Mac’s post](https://themittenmac.com/tinyshell-under-the-microscope/) as a reference. I focus more on using advanced static and dynamic analysis.
+
 </section>
 
 <section>
@@ -81,5 +82,5 @@ I ran it couple of time until I hit the breakpoint and I found more interesting 
 Based on those strings, it is easy to say that they are configuration strings for the victim to properly communicate with the attacker’s server. It is important to note that all of these are being read from `/Users/%@/Library/Fonts/.cache`. This would be different if we are running as root.
 
 I will stop here for now. Next time, I will figure out the config format for the malware and attempt to do dynamic analysis.
-</section>
 
+</section>

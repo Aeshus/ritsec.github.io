@@ -27,7 +27,10 @@ const getByTier = (tier: string) =>
             return sponsors.map((s) => (
                 <div class="card grid-content">
                     <div class="card-img">
-                        <Picture src={s.data.image} alt={s.data.title + "'s logo"} />
+                        <Picture
+                            src={s.data.image}
+                            alt={s.data.title + "'s logo"}
+                        />
                     </div>
 
                     <div class="card-content">
@@ -53,7 +56,6 @@ const getByTier = (tier: string) =>
     h3 {
         margin-bottom: 0;
     }
-
 
     .card-content .list {
         padding-top: 1rem;

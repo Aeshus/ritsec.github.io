@@ -1,5 +1,5 @@
 ---
-import { Picture } from 'astro:assets';
+import { Picture } from "astro:assets";
 
 import Hero from "@/components/Hero.astro";
 import Calendar from "@/components/Calendar.astro";
@@ -20,7 +20,12 @@ import heroImg from "@/assets/image6.jpg";
         Your roadmap to everything happening this semester.
 
         <Fragment slot="image">
-            <Picture src={heroImg} width={1000} formats={['avif', 'webp']} alt="RITSEC club room." />
+            <Picture
+                src={heroImg}
+                width={1000}
+                formats={["avif", "webp"]}
+                alt="RITSEC club room."
+            />
         </Fragment>
     </Hero>
 

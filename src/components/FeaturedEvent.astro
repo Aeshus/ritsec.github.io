@@ -22,7 +22,10 @@ const featuredCandidates = allEvents
 <div id="featured-event-container">
     {
         featuredCandidates.map((event) => (
-            <a href={import.meta.env.BASE_URL + "/education/" + event.slug} class="event">
+            <a
+                href={import.meta.env.BASE_URL + "/education/" + event.slug}
+                class="event"
+            >
                 <article
                     class="featured-candidate"
                     data-end={event.data.end.toISOString()}

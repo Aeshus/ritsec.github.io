@@ -17,17 +17,17 @@ const events = await getCollection("events");
                         <h2 id={event.slug}>{event.data.title}</h2>
 
                         <div class="info">
-                        {event.data.start && event.data.end ? (
-                            <time datetime={event.data.start.toISOString()}>
-                                {formatDates(
-                                    event.data.start,
-                                    event.data.end,
-                                )}
-                            </time>
-                        ) : (
-                            <span>TBD</span>
-                        )}
-                        • {event.data.location} • {event.data.access}
+                            {event.data.start && event.data.end ? (
+                                <time datetime={event.data.start.toISOString()}>
+                                    {formatDates(
+                                        event.data.start,
+                                        event.data.end,
+                                    )}
+                                </time>
+                            ) : (
+                                <span>TBD</span>
+                            )}
+                            • {event.data.location} • {event.data.access}
                         </div>
 
                         <Content />
@@ -46,7 +46,12 @@ const events = await getCollection("events");
 
                     <div class="card card-img img-card">
                         {/* The image is w=1000 so that it can be full-width when max-width 1000px */}
-                        <Picture src={event.data.image} alt={event.data.title} width={1000} loading="eager" />
+                        <Picture
+                            src={event.data.image}
+                            alt={event.data.title}
+                            width={1000}
+                            loading="eager"
+                        />
                     </div>
                 </section>
             );

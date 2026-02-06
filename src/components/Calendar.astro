@@ -53,11 +53,15 @@ Object.keys(calendar).forEach((day) => {
                 return (
                     <div class="slide">
                         <div class="card">
-                            <h3 class="card-header" id={d}>{d}</h3>
+                            <h3 class="card-header" id={d}>
+                                {d}
+                            </h3>
 
                             {matching.map((s) => (
                                 <div class="content">
-                                    <div class="name"><strong>{s.name}</strong></div>
+                                    <div class="name">
+                                        <strong>{s.name}</strong>
+                                    </div>
                                     <div class="time">
                                         {s.start} – {s.end}
                                     </div>
@@ -71,11 +75,8 @@ Object.keys(calendar).forEach((day) => {
         }
     </div>
 
-    <div class="carousel-scroll-text">
-        ← Scroll To View More →
-    </div>
+    <div class="carousel-scroll-text">← Scroll To View More →</div>
 </div>
-
 
 <script>
     import EmblaCarousel from "embla-carousel";

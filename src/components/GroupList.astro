@@ -13,12 +13,24 @@ const groups = await getCollection("groups");
                 <div class="content">
                     <h2>{group.data.name}</h2>
                     <div class="info">
-                        {group.data.meetings && 
-                        <div>{group.data.meetings.map(m => 
-                                (m.day + " " + formatTime(m.start, m.end) + " (" + m.location + ")")
-                                ).join(" • ")}</div>
-                        }
-                        <div>{group.data.leads.map(l => l.name).join(", ")}</div>
+                        {group.data.meetings && (
+                            <div>
+                                {group.data.meetings
+                                    .map(
+                                        (m) =>
+                                            m.day +
+                                            " " +
+                                            formatTime(m.start, m.end) +
+                                            " (" +
+                                            m.location +
+                                            ")",
+                                    )
+                                    .join(" • ")}
+                            </div>
+                        )}
+                        <div>
+                            {group.data.leads.map((l) => l.name).join(", ")}
+                        </div>
                     </div>
 
                     <p>{group.data.summary}</p>
@@ -26,18 +38,22 @@ const groups = await getCollection("groups");
                     <div class="list">
                         <a
                             class="link-button primary"
-                            href={import.meta.env.BASE_URL + "/groups/" + group.slug}
+                            href={
+                                import.meta.env.BASE_URL +
+                                "/groups/" +
+                                group.slug
+                            }
                         >
                             LEARN MORE
                         </a>
-                        {group.data.website &&
-                        <a
-                            class="link-button secondary"
-                            href={group.data.website}
-                        >
-                            WEBSITE
-                        </a>
-                        }
+                        {group.data.website && (
+                            <a
+                                class="link-button secondary"
+                                href={group.data.website}
+                            >
+                                WEBSITE
+                            </a>
+                        )}
                     </div>
                 </div>
 

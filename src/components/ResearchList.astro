@@ -1,6 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import {formatDate} from "@/utils.js";
+import { formatDate } from "@/utils.js";
 
 interface Props {
     group?: string;
@@ -23,7 +23,10 @@ const research = allResearch
 <div class="list">
     {
         research.map((post) => (
-            <a href={import.meta.env.BASE_URL + "/research/" + post.slug} class="card">
+            <a
+                href={import.meta.env.BASE_URL + "/research/" + post.slug}
+                class="card"
+            >
                 <article class="card-content">
                     <div>
                         <time datetime={post.data.date.toISOString()}>
@@ -31,9 +34,7 @@ const research = allResearch
                         </time>
 
                         {post.data.group && (
-                            <span>
-                                • {post.data.group.id.toUpperCase()}
-                            </span>
+                            <span>• {post.data.group.id.toUpperCase()}</span>
                         )}
                     </div>
 
@@ -42,7 +43,9 @@ const research = allResearch
                     <div>
                         {post.data.authors.length > 0 ? (
                             <span>
-                                {post.data.authors.map((a) => a.name).join(", ")}
+                                {post.data.authors
+                                    .map((a) => a.name)
+                                    .join(", ")}
                             </span>
                         ) : (
                             <span>RITSEC</span>

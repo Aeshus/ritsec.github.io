@@ -15,15 +15,18 @@ const allEvents = await getCollection("schedule");
 ---
 
 <Fragment>
-    <Schedule 
-        data={allEvents} 
-        count={count} 
-        group={group} 
-        ascending={ascending} 
-        showOld={showOld} 
-        client:load 
+    <Schedule
+        data={allEvents}
+        count={count}
+        group={group}
+        ascending={ascending}
+        showOld={showOld}
+        client:load
     />
     <noscript>
-        <p>Sorry, the interactive schedule requires JavaScript. Please enable it to filter by semester or group.</p>
+        <p>
+            Sorry, the interactive schedule requires JavaScript. Please enable
+            it to filter by semester or group.
+        </p>
     </noscript>
 </Fragment>

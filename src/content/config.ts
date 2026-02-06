@@ -43,7 +43,13 @@ const schedule = defineCollection({
         start: z.date(),
         end: z.date(),
         location: z.string().default("GOL 1400"),
-        group: z.union([reference("groups"), z.literal("misc"), z.literal("general")]).default("general"),
+        group: z
+            .union([
+                reference("groups"),
+                z.literal("misc"),
+                z.literal("general"),
+            ])
+            .default("general"),
         hosts: z.array(z.string()).default(["RITSEC E-Board"]),
         slides: z.string().url().optional(),
         video: z.string().url().optional(),

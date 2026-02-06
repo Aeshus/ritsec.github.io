@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo } from "react";
 import { formatDates } from "@/utils.js";
 
 function Schedule({ data, group: lockedGroup, count, ascending, showOld }) {
@@ -12,8 +12,10 @@ function Schedule({ data, group: lockedGroup, count, ascending, showOld }) {
     };
 
     const semesters = useMemo(() => {
-        const base = lockedGroup ? data.filter(e => e.data.group.id === lockedGroup) : data;
-        const set = new Set(base.map(e => getSemester(e.data.start)));
+        const base = lockedGroup
+            ? data.filter((e) => e.data.group.id === lockedGroup)
+            : data;
+        const set = new Set(base.map((e) => getSemester(e.data.start)));
         return [...Array.from(set).sort().reverse()];
     }, [data, lockedGroup]);
 
@@ -34,33 +36,65 @@ function Schedule({ data, group: lockedGroup, count, ascending, showOld }) {
         }
         if (!ascending) d.reverse();
         return count ? d.slice(0, count) : d;
-    }, [data, selectedSemester, selectedGroup, lockedGroup, ascending, showOld, count]);
+    }, [
+        data,
+        selectedSemester,
+        selectedGroup,
+        lockedGroup,
+        ascending,
+        showOld,
+        count,
+    ]);
 
     const availableGroups = useMemo(() => {
-        const currentSet = data.filter(e => getSemester(e.data.start) === selectedSemester);
-        const set = new Set(currentSet.map(e => e.data.group.id));
+        const currentSet = data.filter(
+            (e) => getSemester(e.data.start) === selectedSemester,
+        );
+        const set = new Set(currentSet.map((e) => e.data.group.id));
         return ["All", ...Array.from(set).sort()];
     }, [data, selectedSemester]);
 
     return (
         <div className="schedule-wrapper">
-            <div className="filter-controls" style={{ display: 'flex', gap: 'var(--padding)', flexWrap: 'wrap', marginBottom: 'var(--padding-lg)' }}>
+            <div
+                className="filter-controls"
+                style={{
+                    display: "flex",
+                    gap: "var(--padding)",
+                    flexWrap: "wrap",
+                    marginBottom: "var(--padding-lg)",
+                }}
+            >
                 <label className="filter-label">
                     Term:
-                    <select value={selectedSemester} style={{ marginLeft: 'var(--padding)' }} onChange={(e) => {
-                        setSelectedSemester(e.target.value);
-                        setSelectedGroup("All");
-                    }}>
-                        {semesters.map(s => <option key={s} value={s}>{s}</option>)}
+                    <select
+                        value={selectedSemester}
+                        style={{ marginLeft: "var(--padding)" }}
+                        onChange={(e) => {
+                            setSelectedSemester(e.target.value);
+                            setSelectedGroup("All");
+                        }}
+                    >
+                        {semesters.map((s) => (
+                            <option key={s} value={s}>
+                                {s}
+                            </option>
+                        ))}
                     </select>
                 </label>
 
                 {!lockedGroup && (
                     <label className="filter-label">
                         Group:
-                        <select value={selectedGroup} style={{ marginLeft: 'var(--padding)' }} onChange={(e) => setSelectedGroup(e.target.value)}>
-                            {availableGroups.map(g => (
-                                <option key={g} value={g}>{g.toUpperCase()}</option>
+                        <select
+                            value={selectedGroup}
+                            style={{ marginLeft: "var(--padding)" }}
+                            onChange={(e) => setSelectedGroup(e.target.value)}
+                        >
+                            {availableGroups.map((g) => (
+                                <option key={g} value={g}>
+                                    {g.toUpperCase()}
+                                </option>
                             ))}
                         </select>
                     </label>
@@ -69,14 +103,26 @@ function Schedule({ data, group: lockedGroup, count, ascending, showOld }) {
 
             <div className="list col">
                 {filteredData.map((e) => (
-                    <a key={e.slug} href={import.meta.env.BASE_URL + "/education/" + e.slug} className="card card-interactable">
-                        <div className={(e.data.featured ? "card-header" : "card-content") + " list schedule"}>
+                    <a
+                        key={e.slug}
+                        href={import.meta.env.BASE_URL + "/education/" + e.slug}
+                        className="card card-interactable"
+                    >
+                        <div
+                            className={
+                                (e.data.featured
+                                    ? "card-header"
+                                    : "card-content") + " list schedule"
+                            }
+                        >
                             <div className="schedule-left">
                                 {formatDates(e.data.start, e.data.end, "\n")}
                             </div>
                             <div className="schedule-middle">
                                 <strong>{e.data.title}</strong>
-                                <strong className="accent">{e.data.group.id.toUpperCase()}</strong>
+                                <strong className="accent">
+                                    {e.data.group.id.toUpperCase()}
+                                </strong>
                             </div>
                             <div className="schedule-right">
                                 <div>{e.data.location}</div>
@@ -85,7 +131,9 @@ function Schedule({ data, group: lockedGroup, count, ascending, showOld }) {
                         </div>
                     </a>
                 ))}
-                {filteredData.length === 0 && <p>No events found for this selection.</p>}
+                {filteredData.length === 0 && (
+                    <p>No events found for this selection.</p>
+                )}
             </div>
         </div>
     );

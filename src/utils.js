@@ -1,5 +1,5 @@
 function isSameDay(a, b) {
-    return(
+    return (
         a.getUTCFullYear() === b.getUTCFullYear() &&
         a.getUTCMonth() === b.getUTCMonth() &&
         a.getUTCDate() === b.getUTCDate()

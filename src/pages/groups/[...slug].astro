@@ -25,30 +25,35 @@ const { Content } = await entry.render();
         {entry.data.summary}
 
         <Fragment slot="bottom">
-            {entry.data.website && <a class="link-button primary" href={entry.data.website}>Website</a>
+            {
+                entry.data.website && (
+                    <a class="link-button primary" href={entry.data.website}>
+                        Website
+                    </a>
+                )
+            }
+
+            <Fragment slot="image">
+                <div class="card card-img card-header">
+                    <div class="accent">{entry.data.logo}</div>
+                </div>
+            </Fragment>
         </Fragment>
 
-        <Fragment slot="image">
-            <div class="card card-img card-header">
-                <div class="accent">{entry.data.logo}</div>
-            </div>
-        </Fragment>
-        
+        <Content />
     </Hero>
 
-    <Content />
+    <style>
+        .card {
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .accent {
+            font-size: 8rem;
+            line-height: 1;
+        }
+    </style>
 </BaseLayout>
-
-<style>
-    .card {
-        min-height: 300px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .accent {
-        font-size: 8rem;
-        line-height: 1;
-    }
-</style>
