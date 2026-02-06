@@ -40,8 +40,9 @@ const i = !Astro.slots.has("image");
 
 <style>
     section.i {
+        grid-template-columns: none;
         --page-width: 90ch;
-        --page-padding: max(1rem, (100% - var(--page-width)) / 2)
+        --page-padding: max(1rem, (100% - var(--page-width)) / 2);
     }
 
     section {

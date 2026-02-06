@@ -23,7 +23,23 @@ const { Content } = await entry.render();
             {entry.data.title}
         </Fragment>
 
-        {entry.data.summary}
+        <div class="accent">
+            {entry.data.group && entry.data.group.id}
+        </div>
+
+        <div>
+            {entry.data.authors.length > 0 ? (
+                <span>
+                    {entry.data.authors.map((a) => a.name).join(", ")}
+                </span>
+            ) : (
+                <span>RITSEC</span>
+            )}
+        </div>
+
+        <div>
+            {entry.data.summary}
+        </div>
     </Hero>
 
     <section>
