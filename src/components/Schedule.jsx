@@ -13,6 +13,8 @@ function Schedule(data) {
     if (!data.ascending)
         d.reverse();
 
+    d.filter((a) => a.data.group == data.group);
+
     d = d.slice(0, data.count);
 
     return (
