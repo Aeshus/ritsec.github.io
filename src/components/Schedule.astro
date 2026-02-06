@@ -1,6 +1,5 @@
 ---
 import { getCollection } from "astro:content";
-import { formatDates } from "@/utils.js";
 import Schedule from "@/components/Schedule.jsx";
 
 interface Props {
@@ -13,12 +12,18 @@ interface Props {
 const { group, count, ascending = true, showOld = false } = Astro.props;
 
 const allEvents = await getCollection("schedule");
-console.log(count);
 ---
 
 <Fragment>
-    <Schedule data={allEvents} count={count} group={group} ascending={ascending} showOld={showOld} client:load />
+    <Schedule 
+        data={allEvents} 
+        count={count} 
+        group={group} 
+        ascending={ascending} 
+        showOld={showOld} 
+        client:load 
+    />
     <noscript>
-        Sorry, schedule requires JavaScript at this time.
+        <p>Sorry, the interactive schedule requires JavaScript. Please enable it to filter by semester or group.</p>
     </noscript>
 </Fragment>
