@@ -1,13 +1,13 @@
 function isSameDay(a, b) {
-    return (
-        a.getFullYear() === b.getFullYear() &&
-        a.getMonth() === b.getMonth() &&
-        a.getDate() === b.getDate()
+    return(
+        a.getUTCFullYear() === b.getUTCFullYear() &&
+        a.getUTCMonth() === b.getUTCMonth() &&
+        a.getUTCDate() === b.getUTCDate()
     );
 }
 
 function isMidnight(a) {
-    return !(a.getUTCHours() || a.getUTCMinutes());
+    return a.getUTCHours() === 0 && a.getUTCMinutes() === 0;
 }
 
 export function formatDate(date) {
@@ -46,7 +46,9 @@ export const formatDates = (start, end, separator = " • ") => {
 
         return `${date}${separator}${formatTime(startTime, endTime)}`;
     } else {
-        return formatTime(startTime, endTime);
+        const s = new Intl.DateTimeFormat("en-US", dateOpts).format(start);
+        const e = new Intl.DateTimeFormat("en-US", dateOpts).format(end);
+        return formatTime(s, e);
     }
 };
 

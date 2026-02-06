@@ -20,7 +20,7 @@ const { Content } = await entry.render();
 ---
 
 <BaseLayout title={entry.data.title}  description={entry.data.summary} >
-    <Hero badge={formatDate(entry.data.date) + (entry.data.group ? " • "+ entry.data.group.id : "")} >
+    <Hero badge={formatDate(entry.data.date) + (entry.data.group ? " • "+ entry.data.group.id.toUpperCase() : "")} >
         <Fragment slot="badge">
             
         </Fragment>
