@@ -5,6 +5,8 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import Hero from "@/components/Hero.astro";
 import logo from "@/assets/logoLarge.png";
 
+import {formatDate} from "@/utils.js";
+
 export async function getStaticPaths() {
     const groupEntries = await getCollection("research");
     return groupEntries.map((entry) => ({
@@ -17,27 +19,27 @@ const { entry } = Astro.props;
 const { Content } = await entry.render();
 ---
 
-<BaseLayout title={entry.data.title} description={entry.data.summary} >
-    <Hero>
+<BaseLayout title={entry.data.title}  description={entry.data.summary} >
+    <Hero badge={formatDate(entry.data.date) + (entry.data.group ? " • "+ entry.data.group.id : null)} >
+        <Fragment slot="badge">
+            
+        </Fragment>
+
         <Fragment slot="title">
             {entry.data.title}
         </Fragment>
 
-        <div class="accent">
-            {entry.data.group && entry.data.group.id}
-        </div>
-
         <div>
             {entry.data.authors.length > 0 ? (
                 <span>
-                    {entry.data.authors.map((a) => a.name).join(", ")}
+                    By: {entry.data.authors.map((a) => a.name).join(", ")}
                 </span>
             ) : (
                 <span>RITSEC</span>
             )}
         </div>
 
-        <div>
+        <div class="summary">
             {entry.data.summary}
         </div>
     </Hero>
@@ -61,5 +63,10 @@ const { Content } = await entry.render();
     section {
         --page-width: 90ch;
         --page-padding: max(1rem, (100% - var(--page-width)) / 2)
+    }
+
+    .summary {
+        margin-top: var(--padding);
+        font-style: italic;
     }
 </style>
