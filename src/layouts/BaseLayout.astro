@@ -64,6 +64,16 @@ const { title, description, image } = Astro.props;
     svg {
         display: block;
         max-width: 100%;
+        height: auto;
+    }
+
+    a {
+        color: var(--accent);
+    }
+
+    a:hover,
+    a:visited {
+        color: var(--accent);
     }
 
     input,
@@ -416,7 +426,7 @@ const { title, description, image } = Astro.props;
 
     /* Buttons */
 
-    .link-button {
+    a.link-button {
         display: inline-block;
         font-family: var(--font-mono);
         font-size: var(--md);
@@ -426,9 +436,9 @@ const { title, description, image } = Astro.props;
         transition: color 0.1s linear;
         transition: background-color 0.1s linear;
     }
-    .link-button:hover,
-    .link-button:active,
-    .link-button:focus {
+    a.link-button:hover,
+    a.link-button:active,
+    a.link-button:focus {
         color: var(--bg);
         background-color: var(--fg);
     }
