@@ -404,6 +404,12 @@ const { title, description, image } = Astro.props;
         flex: 0 0 calc((100% - (var(--padding) * 2)) / 3);
     }
 
+    .carousel-scroll-text {
+        padding: var(--padding);
+        text-align: center;
+        font-size: var(--md);
+    }
+
     @media (max-width: 1000px) {
         .slide {
             flex: 0 0 50%;
