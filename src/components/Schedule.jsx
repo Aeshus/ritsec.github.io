@@ -13,7 +13,7 @@ function Schedule({ data, group: lockedGroup, count, ascending, showOld }) {
 
     const semesters = useMemo(() => {
         const base = lockedGroup
-            ? data.filter((e) => e.data.group.id === lockedGroup)
+            ? data.filter((e) => e.data.group.id.toLowerCase() === lockedGroup.toLowerCase())
             : data;
         const set = new Set(base.map((e) => getSemester(e.data.start)));
         return [...Array.from(set).sort().reverse()];

@@ -38,6 +38,10 @@ const rawSvg = iconKey ? icons[iconKey] : "";
 
         {entry.data.summary}
 
+        <div class="end">
+            Leads: {entry.data.leads.map((e) => e.name).join(', ')}
+        </div>
+
         <Fragment slot="bottom">
             {
                 entry.data.website && (
@@ -73,5 +77,9 @@ const rawSvg = iconKey ? icons[iconKey] : "";
         height: 8rem;
         width: 8rem;
         line-height: 1;
+    }
+
+    div.end {
+        margin-top: 1rem;
     }
 </style>

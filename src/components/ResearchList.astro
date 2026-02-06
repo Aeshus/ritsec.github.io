@@ -14,7 +14,7 @@ const allResearch = await getCollection("research");
 const research = allResearch
     .filter((post) => {
         if (!group) return true;
-        return post.data.group?.id === group;
+        return post.data.group?.id?.toLowerCase() === group.toLowerCase();
     })
     .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
     .slice(0, count);
