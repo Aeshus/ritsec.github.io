@@ -4,11 +4,22 @@ import { formatTime } from "@/utils.js";
 import { Picture } from "astro:assets";
 
 const groups = await getCollection("groups");
+
+const icons = import.meta.glob('../assets/icons/*.svg', { 
+  query: '?raw', 
+  import: 'default', 
+  eager: true 
+});
 ---
 
 <Fragment>
     {
-        groups.map((group) => (
+        groups.map((group) => {
+            const iconName = group.data.logo.src.split("/").pop().split("?")[0];
+            const iconPath = `../assets/icons/${iconName}`;
+            const rawSvg = icons[iconPath];
+
+            return (
             <section>
                 <div class="content">
                     <h2>{group.data.name}</h2>
@@ -58,10 +69,12 @@ const groups = await getCollection("groups");
                 </div>
 
                 <div class="card card-img card-header">
-                    <div class="accent">{group.data.logo}</div>
+                    <div class="accent">
+                        <Fragment set:html={rawSvg} />
+                    </div>
                 </div>
             </section>
-        ))
+            )})
     }
 </Fragment>
 
@@ -111,5 +124,11 @@ const groups = await getCollection("groups");
             grid-template-columns: 1fr;
             text-align: center;
         }
+    }
+
+    :global(.accent svg) {
+        height: 8rem;
+        width: 8rem;
+        line-height: 1;
     }
 </style>
