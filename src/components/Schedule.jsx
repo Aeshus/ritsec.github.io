@@ -54,6 +54,8 @@ function Schedule({ data, group: lockedGroup, count, ascending, showOld }) {
         return ["All", ...Array.from(set).sort()];
     }, [data, selectedSemester]);
 
+    const now = new Date();
+
     return (
         <div className="schedule-wrapper">
             <div
@@ -102,7 +104,10 @@ function Schedule({ data, group: lockedGroup, count, ascending, showOld }) {
             </div>
 
             <div className="list col">
-                {filteredData.map((e) => (
+                {filteredData.map((e) => {
+                    const isOngoing = now >= new Date(e.data.start) && now <= new Date(e.data.end);
+
+                    return (
                     <a
                         key={e.slug}
                         href={import.meta.env.BASE_URL + "/education/" + e.slug}
@@ -110,7 +115,7 @@ function Schedule({ data, group: lockedGroup, count, ascending, showOld }) {
                     >
                         <div
                             className={
-                                (e.data.featured
+                                (isOngoing
                                     ? "card-header"
                                     : "card-content") + " list schedule"
                             }
@@ -130,7 +135,7 @@ function Schedule({ data, group: lockedGroup, count, ascending, showOld }) {
                             </div>
                         </div>
                     </a>
-                ))}
+                )})}
                 {filteredData.length === 0 && (
                     <p>No events found for this selection.</p>
                 )}
