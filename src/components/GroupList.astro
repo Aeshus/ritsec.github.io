@@ -5,19 +5,23 @@ import { Picture } from "astro:assets";
 
 const groups = await getCollection("groups");
 
-const icons = import.meta.glob('../assets/icons/*.svg', { 
+const icons = import.meta.glob('@/assets/icons/*.svg', { 
   query: '?raw', 
   import: 'default', 
   eager: true 
+});
+const metaIcons = import.meta.glob("@/assets/icons/*.svg", {
+    eager: true,
 });
 ---
 
 <Fragment>
     {
         groups.map((group) => {
-            const iconName = group.data.logo.src.split("/").pop().split("?")[0];
-            const iconPath = `../assets/icons/${iconName}`;
-            const rawSvg = icons[iconPath];
+            const iconKey = Object.keys(metaIcons).find(
+                (key) => (metaIcons[key] as any).default.src === group.data.logo.src
+            );
+            const rawSvg = iconKey ? icons[iconKey] : "";
 
             return (
             <section>

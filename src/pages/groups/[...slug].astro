@@ -16,13 +16,18 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await entry.render();
 
-const icons = import.meta.glob('../../assets/icons/*.svg', { 
+const icons = import.meta.glob('@/assets/icons/*.svg', { 
   query: '?raw', 
   import: 'default', 
   eager: true 
 });
-const iconPath = entry.data.logo.src.split('/').pop().split('?')[0];
-const rawSvg = icons[`../../assets/icons/${iconPath}`];
+const metaIcons = import.meta.glob("@/assets/icons/*.svg", {
+    eager: true,
+});
+const iconKey = Object.keys(metaIcons).find(
+    (key) => (metaIcons[key] as any).default.src === entry.data.logo.src
+);
+const rawSvg = iconKey ? icons[iconKey] : "";
 ---
 
 <BaseLayout title={entry.data.name} description={entry.data.summary}>
