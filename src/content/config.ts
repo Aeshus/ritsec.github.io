@@ -1,5 +1,5 @@
 import { z, reference, defineCollection } from "astro:content";
-import { file } from "astro/loaders";
+import { file, glob } from "astro/loaders";
 
 const groups = defineCollection({
     type: "content",
@@ -37,28 +37,23 @@ const groups = defineCollection({
 });
 
 const schedule = defineCollection({
-    type: "content",
-    schema: z.object({
+    loader: glob({ 
+            pattern: "**/*.{yml,yaml}", 
+            base: "./src/content/schedule",
+            generateId: ({ entry }) => entry.replace(/\.yml$/, ''),
+    }),
+    schema: z.array(z.object({
         title: z.string(),
         start: z.date(),
         end: z.date(),
         location: z.string().default("GOL 1400"),
-        group: z
-            .union([
-                reference("groups"),
-                z.literal("misc"),
-                z.literal("general"),
-            ])
-            .default("general"),
-        hosts: z.array(z.string()).default(["RITSEC E-Board"]),
-        slides: z.string().url().optional(),
+        group: reference("groups").default("general"),
+        hosts: z.array(z.object({ name: z.string() }))
+            .default([{ name: "RITSEC E-Board" }]),
+        slide: z.string().url().optional(),
         video: z.string().url().optional(),
-        zoom: z.string().url().optional(),
-        status: z
-            .enum(["scheduled", "cancelled", "postponed"])
-            .default("scheduled"),
-        featured: z.boolean().default(false),
-    }),
+        website: z.string().url().optional(),
+    })),
 });
 
 const events = defineCollection({

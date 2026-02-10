@@ -11,7 +11,20 @@ interface Props {
 
 const { group, count, ascending = true, showOld = false } = Astro.props;
 
-const allEvents = await getCollection("schedule");
+const scheduleFiles = await getCollection("schedule");
+
+const allEvents = scheduleFiles.flatMap((fileEntry) => {
+    const eventsList = Array.isArray(fileEntry.data) ? fileEntry.data : (fileEntry.data.events || []);
+
+    return eventsList.map((event, index) => ({
+        slug: `${fileEntry.id}-${index}`, 
+        data: {
+            ...event,
+            hosts: event.hosts.map(h => h.name),
+            group: typeof event.group === 'string' ? { id: event.group } : event.group
+        }
+    }));
+});
 ---
 
 <Fragment>

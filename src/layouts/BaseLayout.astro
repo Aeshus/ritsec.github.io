@@ -486,10 +486,14 @@ const { title, description, image } = Astro.props;
 
     /* Schedule */
 
+    .schedule {
+        align-items: stretch;
+    }
+
     .schedule-left {
         display: flex;
         gap: var(--padding);
-        width: 150px;
+        width: 175px;
         white-space: pre-wrap;
     }
 
@@ -503,28 +507,39 @@ const { title, description, image } = Astro.props;
         text-align: end;
     }
 
+    .schedule-end {
+        display: flex;
+        gap: var(--padding);
+    }
+
+    .schedule-icons {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: var(--padding);
+    }
+
     @media (max-width: 700px) {
         .schedule {
-            flex-direction: column;
-        }
-
-        .schedule-left {
-            text-align: center;
-            margin: auto;
-        }
-
-        .schedule-middle {
-            align-items: center;
-            order: -1;
-            font-size: var(--lg);
-            width: 100%;
             text-align: center;
         }
 
         .schedule-right {
             text-align: center;
+        }
+
+        .schedule-left {
             width: 100%;
-            text-align: center;
+            justify-content: center;
+            white-space: normal;
+        }
+
+        .schedule-end {
+            width: 100%;
+            justify-content: center;
+            display: flex;
+            flex-direction: column-reverse;
         }
     }
 
