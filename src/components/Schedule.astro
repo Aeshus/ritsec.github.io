@@ -7,9 +7,10 @@ interface Props {
     count?: number;
     ascending?: boolean;
     showOld?: boolean;
+    daysAhead?: number;
 }
 
-const { group, count, ascending = true, showOld = false } = Astro.props;
+const { group, count, ascending = true, showOld = false, daysAhead = 7 } = Astro.props;
 
 const scheduleFiles = await getCollection("schedule");
 
@@ -34,6 +35,7 @@ const allEvents = scheduleFiles.flatMap((fileEntry) => {
         group={group}
         ascending={ascending}
         showOld={showOld}
+        daysAhead={daysAhead}
         client:load
     />
     <noscript>
