@@ -64,3 +64,9 @@
   linked_in: https://www.linkedin.com/in/owensilsbee
   email: tech@ritsec.club
   image: "@/assets/eboard/owens.jpg"
+- id: CTF CA
+  name: Manav Malik
+  grad_year: 2026
+  linked_in: https://www.linkedin.com/in/manav-malik
+  email: ctfca@ritsec.club
+  image: "@/assets/eboard/manavm.jpg"
