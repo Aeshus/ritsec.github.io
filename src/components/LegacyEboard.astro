@@ -1,30 +1,29 @@
 ---
 import { getCollection } from "astro:content";
-import { Picture } from "astro:assets";
 
 const legacy = (await getCollection("legacyEboard")).sort((a, b) => {
     return b.data.term.localeCompare(a.data.term);
 });
 ---
 
-<div class="list">
+<div class="legacy-grid">
     {
         legacy.map((board) => (
-            <article class="card grid-content">
-                <div class="card-header">
-                    <h3>
-                        {board.data.term}
-                        <br />
-                        <strong>{board.data.organization}</strong>
-                    </h3>
-                </div>
+            <article class="card legacy-card">
+                <header class="card-header term-header">
+                    <h3>{board.data.term}</h3>
+                    <div class="org-name">{board.data.organization}</div>
+                </header>
+
                 <div class="card-content">
-                    {board.data.eboard.map((person) => (
-                        <>
-                            <h4>{person.name}</h4>
-                            <p>{person.position}</p>
-                        </>
-                    ))}
+                    <ul class="role-list">
+                        {board.data.eboard.map((person) => (
+                            <li class="role-item">
+                                <span class="role">{person.position}</span>
+                                <span class="name">{person.name}</span>
+                            </li>
+                        ))}
+                    </ul>
                 </div>
             </article>
         ))
@@ -32,11 +31,71 @@ const legacy = (await getCollection("legacyEboard")).sort((a, b) => {
 </div>
 
 <style>
-    h4 {
-        margin-bottom: 0;
+    .legacy-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--padding-lg);
+        justify-content: center;
     }
 
-    p {
-        margin-bottom: 1rem;
+    .legacy-card {
+        flex: 1 1 300px;
+        max-width: 450px; /* Broader than profile cards to fit lists */
+        display: flex;
+        flex-direction: column;
+    }
+
+    .term-header {
+        border-bottom: 1px solid var(--border-color);
+        padding: var(--padding);
+        background-color: var(--bg-panel);
+    }
+
+    h3 {
+        margin: 0;
+        font-size: 1.5rem;
+        color: var(--accent);
+    }
+
+    .org-name {
+        font-family: var(--font-mono);
+        font-size: 0.8rem;
+        opacity: 0.7;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-top: 0.25rem;
+    }
+
+    .card-content {
+        padding: var(--padding);
+    }
+
+    .role-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem; /* More spacing between items */
+    }
+
+    .role-item {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .name {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--fg);
+        line-height: 1.2;
+    }
+
+    .role {
+        font-size: 0.9rem;
+        font-family: var(--font-mono);
+        color: var(--fg);
+        opacity: 0.8;
+        margin-top: 0.1rem;
     }
 </style>
