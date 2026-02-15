@@ -145,12 +145,13 @@ const metaIcons = import.meta.glob("@/assets/icons/*.svg", {
 
     .card-header {
         padding: var(--padding-lg);
-        background-color: var(--bg);
+        background-color: var(--bg-panel);
         border-bottom: var(--border);
         display: flex;
         align-items: center;
         justify-content: center;
         min-height: 160px;
+        user-select: none;
     }
 
     :global(.accent svg) {
@@ -184,6 +185,7 @@ const metaIcons = import.meta.glob("@/assets/icons/*.svg", {
         -webkit-box-orient: vertical;
         overflow: hidden;
         text-align: left; /* Ensure left alignment */
+        user-select: none;
     }
 
     .meta-info {
@@ -194,6 +196,7 @@ const metaIcons = import.meta.glob("@/assets/icons/*.svg", {
         border-top: 1px solid var(--border-color);
         padding-top: var(--padding-sm);
         margin-top: auto;
+        user-select: none;
     }
 
     .meta-item {
@@ -228,6 +231,10 @@ const metaIcons = import.meta.glob("@/assets/icons/*.svg", {
         font-size: var(--sm);
         opacity: 0.6;
         font-style: italic;
+    }
+
+    h3 {
+        text-align: left;
     }
 
     /* Responsive */
