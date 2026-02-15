@@ -221,6 +221,7 @@ const { title, description, image } = Astro.props;
 
     pre {
         font-family: var(--font-mono);
+        white-space: pre-wrap;
     }
 
     h1 strong,
@@ -659,7 +660,7 @@ const { title, description, image } = Astro.props;
 
     .card-row {
         display: grid;
-        grid-template-columns: 140px 1fr auto; /* Date | Info | Actions */
+        grid-template-columns: 160px 1fr auto; /* Date | Info | Actions */
         gap: var(--padding);
         align-items: center;
         padding: var(--padding);
@@ -696,6 +697,7 @@ const { title, description, image } = Astro.props;
         line-height: 1.4;
         color: var(--fg);
         opacity: 0.9;
+        padding-right: var(--padding);
     }
 
     .col-content {
