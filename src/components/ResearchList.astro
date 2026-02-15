@@ -1,74 +1,38 @@
 ---
 import { getCollection } from "astro:content";
-import { formatDate } from "@/utils.js";
+import ResearchListComponent from "@/components/ResearchList.jsx";
 
 interface Props {
     group?: string;
     count?: number;
 }
 
-const { group, count = 9999999 } = Astro.props;
+const { group, count } = Astro.props;
 
 const allResearch = await getCollection("research");
 
-const research = allResearch
-    .filter((post) => {
-        if (!group) return true;
-        return post.data.group?.id?.toLowerCase() === group.toLowerCase();
-    })
-    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-    .slice(0, count);
+const research = allResearch.map((post) => ({
+    slug: post.slug,
+    data: {
+        ...post.data,
+        date: post.data.date.toISOString(),
+        group: post.data.group ? { id: post.data.group.id } : null,
+        authors: post.data.authors.map((a) => ({ name: a.name })),
+    },
+}));
 ---
 
-<div class="list">
-    {
-        research.map((post) => (
-            <a
-                href={import.meta.env.BASE_URL + "/research/" + post.slug}
-                class="card"
-            >
-                <article class="card-content">
-                    <div>
-                        <time datetime={post.data.date.toISOString()}>
-                            {formatDate(post.data.date)}
-                        </time>
+<ResearchListComponent
+    data={research}
+    group={group}
+    count={count}
+    ascending={false}
+    client:load
+/>
 
-                        {post.data.group && (
-                            <span>• {post.data.group.id.toUpperCase()}</span>
-                        )}
-                    </div>
-
-                    <h3>{post.data.title}</h3>
-
-                    <div>
-                        {post.data.authors.length > 0 ? (
-                            <span>
-                                {post.data.authors
-                                    .map((a) => a.name)
-                                    .join(", ")}
-                            </span>
-                        ) : (
-                            <span>RITSEC</span>
-                        )}
-                    </div>
-                </article>
-            </a>
-        ))
-    }
-
-    {
-        research.length === 0 && (
-            <p>No research found, please check again later.</p>
-        )
-    }
-</div>
-
-<style>
-    .list {
-        flex-direction: column;
-    }
-
-    h3 {
-        margin-bottom: 0;
-    }
-</style>
+<noscript>
+    <p>
+        Sorry, the interactive research list requires JavaScript. Please enable
+        it to filter by year or group.
+    </p>
+</noscript>

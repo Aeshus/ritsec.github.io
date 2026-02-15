@@ -26,6 +26,36 @@ const { title, description, image } = Astro.props;
             <slot />
         </main>
         <Footer />
+        <div style={{ display: 'none' }}>
+            Lucide License
+
+
+            ISC License
+
+
+            Copyright (c) for portions of Lucide are held by Cole Bemis 2013-2026 as part of Feather (MIT). All other copyright (c) for Lucide are held by Lucide Contributors 2026.
+
+
+            Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
+
+
+            THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+
+            The MIT License (MIT) (for portions derived from Feather)
+
+
+            Copyright (c) 2013-2026 Cole Bemis
+
+
+            Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+
+            The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+
+            THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+        </div>
     </body>
 </html>
 
@@ -563,5 +593,270 @@ const { title, description, image } = Astro.props;
 
     p img {
         margin: auto;
+    }
+
+    /* Refactored Schedule Styles */
+
+    /* Generic List/Card Styles */
+
+    .filter-controls {
+        display: flex;
+        gap: var(--padding);
+        flex-wrap: wrap;
+        margin-bottom: var(--padding-lg);
+        align-items: center;
+        background-color: var(--bg-panel);
+        padding: var(--padding);
+        border: var(--border);
+    }
+
+    .filter-label {
+        display: flex;
+        align-items: center;
+        gap: var(--padding-sm);
+        font-weight: var(--w-bold);
+        font-size: var(--sm);
+    }
+
+    .filter-select {
+        padding: var(--padding-xs) var(--padding-sm);
+        border: var(--border);
+        background-color: var(--bg);
+        color: var(--fg);
+        min-width: 150px;
+        cursor: pointer;
+    }
+
+    .filter-select:hover,
+    .filter-select:focus {
+        border-color: var(--accent);
+        outline: none;
+    }
+
+    .list-stack {
+        display: flex;
+        flex-direction: column;
+        gap: var(--padding);
+    }
+
+    .card-row {
+        display: grid;
+        grid-template-columns: 140px 1fr auto; /* Date | Info | Actions */
+        gap: var(--padding);
+        align-items: center;
+        padding: var(--padding);
+        transition:
+            transform 0.1s ease-in-out,
+            border-color 0.1s ease-in-out;
+    }
+
+    .card-row:hover {
+        transform: translateY(-2px);
+        border-color: var(--accent);
+    }
+
+    .card-row.active {
+        border-color: var(--accent);
+        background-color: var(--bg-panel);
+        position: relative;
+    }
+
+    .card-row.active::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background-color: var(--accent);
+    }
+
+    .col-date {
+        font-family: var(--font-mono);
+        font-size: var(--sm);
+        white-space: pre-wrap;
+        line-height: 1.4;
+        color: var(--fg);
+        opacity: 0.9;
+    }
+
+    .col-content {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        justify-content: center;
+    }
+
+    .card-header-row {
+        display: flex;
+        align-items: center;
+        gap: var(--padding-sm);
+        flex-wrap: wrap;
+    }
+
+    .card-title {
+        font-size: var(--md);
+        font-weight: var(--w-bold);
+        line-height: 1.2;
+    }
+
+    .badge {
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        background-color: var(--accent);
+        color: var(--bg);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-weight: bold;
+        letter-spacing: 0.05em;
+    }
+
+    .meta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--padding);
+        font-size: var(--sm);
+        opacity: 0.8;
+    }
+
+    .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .meta-item.italic {
+        font-style: italic;
+    }
+
+    .meta-item svg {
+        width: 14px;
+        height: 14px;
+        opacity: 0.7;
+    }
+
+    .date-part {
+        font-weight: bold;
+    }
+
+    .time-part {
+        white-space: nowrap;
+        font-size: 0.9em;
+        opacity: 0.8;
+    }
+
+    .col-actions {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        min-width: 100px;
+    }
+
+    .action-group {
+        display: flex;
+        gap: var(--padding-xs);
+        flex-wrap: wrap;
+        justify-content: flex-end;
+    }
+
+    .icon-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border: var(--border);
+        color: var(--fg);
+        background-color: var(--bg);
+        transition: all 0.2s ease;
+        padding: 0;
+    }
+
+    .icon-button:hover,
+    .icon-button:focus {
+        background-color: var(--accent);
+        color: var(--bg);
+        border-color: var(--accent);
+        transform: scale(1.05);
+    }
+
+    .icon-button svg {
+        width: 20px;
+        height: 20px;
+        stroke-width: 2px;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: var(--padding-lg);
+        color: var(--fg);
+        opacity: 0.6;
+        font-style: italic;
+        background-color: var(--bg-panel);
+        border: var(--border);
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+        .card-row {
+            grid-template-columns: 1fr auto; /* Date/Info | Actions */
+            grid-template-rows: auto auto; /* Date then Info */
+            gap: var(--padding-sm);
+        }
+
+        .col-date {
+            grid-column: 1 / -1;
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-bottom: -4px;
+        }
+
+        .col-content {
+            grid-column: 1 / 2;
+        }
+
+        .col-actions {
+            grid-column: 2 / 3;
+            justify-content: flex-end;
+        }
+
+        .meta-row {
+            flex-direction: column;
+            gap: 2px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .card-row {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: center;
+            padding: var(--padding-lg) var(--padding);
+        }
+
+        .col-date,
+        .col-content,
+        .col-actions {
+            width: 100%;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card-header-row {
+            justify-content: center;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .col-actions {
+            margin-top: var(--padding);
+            justify-content: center;
+        }
+
+        .action-group {
+            justify-content: center;
+        }
     }
 </style>
