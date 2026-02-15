@@ -4,76 +4,127 @@ import { Picture } from "astro:assets";
 import { formatDates } from "@/utils.js";
 
 const events = await getCollection("events");
+
+/**
+ * @param {Date | undefined | null} date
+ */
+function getBadgeDate(date) {
+    if (!date) return null;
+    // Heuristic: If UTC midnight, it's a "Date Only" event (like CTF), so use UTC.
+    // Otherwise, it's a timed event (like 6PM), so render in RIT/NY time.
+    const isUtcMidnight =
+        date.getUTCHours() === 0 &&
+        date.getUTCMinutes() === 0 &&
+        date.getUTCSeconds() === 0;
+
+    const timeZone = isUtcMidnight ? "UTC" : "America/New_York";
+
+    return {
+        month: date.toLocaleString("default", { month: "short", timeZone }),
+        day: new Intl.DateTimeFormat("en-US", {
+            day: "numeric",
+            timeZone,
+        }).format(date),
+    };
+}
 ---
 
 <div>
     <div class="carousel" id="events-carousel">
         <div class="slide-container">
             {
-                events.map((event) => (
-                    <div class="slide">
-                        <article class="card">
-                            <div class="card-img">
-                                <Picture
-                                    src={event.data.image}
-                                    alt={event.data.title}
-                                    width={800}
-                                    height={400}
-                                />
-                            </div>
+                events.map((event) => {
+                    const startBadge = getBadgeDate(event.data.start);
+                    const endBadge = getBadgeDate(event.data.end);
 
-                            <div class="card-content">
-                                <h3>{event.data.title}</h3>
+                    const showEndBadge =
+                        endBadge &&
+                        startBadge &&
+                        (endBadge.month !== startBadge.month ||
+                            endBadge.day !== startBadge.day);
 
-                                <div class="header-content">
-                                    <div class="time">
-                                        {event.data.start && event.data.end ? (
-                                            <time
-                                                datetime={event.data.start.toISOString()}
-                                            >
-                                                {formatDates(
-                                                    event.data.start,
-                                                    event.data.end,
-                                                )}
-                                            </time>
-                                        ) : (
-                                            <div>TBD</div>
-                                        )}
-                                    </div>
-
-                                    <div class="location">
-                                        {event.data.location} •{" "}
-                                        {event.data.access}
-                                    </div>
-                                </div>
-
-                                <div class="summary">{event.data.summary}</div>
-
-                                <div class="list">
-                                    <a
-                                        href={
-                                            import.meta.env.BASE_URL +
-                                            "/events#" +
-                                            event.slug
-                                        }
-                                        class="link-button primary"
-                                    >
-                                        LEARN MORE
-                                    </a>
-
-                                    {event.data.website && (
-                                        <a
-                                            href={event.data.website}
-                                            class="link-button secondary"
-                                        >
-                                            WEBSITE
-                                        </a>
+                    return (
+                        <div class="slide">
+                            <article class="card interactive">
+                                <div class="card-img">
+                                    <Picture
+                                        src={event.data.image}
+                                        alt={event.data.title}
+                                        width={800}
+                                        height={400}
+                                    />
+                                    {startBadge && (
+                                        <div class="date-badge left">
+                                            <span class="month">
+                                                {startBadge.month}
+                                            </span>
+                                            <span class="day">
+                                                {startBadge.day}
+                                            </span>
+                                        </div>
+                                    )}
+                                    {showEndBadge && (
+                                        <div class="date-badge right">
+                                            <span class="month">
+                                                {endBadge.month}
+                                            </span>
+                                            <span class="day">
+                                                {endBadge.day}
+                                            </span>
+                                        </div>
                                     )}
                                 </div>
-                            </div>
-                        </article>
-                    </div>
-                ))
+
+                                <div class="card-content">
+                                    <h3>{event.data.title}</h3>
+
+                                    <div class="meta-info">
+                                        <div class="meta-item">
+                                            <div class="meta-label">Where:</div>
+                                            <div class="meta-value">
+                                                {event.data.location}
+                                            </div>
+                                        </div>
+                                        <div class="meta-item">
+                                            <div class="meta-label">
+                                                Access:
+                                            </div>
+                                            <div class="meta-value">
+                                                {event.data.access}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <p class="expand">{event.data.summary}</p>
+
+                                    <div class="actions">
+                                        <a
+                                            href={
+                                                import.meta.env.BASE_URL +
+                                                "/events#" +
+                                                event.slug
+                                            }
+                                            class="link-button primary"
+                                        >
+                                            Learn More
+                                        </a>
+
+                                        {event.data.website && (
+                                            <a
+                                                href={event.data.website}
+                                                class="link-button secondary"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                Website
+                                            </a>
+                                        )}
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    );
+                })
             }
         </div>
     </div>
@@ -111,18 +162,112 @@ const events = await getCollection("events");
 <style>
     .card-img {
         height: 200px;
+        position: relative;
     }
 
-    .list {
-        margin-top: auto;
-        padding-top: var(--padding);
+    .date-badge {
+        position: absolute;
+        bottom: 0;
+        background-color: var(--bg);
+        padding: 8px 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+        box-shadow: 2px -2px 10px rgba(0, 0, 0, 0.1);
+        z-index: 10;
+        min-width: 60px;
+    }
+
+    .date-badge.left {
+        left: 0;
+        border-top-right-radius: 8px;
+    }
+
+    .date-badge.right {
+        right: 0;
+        border-top-left-radius: 8px;
+        box-shadow: -2px -2px 10px rgba(0, 0, 0, 0.1); /* Flip shadow direction */
+    }
+
+    .date-badge .month {
+        font-size: 0.75rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: var(--accent);
+    }
+
+    .date-badge .day {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--fg);
+    }
+
+    .card-content {
+        padding: var(--padding);
+        display: flex;
+        flex-direction: column;
+        gap: var(--padding);
+        flex-grow: 1;
+        text-align: left;
     }
 
     h3 {
-        margin-bottom: 0;
+        margin: 0;
+        font-size: var(--lg);
+        font-weight: var(--w-bold);
+        text-align: left; /* Left align title */
     }
 
-    .header-content {
-        margin-bottom: var(--padding);
+    .meta-info {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        font-size: var(--sm);
+        border-top: 1px solid var(--border-color);
+        padding-top: var(--padding-sm);
+        margin-top: auto;
+    }
+
+    .meta-item {
+        display: flex;
+        gap: 6px;
+    }
+
+    .meta-label {
+        font-weight: bold;
+        color: var(--accent);
+        min-width: 45px;
+    }
+
+    .meta-value {
+        opacity: 0.9;
+    }
+
+    .expand {
+        flex-grow: 1;
+        font-size: var(--sm);
+        opacity: 0.9;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .actions {
+        display: flex;
+        gap: var(--padding-sm);
+        flex-wrap: wrap;
+        justify-content: flex-start; /* Left align actions */
+        margin-top: var(--padding);
+    }
+
+    .carousel-scroll-text {
+        text-align: center;
+        padding: var(--padding);
+        font-size: var(--sm);
+        opacity: 0.6;
+        font-style: italic;
     }
 </style>
