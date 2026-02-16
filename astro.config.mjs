@@ -12,6 +12,6 @@ import sitemap from "@astrojs/sitemap";
 // https://astro.build/config
 export default defineConfig({
     site: "https://aeshus.github.io",
-    //base: "/ritsec.github.io",
+    base: "/ritsec.github.io",
     integrations: [expressiveCode(), mdx(), react(), sitemap()],
 });
