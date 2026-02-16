@@ -18,6 +18,9 @@ const research = allResearch.map((post) => ({
         date: post.data.date.toISOString(),
         group: post.data.group ? { id: post.data.group.id } : null,
         authors: post.data.authors.map((a) => ({ name: a.name })),
+        video: post.data.video,
+        slideshow: post.data.slideshow,
+        hasContent: (post.body || "").trim().length > 0,
     },
 }));
 ---

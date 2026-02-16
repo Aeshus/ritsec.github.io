@@ -100,7 +100,13 @@ function getBadgeDate(date) {
                                     <div class="actions">
                                         <a
                                             href={
-                                                import.meta.env.BASE_URL +
+                                                (import.meta.env.BASE_URL ===
+                                                "/"
+                                                    ? ""
+                                                    : import.meta.env.BASE_URL.replace(
+                                                          /\/$/,
+                                                          "",
+                                                      )) +
                                                 "/events#" +
                                                 event.slug
                                             }
@@ -132,8 +138,11 @@ function getBadgeDate(date) {
 </div>
 
 <noscript>
-    <a href={import.meta.env.BASE_URL + "/events"} class="link-button primary"
-        >VIEW ALL EVENTS</a
+    <a
+        href={(import.meta.env.BASE_URL === "/"
+            ? ""
+            : import.meta.env.BASE_URL.replace(/\/$/, "")) + "/events"}
+        class="link-button primary">VIEW ALL EVENTS</a
     >
 </noscript>
 

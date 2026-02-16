@@ -4,7 +4,7 @@ import logoLarge from "@/assets/logoLarge.png";
 
 const path = Astro.url.pathname.substring(import.meta.env.BASE_URL.length);
 
-const links = [
+const navLinks = [
     { text: "HOME", href: "/" },
     { text: "ABOUT", href: "/about" },
     { text: "EVENTS", href: "/events" },
@@ -13,13 +13,24 @@ const links = [
     { text: "RESEARCH", href: "/research" },
     { text: "SPONSORS", href: "/sponsors" },
 ];
+
+function joinPath(base: string, path: string) {
+    if (path === "/" && base !== "/") return base; // Special case for home
+    if (base === "/") return path;
+    if (base.endsWith("/")) base = base.slice(0, -1);
+    if (!path.startsWith("/")) path = "/" + path;
+    return base + path;
+}
+
+const currentPath = Astro.url.pathname;
+const base = import.meta.env.BASE_URL;
 ---
 
 <header>
-    <a class="logo link-button tertiary" href="/">
+    <a class="logo link-button tertiary" href={joinPath(base, "/")}>
         <Picture
             src={logoLarge}
-            height="52px"
+            height={52}
             alt="RITSEC Logo"
             loading="eager"
         />
@@ -33,16 +44,25 @@ const links = [
 
     <nav>
         {
-            links.map((link) => {
-                const page =
-                    path == link.href ||
-                    (link.href !== "/" && path.startsWith(link.href));
+            navLinks.map((link) => {
+                const href = joinPath(base, link.href);
+                // Active state logic:
+                // Exact match or starts with (for subpages), but avoid "/" matching everything
+                // If href is base (home), only exact match or if current is exactly base + /
+                const isActive =
+                    currentPath === href ||
+                    (href !== base &&
+                        href !== base + "/" &&
+                        currentPath.startsWith(href));
 
                 return (
                     <a
-                        class:list={["link-button", page ? "secondary" : ""]}
-                        href={import.meta.env.BASE_URL + link.href}
-                        aria-current={page ? "page" : undefined}
+                        class:list={[
+                            "link-button",
+                            isActive ? "secondary" : "",
+                        ]}
+                        href={href}
+                        aria-current={isActive ? "page" : undefined}
                     >
                         {link.text}
                     </a>
@@ -50,8 +70,7 @@ const links = [
             })
         }
 
-        <a class="link-button primary" href={import.meta.env.BASE_URL + "/join"}
-            >JOIN US</a
+        <a class="link-button primary" href={joinPath(base, "/join")}>JOIN US</a
         >
     </nav>
 </header>
@@ -80,6 +99,7 @@ const links = [
 
     .logo {
         display: inline-block;
+        border: unset;
     }
 
     header nav {

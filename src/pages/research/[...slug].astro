@@ -5,7 +5,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import Hero from "@/components/Hero.astro";
 import logo from "@/assets/logoLarge.png";
 
-import { formatDate } from "@/utils.js";
+import { formatDate, getEmbedUrl } from "@/utils.js";
 
 export async function getStaticPaths() {
     const groupEntries = await getCollection("research");
@@ -17,6 +17,9 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await entry.render();
+
+const videoUrl = getEmbedUrl(entry.data.video);
+const slideshowUrl = getEmbedUrl(entry.data.slideshow);
 ---
 
 <BaseLayout title={entry.data.title} description={entry.data.summary}>
@@ -47,6 +50,35 @@ const { Content } = await entry.render();
         </div>
     </Hero>
 
+    {
+        (videoUrl || slideshowUrl) && (
+            <section class="media-container">
+                {videoUrl && (
+                    <h2>Video</h2>
+                    <div class="video-container">
+                        <h2>Video</h2>
+                        <iframe
+                            src={videoUrl}
+                            title="Video player"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                        />
+                    </div>
+                )}
+                {(slideshowUrl || videoUrl) && (
+                    <div class="list">
+                        {videoUrl && (
+                            <a href={videoUrl} class="link-button primary">Video</a>
+                        )}
+                        {slideshowUrl && (
+                            <a href={slideshowUrl} class="link-button primary">Slideshow</a>
+                        )}
+                    </div>
+                )}
+            </section>
+        )
+    }
+
     <Content />
 </BaseLayout>
 
@@ -74,5 +106,26 @@ const { Content } = await entry.render();
     .summary {
         margin-top: var(--padding);
         font-style: italic;
+    }
+
+    .media-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .video-container {
+        position: relative;
+        aspect-ratio: 16/9;
+        overflow: hidden;
+        border-radius: 8px;
+        border: var(--border);
+    }
+
+    .video-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
     }
 </style>

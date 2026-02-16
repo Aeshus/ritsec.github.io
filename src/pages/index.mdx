@@ -27,8 +27,8 @@ import heroImg from "@/assets/image7.jpg";
             Student-run. Community focused. Hosting competitions and conducting research. We break things to learn how to fix them.
 
             <Fragment slot="bottom">
-                <a class="link-button primary" href="/join">GET INVOLVED</a>
-                <a class="link-button secondary" href="/sponsors">SPONSOR US</a>
+                <a class="link-button primary" href={import.meta.env.BASE_URL === "/" ? "/join" : import.meta.env.BASE_URL.replace(/\/$/, "") + "/join"}>GET INVOLVED</a>
+                <a class="link-button secondary" href={import.meta.env.BASE_URL === "/" ? "/sponsors" : import.meta.env.BASE_URL.replace(/\/$/, "") + "/sponsors"}>SPONSOR US</a>
             </Fragment>
 
             <Fragment slot="image">
@@ -53,7 +53,7 @@ import heroImg from "@/assets/image7.jpg";
 
         <Schedule count={3} daysAhead={14} />
 
-        <a class="link-button primary" href="/education">VIEW EDUCATION</a>
+        <a class="link-button primary" href={import.meta.env.BASE_URL === "/" ? "/education" : import.meta.env.BASE_URL.replace(/\/$/, "") + "/education"}>VIEW EDUCATION</a>
     </section>
 
     {/* Events */}
@@ -73,7 +73,7 @@ import heroImg from "@/assets/image7.jpg";
 
         <ResearchList count={3} />
 
-        <a class="link-button primary" href="/research">VIEW ALL RESEARCH</a>
+        <a class="link-button primary" href={import.meta.env.BASE_URL === "/" ? "/research" : import.meta.env.BASE_URL.replace(/\/$/, "") + "/research"}>VIEW ALL RESEARCH</a>
     </section>
 
     <section>

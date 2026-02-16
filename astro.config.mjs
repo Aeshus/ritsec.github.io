@@ -10,6 +10,6 @@ import react from "@astrojs/react";
 // https://astro.build/config
 export default defineConfig({
     site: "https://aeshus.github.io",
-    base: "/ritsec.github.io",
+    base: process.env.BASE_URL,
     integrations: [expressiveCode(), mdx(), react()],
 });

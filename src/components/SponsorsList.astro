@@ -14,7 +14,7 @@ const getByTier = (tier: string) =>
     allSponsors.filter((s) => s.data.tier === tier);
 ---
 
-<div class="list">
+<div class="sponsor-list">
     {
         tiers.map((tier) => {
             const sponsors = getByTier(tier).filter(
@@ -53,8 +53,20 @@ const getByTier = (tier: string) =>
 </div>
 
 <style>
+    .sponsor-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: var(--padding);
+    }
+
     h3 {
         margin-bottom: 0;
+    }
+
+    .card.grid-content {
+        /* Reset flex properties if any interfere, though parent is grid now */
+        max-width: 100%;
+        height: 100%; /* Ensure card fills grid height */
     }
 
     .card-content .list {
@@ -62,13 +74,20 @@ const getByTier = (tier: string) =>
         margin-top: auto;
     }
 
+    .card-img {
+        width: 100%;
+        /* Restore aspect ratio containment */
+        aspect-ratio: 1/1;
+        background-color: white;
+        border-bottom: var(--border);
+    }
+
     .card-img img,
     .card-img picture {
         height: 100%;
         width: 100%;
         object-fit: contain;
-        aspect-ratio: 1/1;
-        background-color: white;
+        display: block;
     }
 
     .tier {
@@ -91,5 +110,11 @@ const getByTier = (tier: string) =>
 
     .gold {
         color: #c8aa07;
+    }
+
+    @media (max-width: 600px) {
+        .sponsor-list {
+            grid-template-columns: 1fr;
+        }
     }
 </style>

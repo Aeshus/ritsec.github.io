@@ -37,10 +37,10 @@ const groups = defineCollection({
 });
 
 const schedule = defineCollection({
-    loader: glob({ 
-            pattern: "**/*.{yml,yaml}", 
-            base: "./src/content/schedule",
-            generateId: ({ entry }) => entry.replace(/\.yml$/, ''),
+    loader: glob({
+        pattern: "**/*.{yml,yaml}",
+        base: "./src/content/schedule",
+        generateId: ({ entry }) => entry.replace(/\.yml$/, ''),
     }),
     schema: z.array(z.object({
         title: z.string(),
@@ -91,6 +91,8 @@ const research = defineCollection({
             imageAlt: z.string().optional(),
             group: reference("groups").optional(),
             summary: z.string(),
+            video: z.string().url().optional(),
+            slideshow: z.string().url().optional(),
         }),
 });
 

@@ -10,30 +10,49 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import heroImg from "@/assets/image5.jpg";
 
 <BaseLayout title="Research">
-    <Hero image={heroImg} imageAlt="Letchworth State Park landscape">
+    <Hero image={heroImg} imageAlt="Student presenting research at RITSEC">
         <Fragment slot="title">
-            Student-produced <strong>Research</strong>
+            Student-Led **Innovation**
         </Fragment>
 
-        Specialized tracks. Deep dives. From physical security to malware
-        analysis. Small teams tackling the hardest problems.
+        Pushing the boundaries of security through student-led innovation. Our members publish CVEs, write deep-dive technical guides, and present at major conferences.
 
         <Fragment slot="image">
-            <Picture src={heroImg} width={1000} formats={['avif', 'webp']} alt="IRSEC 2024 in the Cyber Range, with the Red Team Board in the background." />
+            <Picture src={heroImg} width={1000} formats={['avif', 'webp']} alt="Student presenting research at RITSEC" />
         </Fragment>
     </Hero>
 
-    <section>
-        ## How To
+    <section class="copy">
+        ## Our Approach
 
-        (How to contribute to research, how to get funding, prizes, etc).
+        RITSEC isn't just about competitions; it's about contributing to the wider security community. We provide the platform, resources, and mentorship for students to take their curiosity to the next level.
+
+        We foster a culture of learning and innovation, where students can explore their interests and develop their skills.
+
+        Grants are provided to students who wish to pursue research, as well as prizes for presenting and publishing their work.
+
+        ### Presentations
+
+        We encourage all members to share their knowledge. Research presentations are a core part of our weekly meetings and a low-stress way to practice public speaking.
+
+        1.  **Pick a Topic**: Anything tech/security related that you are passionate about.
+        2.  **Prepare**: Use our [Slide Template](https://newslides.ritsec.club/).
+        3.  **Sign Up**: Fill out the [Sign-up Form](https://docs.google.com/forms/d/e/1FAIpQLSeSUMokk1jppBqoEK1aG2K9QLQ334qxoElK9xN9lY1jglRYzQ/viewform).
+
+        *Guest speakers also frequently join us to share industry insights.*
+
+        ### Blog Posts
+
+        We also publish technical blogs, as well as cross-posting selected posts created by our members.
+
+        1.  **Pick a Topic**: Anything tech/security related that you are passionate about.
+        2.  **Prepare**: Write a MDX blog post and submit a pull request to the [RITSEC Website](https://github.com/ritsec/ritsec.github.io).
+        3.  **Approval**: The Head of Research will review your blog post and give suggestions, and publish.
+
     </section>
 
     <section>
         ## Research
-
-        Pushing the boundaries of security through student-led innovation and blog posts.
-
         <ResearchList />
     </section>
 

@@ -3,7 +3,6 @@ import { Picture } from "astro:assets";
 
 import Hero from "@/components/Hero.astro";
 import Calendar from "@/components/Calendar.astro";
-import FilterableSchedule from "@/components/FilterableSchedule.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Schedule from "@/components/Schedule.astro";
 
@@ -11,7 +10,7 @@ import heroImg from "@/assets/image6.jpg";
 ---
 
 <BaseLayout title="Schedule">
-    <Hero reverse="true">
+    <Hero reverse={true}>
         <Fragment slot="title">
             The Packed <strong>Schedule</strong>
         </Fragment>

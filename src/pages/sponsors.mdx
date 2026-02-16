@@ -24,7 +24,7 @@ import heroImg from "@/assets/image4.jpg";
 
             <Fragment slot="bottom">
                 <a class="link-button primary" href="https://donate.ritsec.club/">DONATE</a>
-                <a class="link-button secondary" href={import.meta.env.BASE_URL + "/sponsorship.pdf"}>SPONSORSHIP CONTRACT</a>
+                <a class="link-button secondary" href={import.meta.env.BASE_URL === "/" ? "/sponsorship.pdf" : import.meta.env.BASE_URL.replace(/\/$/, "") + "/sponsorship.pdf"}>SPONSORSHIP CONTRACT</a>
             </Fragment>
 
             <Fragment slot="image">
@@ -32,7 +32,7 @@ import heroImg from "@/assets/image4.jpg";
             </Fragment>
     </Hero>
 
-    <section>
+    <section class="copy">
       ## How to Sponsor
 
       RITSEC is a student organization that operates under Rochester Institute of Technology, a 501(c)(3) organization.
@@ -41,10 +41,10 @@ import heroImg from "@/assets/image4.jpg";
 
       RITSEC accepts both monetary and non-monetary sponsorship, from both individuals and corporations.
 
-      For more information such as sponsorship perks, read the <a href={import.meta.env.BASE_URL + "/sponsorship.pdf"}>Sponsorship Contract</a>.
+      For more information such as sponsorship perks, read the <a href={import.meta.env.BASE_URL === "/" ? "/sponsorship.pdf" : import.meta.env.BASE_URL.replace(/\/$/, "") + "/sponsorship.pdf"}>Sponsorship Contract</a>.
     </section>
 
-    <section>
+    <section class="copy">
       ## Sponsorship Tiers
 
       | Tier        | Amount       | Term         |
