@@ -11,9 +11,11 @@
     "dependencies": {
         "@astrojs/mdx": "^4.3.13",
         "@astrojs/react": "^4.4.2",
+        "@astrojs/sitemap": "^3.7.0",
         "@fontsource/ibm-plex-mono": "^5.2.7",
         "@fontsource/ibm-plex-sans": "^5.2.8",
         "@lucide/astro": "^0.562.0",
+        "@resvg/resvg-js": "^2.6.2",
         "@types/react": "^19.2.7",
         "@types/react-dom": "^19.2.3",
         "astro": "^5.16.4",
@@ -24,6 +26,7 @@
         "embla-carousel-fade": "^8.6.0",
         "react": "^19.2.3",
         "react-dom": "^19.2.3",
+        "satori": "^0.19.1",
         "sharp": "^0.34.5"
     },
     "devDependencies": {
