@@ -2,11 +2,10 @@ import React, { useState, useMemo } from "react";
 import { formatDates } from "@/utils.js";
 
 const isSameDay = (a, b) => {
-    return (
-        a.getUTCFullYear() === b.getUTCFullYear() &&
-        a.getUTCMonth() === b.getUTCMonth() &&
-        a.getUTCDate() === b.getUTCDate()
-    );
+    const opts = { timeZone: "America/New_York", year: "numeric", month: "numeric", day: "numeric" };
+    const dateA = new Intl.DateTimeFormat("en-US", opts).format(a);
+    const dateB = new Intl.DateTimeFormat("en-US", opts).format(b);
+    return dateA === dateB;
 };
 
 function Schedule({ data, group: lockedGroup, count, ascending, showOld, daysAhead }) {
@@ -115,12 +114,12 @@ function Schedule({ data, group: lockedGroup, count, ascending, showOld, daysAhe
                                 {isSameDay(new Date(e.data.start), new Date(e.data.end)) ? (
                                     <>
                                         <div className="date-part">
-                                            {new Intl.DateTimeFormat("en-US", { timeZone: "UTC", month: "short", day: "numeric" }).format(new Date(e.data.start))}
+                                            {new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", month: "short", day: "numeric" }).format(new Date(e.data.start))}
                                         </div>
                                         <div className="time-part">
-                                            {new Intl.DateTimeFormat("en-US", { timeZone: "UTC", hour: "numeric", minute: "2-digit" }).format(new Date(e.data.start))}
+                                            {new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", hour: "numeric", minute: "2-digit" }).format(new Date(e.data.start))}
                                             {" - "}
-                                            {new Intl.DateTimeFormat("en-US", { timeZone: "UTC", hour: "numeric", minute: "2-digit" }).format(new Date(e.data.end))}
+                                            {new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", hour: "numeric", minute: "2-digit" }).format(new Date(e.data.end))}
                                         </div>
                                     </>
                                 ) : (

@@ -1,9 +1,8 @@
 function isSameDay(a, b) {
-    return (
-        a.getUTCFullYear() === b.getUTCFullYear() &&
-        a.getUTCMonth() === b.getUTCMonth() &&
-        a.getUTCDate() === b.getUTCDate()
-    );
+    const opts = { timeZone: "America/New_York", year: "numeric", month: "numeric", day: "numeric" };
+    const dateA = new Intl.DateTimeFormat("en-US", opts).format(a);
+    const dateB = new Intl.DateTimeFormat("en-US", opts).format(b);
+    return dateA === dateB;
 }
 
 function isMidnight(a) {
@@ -12,7 +11,7 @@ function isMidnight(a) {
 
 export function formatDate(date) {
     return new Intl.DateTimeFormat("en-US", {
-        timeZone: "UTC",
+        timeZone: "America/New_York",
         year: "numeric",
         month: "short",
         day: "numeric",
@@ -23,13 +22,13 @@ export const formatDates = (start, end, separator = " • ") => {
     /* We leave all the dates as UTC because that's what the
      * parsing defaults to, and is it NOT fun to deal with dates in JS... */
     const dateOpts = {
-        timeZone: "UTC",
+        timeZone: "America/New_York",
         month: "short",
         day: "numeric",
     };
 
     const timeOpts = {
-        timeZone: "UTC",
+        timeZone: "America/New_York",
         hour: "numeric",
         minute: "2-digit",
     };
