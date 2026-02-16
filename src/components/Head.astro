@@ -14,6 +14,26 @@ const {
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site || Astro.url);
+
+// Generate OG Image URL
+const baseUrl = import.meta.env.BASE_URL;
+let slug = Astro.url.pathname;
+
+// Remove base URL
+if (slug.startsWith(baseUrl)) {
+    slug = slug.slice(baseUrl.length);
+}
+
+// Remove leading/trailing slashes
+slug = slug.replace(/^\/|\/$/g, "");
+
+// Default to "index" if root
+if (slug === "") slug = "index";
+
+// Construct the OG image path (e.g., /ritsec.github.io/og/index.png)
+const ogImagePath = `${baseUrl.replace(/\/$/, "")}/og/${slug}.png`;
+const defaultImage = new URL(ogImagePath, Astro.url);
+const finalImage = image ? new URL(image, Astro.url) : defaultImage;
 ---
 
 <head>
@@ -38,20 +58,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site || Astro.url);
     <meta property="og:url" content={Astro.url} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    {image && <meta property="og:image" content={new URL(image, Astro.url)} />}
+    <meta property="og:image" content={finalImage} />
 
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={Astro.url} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
-    {
-        image && (
-            <meta
-                property="twitter:image"
-                content={new URL(image, Astro.url)}
-            />
-        )
-    }
+    <meta property="twitter:image" content={finalImage} />
 
     <ClientRouter />
 </head>
