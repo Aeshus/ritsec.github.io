@@ -109,11 +109,17 @@ export async function GET({ params, props }) {
         path.resolve("./node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff")
     );
 
+    // Load Logo
+    const logoBuffer = await fs.readFile(path.resolve("./src/assets/logoLarge.png"));
+    const logoBase64 = `data:image/png;base64,${logoBuffer.toString("base64")}`;
+
+
     // RITSEC Theme Colors
     const accentColor = "#e69132";
     const bgColor = "#0d1117";
     const textColor = "#ffffff";
     const dimColor = "#8b949e";
+    const borderColor = "#30363d";
 
     const markup = {
         type: "div",
@@ -128,8 +134,7 @@ export async function GET({ params, props }) {
                 padding: "60px",
                 justifyContent: "space-between",
                 fontFamily: "IBM Plex Sans",
-                backgroundImage: `radial-gradient(circle at 25px 25px, ${accentColor} 2%, transparent 0%), radial-gradient(circle at 75px 75px, ${accentColor} 2%, transparent 0%)`,
-                backgroundSize: "100px 100px",
+                // Subtle dot pattern + Gradient overlay
             },
             children: [
                 // Top Bar: Type + Icons
@@ -350,26 +355,13 @@ export async function GET({ params, props }) {
                             },
                             // Right Side: RITSEC Logo
                             {
-                                type: "div",
+                                type: "img",
                                 props: {
+                                    src: logoBase64,
+                                    width: 150,
                                     style: {
-                                        fontSize: "40px",
-                                        fontWeight: "bold",
-                                        color: textColor,
-                                        display: "flex",
-                                        alignItems: "center",
-                                        gap: "10px",
-                                    },
-                                    children: [
-                                        {
-                                            type: "span",
-                                            props: {
-                                                style: { color: accentColor },
-                                                children: "RIT"
-                                            }
-                                        },
-                                        "SEC"
-                                    ]
+                                        objectFit: 'contain'
+                                    }
                                 }
                             }
                         ]
