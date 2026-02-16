@@ -17,6 +17,7 @@ function ResearchList({ data, group: lockedGroup, count, ascending }) {
 
     const [selectedYear, setSelectedYear] = useState(years[0] || "All");
     const [selectedGroup, setSelectedGroup] = useState("All");
+    const [selectedType, setSelectedType] = useState("All Types");
 
     const filteredData = useMemo(() => {
         let d = [...data].sort((a, b) => new Date(a.data.date) - new Date(b.data.date));
@@ -33,9 +34,19 @@ function ResearchList({ data, group: lockedGroup, count, ascending }) {
             d = d.filter((a) => a.data.group?.id === selectedGroup);
         }
 
+        if (selectedType !== "All Types") {
+            if (selectedType === "Article") {
+                d = d.filter(a => a.data.hasContent);
+            } else if (selectedType === "Video") {
+                d = d.filter(a => a.data.video);
+            } else if (selectedType === "Slideshow") {
+                d = d.filter(a => a.data.slideshow);
+            }
+        }
+
         if (!ascending) d.reverse();
         return count ? d.slice(0, count) : d;
-    }, [data, selectedYear, selectedGroup, lockedGroup, ascending, count]);
+    }, [data, selectedYear, selectedGroup, selectedType, lockedGroup, ascending, count]);
 
     const availableGroups = useMemo(() => {
         const currentSet = selectedYear === "All"
@@ -80,6 +91,20 @@ function ResearchList({ data, group: lockedGroup, count, ascending }) {
                         </div>
                     </label>
                 )}
+                <label className="filter-label">
+                    <span className="filter-text">Type:</span>
+                    <div className="select-wrapper">
+                        <select
+                            value={selectedType}
+                            onChange={(e) => setSelectedType(e.target.value)}
+                            className="filter-select"
+                        >
+                            {["All Types", "Article", "Video", "Slideshow"].map((t) => (
+                                <option key={t} value={t}>{t}</option>
+                            ))}
+                        </select>
+                    </div>
+                </label>
             </div>
 
             <div className="list-stack">
