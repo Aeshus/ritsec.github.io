@@ -17,7 +17,7 @@ import heroImg from "@/assets/image4.jpg";
             reverse="true"
         >
             <Fragment slot="title">
-                Made Possible By <strong>Sponsors</strong>
+                Made Possible By Our <strong>Sponsors</strong>
             </Fragment>
 
             Industry partners. Vital support. Investing in the future of cybersecurity. Connecting world-class companies with world-class talent.
@@ -31,6 +31,24 @@ import heroImg from "@/assets/image4.jpg";
                 <Picture src={heroImg} width={1000} formats={['avif', 'webp']} alt="RITSEC working in the club room, with ISTS flags in the background." />
             </Fragment>
     </Hero>
+
+    <section>
+      ## Corportate Sponsors
+
+      Thank you to the organizations that empower our mission through their generous support of our events and research.
+
+      <SponsorsList />
+
+    </section>
+
+    <section>
+      ## Individual Sponsors
+
+      Our heartfelt thanks go to the alumni, mentors, and friends whose personal generosity fuels our community.
+
+      <SponsorsList individuals="true" />
+
+    </section>
 
     <section class="copy">
       ## How to Sponsor
@@ -56,25 +74,5 @@ import heroImg from "@/assets/image4.jpg";
       | Diamond     | $10,000+     | Full Year    |
       | Titanium    | $20,000+     | Full Year    |
 
-
     </section>
-
-    <section>
-      ## Corportate Sponsors
-
-      Thank you to the organizations that empower our mission through their generous support of our events and research.
-
-      <SponsorsList />
-
-    </section>
-
-    <section>
-      ## Individual Sponsors
-
-      Our heartfelt thanks go to the alumni, mentors, and friends whose personal generosity fuels our community.
-
-      <SponsorsList individuals="true" />
-
-    </section>
-
 </BaseLayout>
