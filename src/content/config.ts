@@ -123,6 +123,7 @@ const eboard = defineCollection({
             grad_year: z.number(),
             linked_in: z.string(),
             image: image(),
+            email: z.string(),
         }),
 });
 
