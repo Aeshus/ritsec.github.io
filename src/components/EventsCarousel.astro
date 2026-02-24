@@ -93,24 +93,6 @@ function getBadgeDate(date) {
                                     <p class="expand">{event.data.summary}</p>
 
                                     <div class="list">
-                                        <a
-                                            {/* I just wanna say, this is some BEAUTIFUL code, thanks prettier... */}
-                                            href={
-                                                (import.meta.env.BASE_URL ===
-                                                "/"
-                                                    ? ""
-                                                    : import.meta.env.BASE_URL.replace(
-                                                          /\/$/,
-                                                          "",
-                                                      )) +
-                                                "/events/#" +
-                                                event.slug
-                                            }
-                                            class="link-button primary"
-                                        >
-                                            Learn More
-                                        </a>
-
                                         {event.data.website && (
                                             <a
                                                 href={event.data.website}
