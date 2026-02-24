@@ -1,6 +1,7 @@
 ---
 import { Picture } from "astro:assets";
 import { getCollection, getEntry } from "astro:content";
+import {ArrowRight,ArrowLeft} from "@lucide/astro";
 const groups = await getCollection("groups");
 
 const icons = import.meta.glob("@/assets/icons/*.svg", {
@@ -108,7 +109,11 @@ const metaIcons = import.meta.glob("@/assets/icons/*.svg", {
         </div>
     </div>
 
-    <div class="carousel-scroll-text">← Drag To View More →</div>
+    <div class="carousel-scroll-text">
+        <button id="group-prev"><ArrowLeft /></button>
+        ← Drag To View More →
+        <button id="group-next"><ArrowRight /></botton>
+    </div>
 </div>
 
 <script>
@@ -129,6 +134,18 @@ const metaIcons = import.meta.glob("@/assets/icons/*.svg", {
                 },
                 [Autoplay({ delay: 3000, stopOnMouseEnter: true })],
             );
+
+            const prevBtn = document.querySelector('#group-prev');
+            const nextBtn = document.querySelector('#group-next');
+
+              const scrollPrev = () => {
+                  emblaApi.scrollPrev();
+              }
+              const scrollNext = () => {
+                  emblaApi.scrollNext();
+              }
+              prevBtn.addEventListener('click', scrollPrev, false)
+              nextBtn.addEventListener('click', scrollNext, false)
         }
     });
 </script>
@@ -195,6 +212,21 @@ const metaIcons = import.meta.glob("@/assets/icons/*.svg", {
 
     .carousel-scroll-text {
         text-align: center;
-        padding: var(--padding);
+        padding: var(--padding) 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    button {
+        border: var(--border);
+        padding: var(--padding-sm);
+        background: var(--bg);
+        color: var(--fg);
+    }
+
+    button:hover,
+    button:active {
+        color: var(--accent);
     }
 </style>

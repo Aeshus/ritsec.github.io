@@ -1,6 +1,8 @@
 ---
 import { getCollection } from "astro:content";
 import { MapPin } from '@lucide/astro';
+import {ArrowRight,ArrowLeft} from "@lucide/astro";
+
 
 const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 const groups = await getCollection("groups");
@@ -56,6 +58,7 @@ Object.keys(calendar).forEach((day) => {
 });
 ---
 
+<div>
 <div class="carousel" id="calendar-carousel">
     <div class="slide-container">
         {
@@ -104,6 +107,13 @@ Object.keys(calendar).forEach((day) => {
     </div>
 </div>
 
+    <div class="carousel-scroll-text">
+        <button id="calendar-prev"><ArrowLeft /></button>
+        ← Drag To View More →
+        <button id="calendar-next"><ArrowRight /></botton>
+    </div>
+</div>
+
 <script>
     import EmblaCarousel, { type EmblaCarouselType } from "embla-carousel";
 
@@ -130,6 +140,19 @@ Object.keys(calendar).forEach((day) => {
                     align: "start",
                     containScroll: "trimSnaps",
                 });
+
+                
+            const prevBtn = document.querySelector('#calendar-prev');
+            const nextBtn = document.querySelector('#calendar-next');
+
+              const scrollPrev = () => {
+                  emblaApi.scrollPrev();
+              }
+              const scrollNext = () => {
+                  emblaApi.scrollNext();
+              }
+              prevBtn.addEventListener('click', scrollPrev, false)
+              nextBtn.addEventListener('click', scrollNext, false)
             }
         }
     };
@@ -267,6 +290,32 @@ Object.keys(calendar).forEach((day) => {
     @media (max-width: 500px) {
         .slide {
             flex: 0 0 85%;
+        }
+    }
+
+    .carousel-scroll-text {
+        display: none;
+    }
+
+    @media (max-width: 1000px) {
+        .carousel-scroll-text {
+            text-align: center;
+            padding: var(--padding) 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        button {
+            border: var(--border);
+            padding: var(--padding-sm);
+            background: var(--bg);
+            color: var(--fg);
+        }
+
+        button:hover,
+        button:active {
+            color: var(--accent);
         }
     }
 </style>
