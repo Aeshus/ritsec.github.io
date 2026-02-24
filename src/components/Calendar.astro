@@ -187,7 +187,6 @@ Object.keys(calendar).forEach((day) => {
         display: flex;
         flex-direction: column;
         transition:
-            transform 0.2s ease,
             border-color 0.2s ease;
     }
 
@@ -286,10 +285,9 @@ Object.keys(calendar).forEach((day) => {
         margin-bottom: auto;
     }
 
-    /* Embla / Layout */
     .slide-container {
         display: flex;
-        margin-left: calc(var(--padding-xs) * -1); /* Offset padding */
+        margin-left: calc(var(--padding-xs) * -1); 
     }
 
     @media (max-width: 1000px) {
@@ -306,7 +304,7 @@ Object.keys(calendar).forEach((day) => {
 
     @media (max-width: 500px) {
         .slide {
-            flex: 0 0 85%; /* Peek layout on mobile */
+            flex: 0 0 85%;
         }
     }
 </style>
