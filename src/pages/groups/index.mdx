@@ -6,6 +6,8 @@ import { Picture } from "astro:assets";
 import Hero from "@/components/Hero.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import GroupCarousel from "@/components/GroupCarousel.astro";
+import Schedule from "@/components/Schedule.astro";
+import Calendar from "@/components/Calendar.astro";
 
 import heroImg from "@/assets/image5.jpg";
 
@@ -20,22 +22,24 @@ import heroImg from "@/assets/image5.jpg";
         </Fragment>
     </Hero>
 
-    <section class="copy">
-        ## Why Join an Interest Group?
+    <section>
+        ## Interest Groups
+        <GroupCarousel />
+    </section>
 
-        RITSEC's Interest Groups (IGs) are the heart of our technical depth. These are specialized, smaller communities within the club dedicated to specific domains of security.
 
-        - **Deep Dives**: Move beyond the basics and tackle advanced topics.
-        - **Hands-on Projects**: Build tools, solve challenges, and conduct research.
-        - **Mentorship**: Learn directly from experienced students and alumni.
-        - **Community**: distinct cultures and vibes—find the one that feels like home.
+    <section>
+        <h2>Weekly Overview</h2>
 
-        Whether you're a beginner wanting to learn the ropes or an expert looking to innovate, there's a place for you.
+        <p>These are the events that generally occur each week</p>
+
+        <Calendar />
     </section>
 
     <section>
-        ## Explore Our Groups
-        <GroupCarousel />
+        <h2>Weekly Education</h2>
+
+        <Schedule ascending={false} showOld={true} />
     </section>
 
     <section class="copy">
