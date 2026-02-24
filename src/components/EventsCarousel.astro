@@ -5,13 +5,8 @@ import { formatDates } from "@/utils.js";
 
 const events = await getCollection("events");
 
-/**
- * @param {Date | undefined | null} date
- */
 function getBadgeDate(date) {
     if (!date) return null;
-    // Heuristic: If UTC midnight, it's a "Date Only" event (like CTF), so use UTC.
-    // Otherwise, it's a timed event (like 6PM), so render in RIT/NY time.
     const isUtcMidnight =
         date.getUTCHours() === 0 &&
         date.getUTCMinutes() === 0 &&
@@ -97,8 +92,9 @@ function getBadgeDate(date) {
 
                                     <p class="expand">{event.data.summary}</p>
 
-                                    <div class="actions">
+                                    <div class="list">
                                         <a
+                                            {/* I just wanna say, this is some BEAUTIFUL code, thanks prettier... */}
                                             href={
                                                 (import.meta.env.BASE_URL ===
                                                 "/"
@@ -137,15 +133,6 @@ function getBadgeDate(date) {
     <div class="carousel-scroll-text">← Drag To View More →</div>
 </div>
 
-<noscript>
-    <a
-        href={(import.meta.env.BASE_URL === "/"
-            ? ""
-            : import.meta.env.BASE_URL.replace(/\/$/, "")) + "/events"}
-        class="link-button primary">VIEW ALL EVENTS</a
-    >
-</noscript>
-
 <script>
     import EmblaCarousel from "embla-carousel";
     import Autoplay from "embla-carousel-autoplay";
@@ -179,105 +166,84 @@ function getBadgeDate(date) {
         position: absolute;
         bottom: 0;
         background-color: var(--bg-panel);
-        padding: 8px 12px;
+        padding: var(--padding-sm);
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
         line-height: 1;
-        box-shadow: 2px -2px 10px rgba(0, 0, 0, 0.1);
-        z-index: 10;
-        min-width: 60px;
+        width: 60px;
         user-select: none;
     }
 
     .date-badge.left {
         left: 0;
-        border-top-right-radius: 8px;
+        border-top-right-radius: var(--padding-sm);
     }
 
     .date-badge.right {
         right: 0;
-        border-top-left-radius: 8px;
-        box-shadow: -2px -2px 10px rgba(0, 0, 0, 0.1); /* Flip shadow direction */
+        border-top-left-radius: var(--padding-sm);
     }
 
     .date-badge .month {
-        font-size: 0.75rem;
+        font-size: var(--sm);
         font-weight: bold;
         text-transform: uppercase;
         color: var(--accent);
     }
 
     .date-badge .day {
-        font-size: 1.5rem;
+        font-size: var(--lg);
         font-weight: bold;
         color: var(--fg);
     }
 
     .card-content {
-        padding: var(--padding);
-        display: flex;
         flex-direction: column;
+        display: flex;
         gap: var(--padding);
-        flex-grow: 1;
+        padding: var(--padding);
         text-align: left;
     }
 
     h3 {
         margin: 0;
         font-size: var(--lg);
-        font-weight: var(--w-bold);
-        text-align: left; /* Left align title */
+        text-align: left;
     }
 
     .meta-info {
         display: flex;
         flex-direction: column;
-        gap: 4px;
         font-size: var(--sm);
-        border-top: 1px solid var(--border-color);
+        border-top: var(--border);
         padding-top: var(--padding-sm);
         margin-top: auto;
         user-select: none;
     }
 
-    .meta-item {
-        display: flex;
-        gap: 6px;
-    }
-
     .meta-label {
         font-weight: bold;
         color: var(--accent);
-        min-width: 45px;
     }
 
     .meta-value {
-        opacity: 0.9;
+        font-weight: bold;
     }
 
     .expand {
-        flex-grow: 1;
         font-size: var(--sm);
-        opacity: 0.9;
-        overflow: hidden;
+        flex-grow: 1;
         user-select: none;
     }
 
-    .actions {
-        display: flex;
+    .list {
         gap: var(--padding-sm);
-        flex-wrap: wrap;
-        justify-content: flex-start; /* Left align actions */
-        margin-top: var(--padding);
     }
 
     .carousel-scroll-text {
         text-align: center;
         padding: var(--padding);
         font-size: var(--sm);
-        opacity: 0.6;
-        font-style: italic;
     }
 </style>
