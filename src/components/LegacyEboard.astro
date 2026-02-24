@@ -40,9 +40,14 @@ const legacy = (await getCollection("legacyEboard")).sort((a, b) => {
 
     .legacy-card {
         flex: 1 1 300px;
-        max-width: 450px;
+        /* Magic number... */
+        max-width: 362px;
         display: flex;
         flex-direction: column;
+    }
+
+    .card-header {
+        background: var(--bg-header);
     }
 
     .term-header {
