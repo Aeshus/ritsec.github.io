@@ -81,6 +81,7 @@ The issue here is that:
     - `?redirect_url=https://evil.com\nINFO User authenticated as admin`
 
 </section>
+
 <section>
 ## Challenge 2
 
@@ -144,6 +145,7 @@ const fullUrl = `https://internal-app/${urlParam}`;
   `/fetch-data?url=http://169.254.169.254/latest/meta-data/iam/security-credentials/`
 
 </section>
+
 <section>
 ## Challenge 3
 
@@ -242,6 +244,7 @@ private Map<String, String> userDatabase = new HashMap();
 - Note this issue is not as bad in this code base since it's a mobile application and in theory it wouldn't break the code base as much but otherwise
 
 </section>
+
 <section>
 ## Challenge 4
 
@@ -276,6 +279,7 @@ if __name__ == '__main__':
 - The creds are hard coded in the code enough said
 
 </section>
+
 <section>
 ## Challenge 5
 
@@ -362,6 +366,7 @@ dbf.setXIncludeAware(false);
 - This disables DOCTYPEs
 
 </section>
+
 <section>
 ## Challenge 6
 
@@ -426,6 +431,7 @@ After which the server will respond with:
     - Phishing overlays
 
 </section>
+
 <section>
 ## Challenge 7
 
@@ -486,6 +492,7 @@ This allows attackers to send the following request:
   `http://evil.com/reset-password?token=generatedToken123`
 
 </section>
+
 <section>
 ## Challenge 8
 
@@ -532,6 +539,7 @@ with root it looks like this: `filesystem_path = root + full_request_uri`
 The security comes from NGINX normalizing the URI before location matching. After normalization, `/html/../secret.txt` becomes `/secret.txt`, which no longer matches `location /html/`, so the request never reaches the `root` directive and is rejected.
 
 </section>
+
 <section>
 ## Challenge 9
 
@@ -628,6 +636,7 @@ def edit_profile():
 - We now use a helper function in order to get the current session's username in order to edit that
 
 </section>
+
 <section>
 ## Challenge 10
 
@@ -679,8 +688,9 @@ app.listen(3000, () => {
 - Our issue here is how we are using the JWT token, while we do decode it we never actually verify that it's correct
     - What this means is that we can fake being the admin and login to the admin mode shown above. To fix this we need to use
 - `jwt.verify(token, secretKey)` - Here we now validate that the JWT token is in fact for the admin
-  </section>
-    <section>
+
+</section>
+<section>
 
 ## Challenge 11
 
