@@ -141,6 +141,13 @@ const legacyEboard = defineCollection({
     }),
 });
 
+const alumni = defineCollection({
+    loader: file("src/content/alumni.yml"),
+    schema: z.object({
+        names: z.array(z.string()),
+    }),
+});
+
 export const collections = {
     groups,
     schedule,
@@ -149,4 +156,5 @@ export const collections = {
     sponsors,
     eboard,
     legacyEboard,
+    alumni
 };
