@@ -1,6 +1,8 @@
 ---
 import { getCollection } from "astro:content";
 import { Picture } from "astro:assets";
+import { Mail, Linkedin } from '@lucide/astro';
+
 
 const eboard = await getCollection("eboard");
 ---
@@ -31,22 +33,22 @@ const eboard = await getCollection("eboard");
                         <span class="meta-value">{member.data.grad_year}</span>
                     </div>
 
-                    <div class="actions">
+                    <div class="list">
                         <a
                             href={"mailto:" + member.data.email}
-                            class="link-button primary small"
+                            class="link-button icon"
                         >
-                            Email
+                            <Mail />
                         </a>
 
                         {member.data.linked_in && (
                             <a
                                 href={member.data.linked_in}
-                                class="link-button secondary small"
+                                class="link-button icon"
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
-                                LinkedIn
+                                <Linkedin />
                             </a>
                         )}
                     </div>
@@ -110,12 +112,5 @@ const eboard = await getCollection("eboard");
         color: var(--accent);
         font-weight: bold;
         margin-top: 0.25rem;
-    }
-
-    .actions {
-        margin-top: auto;
-        display: flex;
-        gap: 0.5rem;
-        flex-wrap: wrap;
     }
 </style>
