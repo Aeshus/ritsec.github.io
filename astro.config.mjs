@@ -13,5 +13,7 @@ import sitemap from "@astrojs/sitemap";
 export default defineConfig({
     site: "https://aeshus.github.io",
     base: "/ritsec.github.io",
-    integrations: [expressiveCode(), mdx(), react(), sitemap()],
+    integrations: [expressiveCode({
+      themes: ['github-dark']
+    }), mdx(), react(), sitemap()],
 });
