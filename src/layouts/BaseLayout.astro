@@ -175,30 +175,15 @@ const { title, description, image } = Astro.props;
     }
 
     :root {
-        --bg: #f3f4f6; /* Cool Gray Background */
-        --bg-panel: #ffffff; /* White Cards */
-        --bg-header: #ffffff;
+        --bg: #0d0d0f;
+        --bg-panel: #0e0e10;
+        --bg-header: #0e0e10;
 
-        --fg: #1f2937; /* Dark Gray text */
-        --border-color: #e5e7eb;
-        --border-color-interactable: #c2a483;
+        --fg: #c9d1d9; 
+        --border-color: #30363d;
 
         --accent: #e69132;
-        --fg-accent: #ffffff; /* White text on accent */
-    }
-
-    @media (prefers-color-scheme: dark) {
-        :root {
-            --bg: #0d1117; /* Rich Dark Slate */
-            --bg-panel: #161b22; /* Lighter Slate Cards */
-            --bg-header: #161b22;
-
-            --fg: #c9d1d9; /* Soft White text */
-            --border-color: #30363d;
-
-            --accent: #e69132;
-            --fg-accent: #0d1117; /* Dark text on accent for contrast */
-        }
+        --fg-accent: #0d1117; 
     }
 
     /* ----- BASE STYLES ---- */
