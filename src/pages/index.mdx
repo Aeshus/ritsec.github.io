@@ -33,41 +33,4 @@ import heroImg from "@/assets/image7.jpg";
                 <Picture src={heroImg} width={1000} formats={['avif', 'webp']} alt="Fall 2024 RITSEC Letchworth State Park group photo" />
             </Fragment>
     </Hero>
-
-    <section class="copy">
-        ## Interest Groups
-
-        Beyond our general meetings, we run specialized sub-groups that dive deep into specific domains of cybersecurity.
-
-        <GroupCarousel />
-
-    </section>
-
-    <section class="copy">
-        ## Schedule
-
-        Stay up to date with our weekly meetings, workshops, and interest group sessions.
-
-        <Schedule count={3} daysAhead={14} />
-
-        <a class="link-button primary" href={import.meta.env.BASE_URL === "/" ? "/education" : import.meta.env.BASE_URL.replace(/\/$/, "") + "/education"}>VIEW EDUCATION</a>
-    </section>
-
-    <section class="copy">
-        ## Events
-
-        Home to nationally recognized Attack/Defense competitions, Capture the Flags, and our exclusive Career Fair Eve networking event.
-
-        <EventsCarousel />
-    </section>
-
-    <section class="copy">
-        ## Research
-
-        Pushing the boundaries of security through student-led innovation and blog posts.
-
-        <ResearchList count={3} />
-
-        <a class="link-button primary" href={import.meta.env.BASE_URL === "/" ? "/research" : import.meta.env.BASE_URL.replace(/\/$/, "") + "/research"}>VIEW ALL RESEARCH</a>
-    </section>
 </BaseLayout>
