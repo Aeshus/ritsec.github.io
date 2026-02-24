@@ -63,7 +63,7 @@ const base = import.meta.env.BASE_URL;
                         href={href}
                         aria-current={isActive ? "page" : undefined}
                     >
-                        {link.text}
+                        <span aria-hidden="true">/</span>{link.text}
                     </a>
                 );
             })
@@ -89,6 +89,16 @@ const base = import.meta.env.BASE_URL;
         background-color: var(--bg-header);
 
         z-index: 999;
+    }
+
+    .link-button {
+        border: unset;
+    }
+
+    .link-button.secondary {
+        text-decoration: underline;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 2px;
     }
 
     .logo img {
