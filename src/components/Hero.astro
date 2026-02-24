@@ -92,6 +92,11 @@ const i = !Astro.slots.has("image");
     }
 
     @media (max-width: 1000px) {
+        section {
+            grid-template-columns: 1fr;
+            text-align: center;
+        }
+
         section.i {
             display: flex;
             flex-direction: column;
