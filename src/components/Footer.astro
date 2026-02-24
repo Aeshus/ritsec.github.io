@@ -1,6 +1,6 @@
 ---
 import { Picture } from "astro:assets";
-import logo from "@/assets/logoLarge.png";
+import logo from "@/assets/logo.svg";
 
 const currentYear = new Date().getFullYear();
 
@@ -16,8 +16,8 @@ const socials = [
 
 <footer>
     <div>
-        <a href={import.meta.env.BASE_URL} class="link-button tertiary">
-            <Picture src={logo} alt="RITSEC Logo" width={180} />
+        <a href={import.meta.env.BASE_URL} class="logo link-button tertiary">
+            <Picture src={logo} alt="RITSEC Logo" />
         </a>
     </div>
 
@@ -38,6 +38,11 @@ const socials = [
 </footer>
 
 <style>
+    .logo {
+        width: 180px;
+        border: unset;
+    }
+
     footer {
         padding: 1rem var(--padding);
         display: flex;
