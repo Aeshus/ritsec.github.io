@@ -632,59 +632,59 @@ def edit_profile():
 ## Challenge 10
 
 ```js
-    const express = require('express');
-    const jwt = require('jsonwebtoken');
-    require('dotenv').config();
+const express = require("express");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
-    const app = express();
+const app = express();
 
-    const secretKey = process.env.JWT_SECRET;
+const secretKey = process.env.JWT_SECRET;
 
-    const verifyToken = (req, res, next) => {
-      const token = req.headers.authorization;
+const verifyToken = (req, res, next) => {
+    const token = req.headers.authorization;
 
-      if (!token) {
-        return res.status(401).json({ message: 'No token provided' });
-      }
+    if (!token) {
+        return res.status(401).json({ message: "No token provided" });
+    }
 
-      const decoded = jwt.decode(token, { complete: true });
-      req.decoded = decoded.payload;
+    const decoded = jwt.decode(token, { complete: true });
+    req.decoded = decoded.payload;
 
-      next();
-    };
+    next();
+};
 
-    app.get('/admin', verifyToken, (req, res) => {
-      const { username } = req.decoded;
-      if (username === 'admin') {
+app.get("/admin", verifyToken, (req, res) => {
+    const { username } = req.decoded;
+    if (username === "admin") {
         // admin functionality is now available to the user
 
-        return res.status(200).json({ message: 'Admin access granted' });
-      }
-      res.status(403).json({ message: 'Unauthorized access' });
-    });
+        return res.status(200).json({ message: "Admin access granted" });
+    }
+    res.status(403).json({ message: "Unauthorized access" });
+});
 
-    app.get('/generate-token', (req, res) => {
-      const payload = { username: 'user' };
-      const token = jwt.sign(payload, secretKey, { expiresIn: '1h' });
-      res.status(200).json({ token });
-    });
+app.get("/generate-token", (req, res) => {
+    const payload = { username: "user" };
+    const token = jwt.sign(payload, secretKey, { expiresIn: "1h" });
+    res.status(200).json({ token });
+});
 
-    app.listen(3000, () => {
-      console.log('Server running on port 3000');
-    });
+app.listen(3000, () => {
+    console.log("Server running on port 3000");
+});
 ```
 
 ### Bug 1
 
 - Our issue here is how we are using the JWT token, while we do decode it we never actually verify that it's correct
-  - What this means is that we can fake being the admin and login to the admin mode shown above. To fix this we need to use
-- `jwt.verify(token, secretKey)`
-  - Here we now validate that the JWT token is in fact for the admin
-</section>
-<section>
+    - What this means is that we can fake being the admin and login to the admin mode shown above. To fix this we need to use
+- `jwt.verify(token, secretKey)` - Here we now validate that the JWT token is in fact for the admin
+  </section>
+    <section>
+
 ## Challenge 11
 
-```python
+````python
 from flask import Flask
 
 app = Flask(__name__)
@@ -999,22 +999,18 @@ app.post("/transfer", (req, res) => {
                                 (err) => {
                                     if (err) {
                                         db.run("ROLLBACK");
-                                        return res
-                                            .status(500)
-                                            .json({
-                                                message: "Database error",
-                                            });
+                                        return res.status(500).json({
+                                            message: "Database error",
+                                        });
                                     }
 
                                     db.run("COMMIT", (err) => {
                                         if (err) {
                                             db.run("ROLLBACK");
-                                            return res
-                                                .status(500)
-                                                .json({
-                                                    message:
-                                                        "Failed to commit transaction",
-                                                });
+                                            return res.status(500).json({
+                                                message:
+                                                    "Failed to commit transaction",
+                                            });
                                         }
 
                                         res.status(200).json({

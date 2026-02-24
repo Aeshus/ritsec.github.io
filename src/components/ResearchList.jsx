@@ -9,7 +9,11 @@ function ResearchList({ data, group: lockedGroup, count, ascending }) {
 
     const years = useMemo(() => {
         const base = lockedGroup
-            ? data.filter((e) => e.data.group?.id.toLowerCase() === lockedGroup.toLowerCase())
+            ? data.filter(
+                  (e) =>
+                      e.data.group?.id.toLowerCase() ===
+                      lockedGroup.toLowerCase(),
+              )
             : data;
         const set = new Set(base.map((e) => getYear(e.data.date)));
         return [...Array.from(set).sort().reverse()];
@@ -20,10 +24,16 @@ function ResearchList({ data, group: lockedGroup, count, ascending }) {
     const [selectedType, setSelectedType] = useState("All Types");
 
     const filteredData = useMemo(() => {
-        let d = [...data].sort((a, b) => new Date(a.data.date) - new Date(b.data.date));
+        let d = [...data].sort(
+            (a, b) => new Date(a.data.date) - new Date(b.data.date),
+        );
 
         if (lockedGroup) {
-            d = d.filter((a) => a.data.group?.id.toLowerCase() === lockedGroup.toLowerCase());
+            d = d.filter(
+                (a) =>
+                    a.data.group?.id.toLowerCase() ===
+                    lockedGroup.toLowerCase(),
+            );
         }
 
         if (selectedYear !== "All") {
@@ -36,27 +46,34 @@ function ResearchList({ data, group: lockedGroup, count, ascending }) {
 
         if (selectedType !== "All Types") {
             if (selectedType === "Article") {
-                d = d.filter(a => a.data.hasContent);
+                d = d.filter((a) => a.data.hasContent);
             } else if (selectedType === "Video") {
-                d = d.filter(a => a.data.video);
+                d = d.filter((a) => a.data.video);
             } else if (selectedType === "Slideshow") {
-                d = d.filter(a => a.data.slideshow);
+                d = d.filter((a) => a.data.slideshow);
             }
         }
 
         if (!ascending) d.reverse();
         return count ? d.slice(0, count) : d;
-    }, [data, selectedYear, selectedGroup, selectedType, lockedGroup, ascending, count]);
+    }, [
+        data,
+        selectedYear,
+        selectedGroup,
+        selectedType,
+        lockedGroup,
+        ascending,
+        count,
+    ]);
 
     const availableGroups = useMemo(() => {
-        const currentSet = selectedYear === "All"
-            ? data
-            : data.filter((e) => getYear(e.data.date) === selectedYear);
+        const currentSet =
+            selectedYear === "All"
+                ? data
+                : data.filter((e) => getYear(e.data.date) === selectedYear);
 
         const set = new Set(
-            currentSet
-                .map((e) => e.data.group?.id)
-                .filter(Boolean)
+            currentSet.map((e) => e.data.group?.id).filter(Boolean),
         );
         return ["All", ...Array.from(set).sort()];
     }, [data, selectedYear]);
@@ -69,11 +86,18 @@ function ResearchList({ data, group: lockedGroup, count, ascending }) {
                     <div className="select-wrapper">
                         <select
                             value={selectedYear}
-                            onChange={(e) => { setSelectedYear(e.target.value); setSelectedGroup("All"); }}
+                            onChange={(e) => {
+                                setSelectedYear(e.target.value);
+                                setSelectedGroup("All");
+                            }}
                             className="filter-select"
                         >
                             <option value="All">All Years</option>
-                            {years.map((y) => (<option key={y} value={y}>{y}</option>))}
+                            {years.map((y) => (
+                                <option key={y} value={y}>
+                                    {y}
+                                </option>
+                            ))}
                         </select>
                     </div>
                 </label>
@@ -83,10 +107,18 @@ function ResearchList({ data, group: lockedGroup, count, ascending }) {
                         <div className="select-wrapper">
                             <select
                                 value={selectedGroup}
-                                onChange={(e) => setSelectedGroup(e.target.value)}
+                                onChange={(e) =>
+                                    setSelectedGroup(e.target.value)
+                                }
                                 className="filter-select"
                             >
-                                {availableGroups.map((g) => (<option key={g} value={g}>{g === "All" ? "All Groups" : g.toUpperCase()}</option>))}
+                                {availableGroups.map((g) => (
+                                    <option key={g} value={g}>
+                                        {g === "All"
+                                            ? "All Groups"
+                                            : g.toUpperCase()}
+                                    </option>
+                                ))}
                             </select>
                         </div>
                     </label>
@@ -99,9 +131,13 @@ function ResearchList({ data, group: lockedGroup, count, ascending }) {
                             onChange={(e) => setSelectedType(e.target.value)}
                             className="filter-select"
                         >
-                            {["All Types", "Article", "Video", "Slideshow"].map((t) => (
-                                <option key={t} value={t}>{t}</option>
-                            ))}
+                            {["All Types", "Article", "Video", "Slideshow"].map(
+                                (t) => (
+                                    <option key={t} value={t}>
+                                        {t}
+                                    </option>
+                                ),
+                            )}
                         </select>
                     </div>
                 </label>
@@ -115,14 +151,20 @@ function ResearchList({ data, group: lockedGroup, count, ascending }) {
                         className="card card-row"
                     >
                         <div className="col-date">
-                            <time dateTime={new Date(post.data.date).toISOString()}>
+                            <time
+                                dateTime={new Date(
+                                    post.data.date,
+                                ).toISOString()}
+                            >
                                 {formatDate(new Date(post.data.date))}
                             </time>
                         </div>
 
                         <article className="col-content">
                             <div className="card-header-row">
-                                <strong className="card-title">{post.data.title}</strong>
+                                <strong className="card-title">
+                                    {post.data.title}
+                                </strong>
                                 {post.data.group && (
                                     <span className="badge">
                                         {post.data.group.id.toUpperCase()}
@@ -165,7 +207,10 @@ function ResearchList({ data, group: lockedGroup, count, ascending }) {
                         <div className="col-actions">
                             <div className="action-group">
                                 {post.data.hasContent && (
-                                    <div className="icon-button" title="Article">
+                                    <div
+                                        className="icon-button"
+                                        title="Article"
+                                    >
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             width="20"
@@ -179,9 +224,24 @@ function ResearchList({ data, group: lockedGroup, count, ascending }) {
                                         >
                                             <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
                                             <polyline points="14 2 14 8 20 8" />
-                                            <line x1="16" x2="8" y1="13" y2="13" />
-                                            <line x1="16" x2="8" y1="17" y2="17" />
-                                            <line x1="10" x2="8" y1="9" y2="9" />
+                                            <line
+                                                x1="16"
+                                                x2="8"
+                                                y1="13"
+                                                y2="13"
+                                            />
+                                            <line
+                                                x1="16"
+                                                x2="8"
+                                                y1="17"
+                                                y2="17"
+                                            />
+                                            <line
+                                                x1="10"
+                                                x2="8"
+                                                y1="9"
+                                                y2="9"
+                                            />
                                         </svg>
                                     </div>
                                 )}
@@ -211,7 +271,10 @@ function ResearchList({ data, group: lockedGroup, count, ascending }) {
                                     </div>
                                 )}
                                 {post.data.slideshow && (
-                                    <div className="icon-button" title="Slideshow">
+                                    <div
+                                        className="icon-button"
+                                        title="Slideshow"
+                                    >
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             width="20"

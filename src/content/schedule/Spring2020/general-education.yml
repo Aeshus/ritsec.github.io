@@ -1,6 +1,6 @@
 - title: Red Teaming
   hosts:
-    - name: RITSEC
+      - name: RITSEC
   start: 2020-01-17T12:00:00-04:00
   end: 2020-01-17T14:00:00-04:00
   location: GOL-1710/20/30
@@ -9,7 +9,7 @@
 
 - title: Advanced Linux
   hosts:
-    - name: RITSEC
+      - name: RITSEC
   start: 2020-01-24T12:00:00-04:00
   end: 2020-01-24T14:00:00-04:00
   location: GOL-1710/20/30
@@ -18,7 +18,7 @@
 
 - title: Advanced Windows
   hosts:
-    - name: RITSEC
+      - name: RITSEC
   start: 2020-02-14T12:00:00-04:00
   end: 2020-02-14T14:00:00-04:00
   location: GOL-1710/20/30
@@ -27,7 +27,7 @@
 
 - title: Advanced Web
   hosts:
-    - name: RITSEC
+      - name: RITSEC
   start: 2020-02-21T12:00:00-04:00
   end: 2020-02-21T14:00:00-04:00
   location: GOL-1710/20/30
@@ -36,7 +36,7 @@
 
 - title: Binary Exploitation
   hosts:
-    - name: RITSEC
+      - name: RITSEC
   start: 2020-03-20T12:00:00-04:00
   end: 2020-03-20T14:00:00-04:00
   location: GOL-1710/20/30

@@ -1,6 +1,6 @@
 - title: Intro to RITSEC
   hosts:
-    - name: RITSEC
+      - name: RITSEC
   start: 2022-08-26T12:00:00-04:00
   end: 2022-08-26T14:00:00-04:00
   location: GOL-1710/20/30
@@ -10,7 +10,7 @@
 
 - title: Intro to Linux
   hosts:
-    - name: Daniel Railic
+      - name: Daniel Railic
   start: 2022-09-02T12:00:00-04:00
   end: 2022-09-02T14:00:00-04:00
   location: GOL-1710/20/30
@@ -20,7 +20,7 @@
 
 - title: Intro to Windows
   hosts:
-    - name: Tenchi Mata
+      - name: Tenchi Mata
   start: 2022-09-09T12:00:00-04:00
   end: 2022-09-09T14:00:00-04:00
   location: GOL-1710/20/30
@@ -30,7 +30,7 @@
 
 - title: Career Fair Prep
   hosts:
-    - name: Kat Nayan
+      - name: Kat Nayan
   start: 2022-09-16T12:00:00-04:00
   end: 2022-09-16T14:00:00-04:00
   location: GOL-1710/20/30
@@ -40,7 +40,7 @@
 
 - title: Intro to Networking
   hosts:
-    - name: Jonathan S. Weissman
+      - name: Jonathan S. Weissman
   start: 2022-09-23T12:00:00-04:00
   end: 2022-09-23T14:00:00-04:00
   location: GOL-1710/20/30
@@ -54,12 +54,11 @@
   location: GOL-1710/20/30
   group: general
   slide: https://docs.google.com/presentation/d/1VcmBZ15V8RnIO3egjNzUBeU0AI1wIeLALwjUwOj8f14/
-  
 
 - title: Core Services
   hosts:
-    - name: Malik 
-    - name: Smash
+      - name: Malik
+      - name: Smash
   start: 2022-10-07T12:00:00-04:00
   end: 2022-10-07T14:00:00-04:00
   location: GOL-1710/20/30
@@ -69,7 +68,7 @@
 
 - title: Physical Security
   hosts:
-    - name: Bailey Powers
+      - name: Bailey Powers
   start: 2022-10-14T12:00:00-04:00
   end: 2022-10-14T14:00:00-04:00
   location: GOL-1710/20/30
@@ -86,7 +85,7 @@
 
 - title: Red Team
   hosts:
-    - name: Jason, Mav, Anni, Kenny
+      - name: Jason, Mav, Anni, Kenny
   start: 2022-10-28T12:00:00-04:00
   end: 2022-10-28T14:00:00-04:00
   location: GOL-1710/20/30
@@ -96,7 +95,7 @@
 
 - title: Social Engineering/OSINT
   hosts:
-    - name: Max Fusco
+      - name: Max Fusco
   start: 2022-11-04T12:00:00-04:00
   end: 2022-11-04T14:00:00-04:00
   location: GOL-1710/20/30
@@ -105,7 +104,7 @@
 
 - title: SWRE
   hosts:
-    - name: Jacob Doll
+      - name: Jacob Doll
   start: 2022-11-11T12:00:00-04:00
   end: 2022-11-11T14:00:00-04:00
   location: GOL-1710/20/30

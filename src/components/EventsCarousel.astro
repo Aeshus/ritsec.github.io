@@ -2,7 +2,7 @@
 import { getCollection } from "astro:content";
 import { Picture } from "astro:assets";
 import { formatDates } from "@/utils.js";
-import {ArrowRight,ArrowLeft} from "@lucide/astro";
+import { ArrowRight, ArrowLeft } from "@lucide/astro";
 
 const events = await getCollection("events");
 
@@ -116,7 +116,7 @@ function getBadgeDate(date) {
     <div class="carousel-scroll-text">
         <button id="group-prev"><ArrowLeft /></button>
         ← Drag To View More →
-        <button id="group-next"><ArrowRight /></botton>
+        <button id="group-next"><ArrowRight /></button>
     </div>
 </div>
 
@@ -139,18 +139,17 @@ function getBadgeDate(date) {
                 [Autoplay({ delay: 3000, stopOnMouseEnter: true })],
             );
 
-            const prevBtn = document.querySelector('#group-prev');
-            const nextBtn = document.querySelector('#group-next');
+            const prevBtn = document.querySelector("#group-prev");
+            const nextBtn = document.querySelector("#group-next");
 
-              const scrollPrev = () => {
-                  emblaApi.scrollPrev();
-              }
-              const scrollNext = () => {
-                  emblaApi.scrollNext();
-              }
-              prevBtn.addEventListener('click', scrollPrev, false)
-              nextBtn.addEventListener('click', scrollNext, false)
-
+            const scrollPrev = () => {
+                emblaApi.scrollPrev();
+            };
+            const scrollNext = () => {
+                emblaApi.scrollNext();
+            };
+            prevBtn.addEventListener("click", scrollPrev, false);
+            nextBtn.addEventListener("click", scrollNext, false);
         }
     });
 </script>
@@ -260,5 +259,4 @@ function getBadgeDate(date) {
     button:active {
         color: var(--accent);
     }
-
 </style>

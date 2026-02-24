@@ -1,6 +1,6 @@
 - title: Advanced Linux
   hosts:
-    - name: RITSEC
+      - name: RITSEC
   start: 2021-01-29T12:00:00-04:00
   end: 2021-01-29T14:00:00-04:00
   location: GOL-1710/20/30
@@ -9,7 +9,7 @@
 
 - title: Advanced Windows
   hosts:
-    - name: RITSEC
+      - name: RITSEC
   start: 2021-02-05T12:00:00-04:00
   end: 2021-02-05T14:00:00-04:00
   location: GOL-1710/20/30
@@ -18,7 +18,7 @@
 
 - title: Red Team
   hosts:
-    - name: RITSEC
+      - name: RITSEC
   start: 2021-02-12T12:00:00-04:00
   end: 2021-02-12T14:00:00-04:00
   location: GOL-1710/20/30
@@ -27,7 +27,7 @@
 
 - title: Binary Exploitation and Reversing
   hosts:
-    - name: RITSEC
+      - name: RITSEC
   start: 2021-02-19T12:00:00-04:00
   end: 2021-02-19T14:00:00-04:00
   location: GOL-1710/20/30
@@ -36,7 +36,7 @@
 
 - title: Social Engineering
   hosts:
-    - name: Shannon McHale
+      - name: Shannon McHale
   start: 2021-02-26T12:00:00-04:00
   end: 2021-02-26T14:00:00-04:00
   location: GOL-1710/20/30
@@ -45,7 +45,7 @@
 
 - title: Advanced Networking
   hosts:
-    - name: Jon Bauer
+      - name: Jon Bauer
   start: 2021-03-05T12:00:00-04:00
   end: 2021-03-05T14:00:00-04:00
   location: GOL-1710/20/30
@@ -54,7 +54,7 @@
 
 - title: Intro to Ops
   hosts:
-    - name: RITSEC
+      - name: RITSEC
   start: 2021-04-02T12:00:00-04:00
   end: 2021-04-02T14:00:00-04:00
   location: GOL-1710/20/30
@@ -63,7 +63,7 @@
 
 - title: Class Enrollment
   hosts:
-    - name: RITSEC
+      - name: RITSEC
   start: 2021-04-09T12:00:00-04:00
   end: 2021-04-09T14:00:00-04:00
   location: GOL-1710/20/30
@@ -72,7 +72,7 @@
 
 - title: The Linux Boot Process
   hosts:
-    - name: RITSEC
+      - name: RITSEC
   start: 2021-03-19T12:00:00-04:00
   end: 2021-03-19T14:00:00-04:00
   location: GOL-1710/20/30
@@ -81,7 +81,7 @@
 
 - title: Advanced Web
   hosts:
-    - name: RITSEC
+      - name: RITSEC
   start: 2021-03-26T12:00:00-04:00
   end: 2021-03-26T14:00:00-04:00
   location: GOL-1710/20/30
@@ -90,7 +90,7 @@
 
 - title: Physical Security
   hosts:
-    - name: RITSEC
+      - name: RITSEC
   start: 2021-04-09T12:00:00-04:00
   end: 2021-04-09T14:00:00-04:00
   location: GOL-1710/20/30

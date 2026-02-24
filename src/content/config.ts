@@ -40,20 +40,23 @@ const schedule = defineCollection({
     loader: glob({
         pattern: "**/*.{yml,yaml}",
         base: "./src/content/schedule",
-        generateId: ({ entry }) => entry.replace(/\.yml$/, ''),
+        generateId: ({ entry }) => entry.replace(/\.yml$/, ""),
     }),
-    schema: z.array(z.object({
-        title: z.string(),
-        start: z.date(),
-        end: z.date(),
-        location: z.string().default("GOL 1400"),
-        group: reference("groups").default("general"),
-        hosts: z.array(z.object({ name: z.string() }))
-            .default([{ name: "RITSEC E-Board" }]),
-        slide: z.string().url().optional(),
-        video: z.string().url().optional(),
-        website: z.string().url().optional(),
-    })),
+    schema: z.array(
+        z.object({
+            title: z.string(),
+            start: z.date(),
+            end: z.date(),
+            location: z.string().default("GOL 1400"),
+            group: reference("groups").default("general"),
+            hosts: z
+                .array(z.object({ name: z.string() }))
+                .default([{ name: "RITSEC E-Board" }]),
+            slide: z.string().url().optional(),
+            video: z.string().url().optional(),
+            website: z.string().url().optional(),
+        }),
+    ),
 });
 
 const events = defineCollection({
@@ -156,5 +159,5 @@ export const collections = {
     sponsors,
     eboard,
     legacyEboard,
-    alumni
+    alumni,
 };

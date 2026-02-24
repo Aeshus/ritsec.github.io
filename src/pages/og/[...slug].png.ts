@@ -1,4 +1,3 @@
-
 import { getCollection } from "astro:content";
 import satori from "satori";
 import { Resvg } from "@resvg/resvg-js";
@@ -50,8 +49,12 @@ export async function getStaticPaths() {
             subtitle: "RITSEC",
             type: "Home",
             // Fill defaults
-            leads: [], meetings: [], authors: [], group: undefined, links: { video: false, slides: false }
-        }
+            leads: [],
+            meetings: [],
+            authors: [],
+            group: undefined,
+            links: { video: false, slides: false },
+        },
     });
 
     paths.push({
@@ -60,8 +63,12 @@ export async function getStaticPaths() {
             title: "Events",
             subtitle: "Competitions, CTFs, and more",
             type: "Events",
-            leads: [], meetings: [], authors: [], group: undefined, links: { video: false, slides: false }
-        }
+            leads: [],
+            meetings: [],
+            authors: [],
+            group: undefined,
+            links: { video: false, slides: false },
+        },
     });
 
     paths.push({
@@ -70,8 +77,12 @@ export async function getStaticPaths() {
             title: "About Us",
             subtitle: "History, E-Board, and Mission",
             type: "About",
-            leads: [], meetings: [], authors: [], group: undefined, links: { video: false, slides: false }
-        }
+            leads: [],
+            meetings: [],
+            authors: [],
+            group: undefined,
+            links: { video: false, slides: false },
+        },
     });
 
     paths.push({
@@ -80,8 +91,12 @@ export async function getStaticPaths() {
             title: "Join RITSEC",
             subtitle: "Become a member today",
             type: "Join",
-            leads: [], meetings: [], authors: [], group: undefined, links: { video: false, slides: false }
-        }
+            leads: [],
+            meetings: [],
+            authors: [],
+            group: undefined,
+            links: { video: false, slides: false },
+        },
     });
 
     paths.push({
@@ -90,29 +105,39 @@ export async function getStaticPaths() {
             title: "Sponsors",
             subtitle: "Our partners and supporters",
             type: "Sponsors",
-            leads: [], meetings: [], authors: [], group: undefined, links: { video: false, slides: false }
-        }
+            leads: [],
+            meetings: [],
+            authors: [],
+            group: undefined,
+            links: { video: false, slides: false },
+        },
     });
 
     return paths;
 }
 
 export async function GET({ params, props }) {
-    const { title, subtitle, type, authors, group, links, leads, meetings } = props;
+    const { title, subtitle, type, authors, group, links, leads, meetings } =
+        props;
 
     // Load Fonts
     const fontSans = await fs.readFile(
-        path.resolve("./node_modules/@fontsource/ibm-plex-sans/files/ibm-plex-sans-latin-700-normal.woff")
+        path.resolve(
+            "./node_modules/@fontsource/ibm-plex-sans/files/ibm-plex-sans-latin-700-normal.woff",
+        ),
     );
 
     const fontMono = await fs.readFile(
-        path.resolve("./node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff")
+        path.resolve(
+            "./node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff",
+        ),
     );
 
     // Load Logo
-    const logoBuffer = await fs.readFile(path.resolve("./src/assets/logoLarge.png"));
+    const logoBuffer = await fs.readFile(
+        path.resolve("./src/assets/logoLarge.png"),
+    );
     const logoBase64 = `data:image/png;base64,${logoBuffer.toString("base64")}`;
-
 
     // RITSEC Theme Colors
     const accentColor = "#e69132";
@@ -162,52 +187,57 @@ export async function GET({ params, props }) {
                                         gap: "10px",
                                     },
                                     children: [
-                                        type === "Research" && group ? `${type} • ${group.id.toUpperCase()}` : type || "RITSEC"
-                                    ]
-                                }
+                                        type === "Research" && group
+                                            ? `${type} • ${group.id.toUpperCase()}`
+                                            : type || "RITSEC",
+                                    ],
+                                },
                             },
                             // Research Icons
-                            links && (links.video || links.slides) && {
-                                type: "div",
-                                props: {
-                                    style: {
-                                        display: "flex",
-                                        gap: "15px",
-                                    },
-                                    children: [
-                                        links.video && {
-                                            type: "div",
-                                            props: {
-                                                style: {
-                                                    display: "flex",
-                                                    alignItems: "center",
-                                                    gap: "6px",
-                                                    fontSize: "20px",
-                                                    color: dimColor,
-                                                    fontFamily: "IBM Plex Mono",
-                                                },
-                                                children: "VIDEO"
-                                            }
+                            links &&
+                                (links.video || links.slides) && {
+                                    type: "div",
+                                    props: {
+                                        style: {
+                                            display: "flex",
+                                            gap: "15px",
                                         },
-                                        links.slides && {
-                                            type: "div",
-                                            props: {
-                                                style: {
-                                                    display: "flex",
-                                                    alignItems: "center",
-                                                    gap: "6px",
-                                                    fontSize: "20px",
-                                                    color: dimColor,
-                                                    fontFamily: "IBM Plex Mono",
+                                        children: [
+                                            links.video && {
+                                                type: "div",
+                                                props: {
+                                                    style: {
+                                                        display: "flex",
+                                                        alignItems: "center",
+                                                        gap: "6px",
+                                                        fontSize: "20px",
+                                                        color: dimColor,
+                                                        fontFamily:
+                                                            "IBM Plex Mono",
+                                                    },
+                                                    children: "VIDEO",
                                                 },
-                                                children: "SLIDES"
-                                            }
-                                        }
-                                    ]
-                                }
-                            }
-                        ]
-                    }
+                                            },
+                                            links.slides && {
+                                                type: "div",
+                                                props: {
+                                                    style: {
+                                                        display: "flex",
+                                                        alignItems: "center",
+                                                        gap: "6px",
+                                                        fontSize: "20px",
+                                                        color: dimColor,
+                                                        fontFamily:
+                                                            "IBM Plex Mono",
+                                                    },
+                                                    children: "SLIDES",
+                                                },
+                                            },
+                                        ],
+                                    },
+                                },
+                        ],
+                    },
                 },
 
                 // Main Content
@@ -230,7 +260,7 @@ export async function GET({ params, props }) {
                                         textWrap: "balance",
                                     },
                                     children: title,
-                                }
+                                },
                             },
                             subtitle && {
                                 type: "div",
@@ -241,11 +271,14 @@ export async function GET({ params, props }) {
                                         lineHeight: 1.4,
                                         marginTop: "10px",
                                     },
-                                    children: subtitle.length > 120 ? subtitle.slice(0, 120) + "..." : subtitle,
-                                }
-                            }
-                        ]
-                    }
+                                    children:
+                                        subtitle.length > 120
+                                            ? subtitle.slice(0, 120) + "..."
+                                            : subtitle,
+                                },
+                            },
+                        ],
+                    },
                 },
 
                 // Footer Info (Authors, Meetings, Leads)
@@ -272,86 +305,148 @@ export async function GET({ params, props }) {
                                     },
                                     children: [
                                         // Research Authors
-                                        authors && authors.length > 0 && {
-                                            type: "div",
-                                            props: {
-                                                style: {
-                                                    display: "flex",
-                                                    flexDirection: "column",
-                                                },
-                                                children: [
-                                                    {
-                                                        type: "div",
-                                                        props: {
-                                                            style: { fontSize: "16px", color: dimColor, fontFamily: "IBM Plex Mono", textTransform: "uppercase" },
-                                                            children: "AUTHORS"
-                                                        }
+                                        authors &&
+                                            authors.length > 0 && {
+                                                type: "div",
+                                                props: {
+                                                    style: {
+                                                        display: "flex",
+                                                        flexDirection: "column",
                                                     },
-                                                    {
-                                                        type: "div",
-                                                        props: {
-                                                            style: { fontSize: "24px", fontWeight: "bold" },
-                                                            children: authors.map(a => a.name).join(", ")
-                                                        }
-                                                    }
-                                                ]
-                                            }
-                                        },
+                                                    children: [
+                                                        {
+                                                            type: "div",
+                                                            props: {
+                                                                style: {
+                                                                    fontSize:
+                                                                        "16px",
+                                                                    color: dimColor,
+                                                                    fontFamily:
+                                                                        "IBM Plex Mono",
+                                                                    textTransform:
+                                                                        "uppercase",
+                                                                },
+                                                                children:
+                                                                    "AUTHORS",
+                                                            },
+                                                        },
+                                                        {
+                                                            type: "div",
+                                                            props: {
+                                                                style: {
+                                                                    fontSize:
+                                                                        "24px",
+                                                                    fontWeight:
+                                                                        "bold",
+                                                                },
+                                                                children:
+                                                                    authors
+                                                                        .map(
+                                                                            (
+                                                                                a,
+                                                                            ) =>
+                                                                                a.name,
+                                                                        )
+                                                                        .join(
+                                                                            ", ",
+                                                                        ),
+                                                            },
+                                                        },
+                                                    ],
+                                                },
+                                            },
                                         // Group Meetings
-                                        meetings && meetings.length > 0 && {
-                                            type: "div",
-                                            props: {
-                                                style: {
-                                                    display: "flex",
-                                                    flexDirection: "column",
-                                                },
-                                                children: [
-                                                    {
-                                                        type: "div",
-                                                        props: {
-                                                            style: { fontSize: "16px", color: dimColor, fontFamily: "IBM Plex Mono", textTransform: "uppercase" },
-                                                            children: "MEETING TIME"
-                                                        }
+                                        meetings &&
+                                            meetings.length > 0 && {
+                                                type: "div",
+                                                props: {
+                                                    style: {
+                                                        display: "flex",
+                                                        flexDirection: "column",
                                                     },
-                                                    {
-                                                        type: "div",
-                                                        props: {
-                                                            style: { fontSize: "24px", fontWeight: "bold" },
-                                                            children: `${meetings[0].day}s @ ${meetings[0].start} in ${meetings[0].location}`
-                                                        }
-                                                    }
-                                                ]
-                                            }
-                                        },
+                                                    children: [
+                                                        {
+                                                            type: "div",
+                                                            props: {
+                                                                style: {
+                                                                    fontSize:
+                                                                        "16px",
+                                                                    color: dimColor,
+                                                                    fontFamily:
+                                                                        "IBM Plex Mono",
+                                                                    textTransform:
+                                                                        "uppercase",
+                                                                },
+                                                                children:
+                                                                    "MEETING TIME",
+                                                            },
+                                                        },
+                                                        {
+                                                            type: "div",
+                                                            props: {
+                                                                style: {
+                                                                    fontSize:
+                                                                        "24px",
+                                                                    fontWeight:
+                                                                        "bold",
+                                                                },
+                                                                children: `${meetings[0].day}s @ ${meetings[0].start} in ${meetings[0].location}`,
+                                                            },
+                                                        },
+                                                    ],
+                                                },
+                                            },
                                         // Group Leads
-                                        leads && leads.length > 0 && {
-                                            type: "div",
-                                            props: {
-                                                style: {
-                                                    display: "flex",
-                                                    flexDirection: "column",
-                                                    marginTop: meetings ? "10px" : "0",
-                                                },
-                                                children: [
-                                                    {
-                                                        type: "div",
-                                                        props: {
-                                                            style: { fontSize: "16px", color: dimColor, fontFamily: "IBM Plex Mono", textTransform: "uppercase" },
-                                                            children: "LEADS"
-                                                        }
+                                        leads &&
+                                            leads.length > 0 && {
+                                                type: "div",
+                                                props: {
+                                                    style: {
+                                                        display: "flex",
+                                                        flexDirection: "column",
+                                                        marginTop: meetings
+                                                            ? "10px"
+                                                            : "0",
                                                     },
-                                                    {
-                                                        type: "div",
-                                                        props: {
-                                                            style: { fontSize: "24px", fontWeight: "bold" },
-                                                            children: leads.map(l => l.name).join(", ")
-                                                        }
-                                                    }
-                                                ]
-                                            }
-                                        }
-                                    ]
-                                }
+                                                    children: [
+                                                        {
+                                                            type: "div",
+                                                            props: {
+                                                                style: {
+                                                                    fontSize:
+                                                                        "16px",
+                                                                    color: dimColor,
+                                                                    fontFamily:
+                                                                        "IBM Plex Mono",
+                                                                    textTransform:
+                                                                        "uppercase",
+                                                                },
+                                                                children:
+                                                                    "LEADS",
+                                                            },
+                                                        },
+                                                        {
+                                                            type: "div",
+                                                            props: {
+                                                                style: {
+                                                                    fontSize:
+                                                                        "24px",
+                                                                    fontWeight:
+                                                                        "bold",
+                                                                },
+                                                                children: leads
+                                                                    .map(
+                                                                        (l) =>
+                                                                            l.name,
+                                                                    )
+                                                                    .join(", "),
+                                                            },
+                                                        },
+                                                    ],
+                                                },
+                                            },
+                                    ],
+                                },
                             },
                             // Right Side: RITSEC Logo
                             {
@@ -360,13 +455,13 @@ export async function GET({ params, props }) {
                                     src: logoBase64,
                                     width: 150,
                                     style: {
-                                        objectFit: 'contain'
-                                    }
-                                }
-                            }
-                        ]
-                    }
-                }
+                                        objectFit: "contain",
+                                    },
+                                },
+                            },
+                        ],
+                    },
+                },
             ],
         },
     };

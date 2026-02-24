@@ -1,6 +1,6 @@
 - title: Welcome to RITSEC
   hosts:
-    - name: RITSEC
+      - name: RITSEC
   start: 2023-09-01T12:00:00-04:00
   end: 2023-09-01T14:00:00-04:00
   location: GOL-1710/20/30
@@ -10,7 +10,7 @@
 
 - title: Intro to Linux
   hosts:
-    - name: Ash Brown
+      - name: Ash Brown
   start: 2023-09-08T12:00:00-04:00
   end: 2023-09-08T14:00:00-04:00
   location: GOL-1710/20/30
@@ -20,7 +20,7 @@
 
 - title: Intro to Windows
   hosts:
-    - name: Caleb Munn
+      - name: Caleb Munn
   start: 2023-09-15T12:00:00-04:00
   end: 2023-09-15T14:00:00-04:00
   location: GOL-1710/20/30
@@ -30,8 +30,8 @@
 
 - title: Career Fair
   hosts:
-    - name: Chase Killorin
-    - name: Cipriana Sorenson
+      - name: Chase Killorin
+      - name: Cipriana Sorenson
   start: 2023-09-22T12:00:00-04:00
   end: 2023-09-22T14:00:00-04:00
   location: GOL-1710/20/30
@@ -41,7 +41,7 @@
 
 - title: Intro to Networking
   hosts:
-    - name: Professor Jonathan Weissman
+      - name: Professor Jonathan Weissman
   start: 2023-09-29T12:00:00-04:00
   end: 2023-09-29T14:00:00-04:00
   location: GOL-1710/20/30
@@ -50,8 +50,8 @@
 
 - title: Core Services
   hosts:
-    - name: Jose Gonzalez 
-    - name: Maxim Kochnev
+      - name: Jose Gonzalez
+      - name: Maxim Kochnev
   start: 2023-10-06T12:00:00-04:00
   end: 2023-10-06T14:00:00-04:00
   location: GOL-1710/20/30
@@ -61,8 +61,8 @@
 
 - title: Blue Teaming
   hosts:
-    - name: Joe Abbate 
-    - name: Chandi Kanhai
+      - name: Joe Abbate
+      - name: Chandi Kanhai
   start: 2023-10-13T12:00:00-04:00
   end: 2023-10-13T14:00:00-04:00
   location: GOL-1710/20/30
@@ -72,7 +72,7 @@
 
 - title: Intro to Reversing
   hosts:
-    - name: Sharad Khanna
+      - name: Sharad Khanna
   start: 2023-10-20T12:00:00-04:00
   end: 2023-10-20T14:00:00-04:00
   location: GOL-1710/20/30
@@ -80,8 +80,8 @@
   video: https://www.youtube.com/watch?v=TllpP48xWOw
 
 - title: Intro to Web
-  hosts: 
-    - name: Ronan Gerber
+  hosts:
+      - name: Ronan Gerber
   start: 2023-10-27T12:00:00-04:00
   end: 2023-10-27T14:00:00-04:00
   location: GOL-1710/20/30
@@ -90,8 +90,8 @@
 
 - title: Intro to Red Team
   hosts:
-    - name: Kenny Anderson 
-    - name: Jason Howe
+      - name: Kenny Anderson
+      - name: Jason Howe
   start: 2023-11-10T12:00:00-04:00
   end: 2023-11-10T14:00:00-04:00
   location: GOL-1710/20/30
@@ -101,9 +101,9 @@
 
 - title: Intro to Black Team
   hosts:
-    - name: Bradley Harker
-    - name: Max Fusco, 
-    - name: Anthony Ioppolo
+      - name: Bradley Harker
+      - name: Max Fusco,
+      - name: Anthony Ioppolo
   start: 2023-11-17T12:00:00-04:00
   end: 2023-11-17T14:00:00-04:00
   location: GOL-1710/20/30
@@ -113,7 +113,7 @@
 
 - title: Intro to Docker
   hosts:
-    - name: Michael Scalzetti
+      - name: Michael Scalzetti
   start: 2023-12-01T12:00:00-04:00
   end: 2023-12-01T14:00:00-04:00
   location: GOL-1710/20/30

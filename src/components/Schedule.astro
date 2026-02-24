@@ -10,20 +10,31 @@ interface Props {
     daysAhead?: number;
 }
 
-const { group, count, ascending = true, showOld = false, daysAhead = 7 } = Astro.props;
+const {
+    group,
+    count,
+    ascending = true,
+    showOld = false,
+    daysAhead = 7,
+} = Astro.props;
 
 const scheduleFiles = await getCollection("schedule");
 
 const allEvents = scheduleFiles.flatMap((fileEntry) => {
-    const eventsList = Array.isArray(fileEntry.data) ? fileEntry.data : (fileEntry.data.events || []);
+    const eventsList = Array.isArray(fileEntry.data)
+        ? fileEntry.data
+        : fileEntry.data.events || [];
 
     return eventsList.map((event, index) => ({
-        slug: `${fileEntry.id}-${index}`, 
+        slug: `${fileEntry.id}-${index}`,
         data: {
             ...event,
-            hosts: event.hosts.map(h => h.name),
-            group: typeof event.group === 'string' ? { id: event.group } : event.group
-        }
+            hosts: event.hosts.map((h) => h.name),
+            group:
+                typeof event.group === "string"
+                    ? { id: event.group }
+                    : event.group,
+        },
     }));
 });
 ---

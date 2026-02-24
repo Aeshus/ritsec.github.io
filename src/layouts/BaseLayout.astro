@@ -65,7 +65,10 @@ const { title, description, image } = Astro.props;
     </body>
 </html>
 
-<style is:global define:vars={{ bgUrl: `url(${import.meta.env.BASE_URL + "/bg-dark.svg"})` }}>
+<style
+    is:global
+    define:vars={{ bgUrl: `url(${import.meta.env.BASE_URL + "/bg-dark.svg"})` }}
+>
     /*
   Josh's Custom CSS Reset
   https://www.joshwcomeau.com/css/custom-css-reset/
@@ -181,11 +184,11 @@ const { title, description, image } = Astro.props;
         --bg-panel: #0e0e10;
         --bg-header: #0e0e10;
 
-        --fg: #c9d1d9; 
+        --fg: #c9d1d9;
         --border-color: #26262b;
 
         --accent: #e69132;
-        --fg-accent: #0d1117; 
+        --fg-accent: #0d1117;
     }
 
     /* ----- BASE STYLES ---- */
@@ -374,8 +377,7 @@ const { title, description, image } = Astro.props;
         flex-direction: column;
         align-items: flex-start;
         text-align: start;
-        transition:
-            border-color 0.2s ease;
+        transition: border-color 0.2s ease;
     }
 
     .card.interactive:hover,
@@ -509,7 +511,7 @@ const { title, description, image } = Astro.props;
         justify-content: center;
         padding: var(--padding-xs) var(--padding-sm);
         font-size: var(--sm);
-        font-weight: 700; 
+        font-weight: 700;
         text-decoration: none;
         border: var(--border);
         transition: all 0.2s ease;
@@ -698,8 +700,7 @@ const { title, description, image } = Astro.props;
         gap: var(--padding);
         align-items: center;
         padding: var(--padding);
-        transition:
-            border-color 0.1s ease-in-out;
+        transition: border-color 0.1s ease-in-out;
     }
 
     .card-row:hover {
@@ -852,7 +853,7 @@ const { title, description, image } = Astro.props;
     @media (max-width: 768px) {
         .card-row {
             grid-template-columns: 1fr auto;
-            grid-template-rows: auto auto; 
+            grid-template-rows: auto auto;
             gap: var(--padding-sm);
         }
 

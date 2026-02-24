@@ -1,6 +1,6 @@
 - title: Intro
   hosts:
-    - name: Micah Martin
+      - name: Micah Martin
   start: 2018-08-31T12:00:00-04:00
   end: 2018-08-31T14:00:00-04:00
   group: general
@@ -8,7 +8,7 @@
 
 - title: Linux101
   hosts:
-    - name: Micah Martin
+      - name: Micah Martin
   start: 2018-08-31T12:00:00-04:00
   end: 2018-08-31T14:00:00-04:00
   group: general
@@ -16,7 +16,7 @@
 
 - title: Windows 101
   hosts:
-    - name: Russell Babarsky
+      - name: Russell Babarsky
   start: 2018-09-07T12:00:00-04:00
   end: 2018-09-07T14:00:00-04:00
   group: general
@@ -24,7 +24,7 @@
 
 - title: Networking 101
   hosts:
-    - name: Professor Jonathan Weissman
+      - name: Professor Jonathan Weissman
   start: 2018-09-14T12:00:00-04:00
   end: 2018-09-14T14:00:00-04:00
   group: general
@@ -32,7 +32,7 @@
 
 - title: Core services
   hosts:
-    - name: Micah Martin
+      - name: Micah Martin
   start: 2018-09-21T12:00:00-04:00
   end: 2018-09-21T14:00:00-04:00
   group: general
@@ -40,7 +40,7 @@
 
 - title: Cloud
   hosts:
-    - name: Susan Lunn
+      - name: Susan Lunn
   start: 2018-09-28T12:00:00-04:00
   end: 2018-09-28T14:00:00-04:00
   group: general
@@ -48,7 +48,7 @@
 
 - title: Web
   hosts:
-    - name: Nick O'Brien
+      - name: Nick O'Brien
   start: 2018-10-05T12:00:00-04:00
   end: 2018-10-05T14:00:00-04:00
   group: general
@@ -56,7 +56,7 @@
 
 - title: Crypto
   hosts:
-    - name: Nick O'Brien
+      - name: Nick O'Brien
   start: 2018-10-12T12:00:00-04:00
   end: 2018-10-12T14:00:00-04:00
   group: general
@@ -64,7 +64,7 @@
 
 - title: CTF
   hosts:
-    - name: Duc Phan
+      - name: Duc Phan
   start: 2018-10-26T12:00:00-04:00
   end: 2018-10-26T14:00:00-04:00
   group: general
@@ -72,7 +72,7 @@
 
 - title: Attack Life Cycle
   hosts:
-    - name: Ben Bornholm
+      - name: Ben Bornholm
   start: 2018-11-02T12:00:00-04:00
   end: 2018-11-02T14:00:00-04:00
   group: general
@@ -80,7 +80,7 @@
 
 - title: Scripting
   hosts:
-    - name: Micah Martin
+      - name: Micah Martin
   start: 2018-11-30T12:00:00-04:00
   end: 2018-11-30T14:00:00-04:00
   group: general

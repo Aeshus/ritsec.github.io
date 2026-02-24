@@ -1,6 +1,6 @@
 - title: Cloud Computing
   hosts:
-    - name: Bradley Harker
+      - name: Bradley Harker
   start: 2023-01-20T12:00:00-04:00
   end: 2023-01-20T14:00:00-04:00
   location: GOL-1710/20/30
@@ -10,7 +10,7 @@
 
 - title: Advanced Windows
   hosts:
-    - name: Dominic Cunningham
+      - name: Dominic Cunningham
   start: 2023-01-27T12:00:00-04:00
   end: 2023-01-27T14:00:00-04:00
   location: GOL-1710/20/30
@@ -20,7 +20,7 @@
 
 - title: Advanced Linux
   hosts:
-    - name: Michael Vaughan
+      - name: Michael Vaughan
   start: 2023-02-03T12:00:00-04:00
   end: 2023-02-03T14:00:00-04:00
   location: GOL-1710/20/30
@@ -30,7 +30,7 @@
 
 - title: Wireless
   hosts:
-    - name: Brayden Werner
+      - name: Brayden Werner
   start: 2023-02-10T12:00:00-04:00
   end: 2023-02-10T14:00:00-04:00
   location: GOL-1710/20/30
@@ -40,7 +40,7 @@
 
 - title: Penetration Testing
   hosts:
-    - name: Smash
+      - name: Smash
   start: 2023-02-17T12:00:00-04:00
   end: 2023-02-17T14:00:00-04:00
   location: GOL-1710/20/30
@@ -50,7 +50,7 @@
 
 - title: Hardware/Embedded
   hosts:
-    - name: Kenneth Anderson
+      - name: Kenneth Anderson
   start: 2023-03-03T12:00:00-04:00
   end: 2023-03-03T14:00:00-04:00
   location: GOL-1710/20/30
@@ -60,8 +60,8 @@
 
 - title: DevOps/Blackteaming
   hosts:
-    - name: Ross McKee
-    - name: Michael Scalzetti
+      - name: Ross McKee
+      - name: Michael Scalzetti
   start: 2023-03-10T12:00:00-04:00
   end: 2023-03-10T14:00:00-04:00
   location: GOL-1710/20/30
@@ -71,8 +71,8 @@
 
 - title: DFIR
   hosts:
-    - name: Brad 
-    - name: Malik
+      - name: Brad
+      - name: Malik
   start: 2023-03-24T12:00:00-04:00
   end: 2023-03-24T14:00:00-04:00
   location: GOL-1710/20/30
@@ -82,7 +82,7 @@
 
 - title: Containerization/Kubernetes
   hosts:
-    - name: Max Fusco
+      - name: Max Fusco
   start: 2023-03-31T12:00:00-04:00
   end: 2023-03-31T14:00:00-04:00
   location: GOL-1710/20/30

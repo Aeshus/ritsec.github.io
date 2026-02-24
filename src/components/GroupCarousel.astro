@@ -1,7 +1,7 @@
 ---
 import { Picture } from "astro:assets";
 import { getCollection, getEntry } from "astro:content";
-import {ArrowRight,ArrowLeft} from "@lucide/astro";
+import { ArrowRight, ArrowLeft } from "@lucide/astro";
 const groups = await getCollection("groups");
 
 const icons = import.meta.glob("@/assets/icons/*.svg", {
@@ -60,13 +60,14 @@ const metaIcons = import.meta.glob("@/assets/icons/*.svg", {
                                                         When:
                                                     </span>
                                                     <span class="meta-value">
-                                                        {group.data.meetings
-                                                            .map(
-                                                                (m) => (
-                                                                    <div>
-                                                                    {m.day} {m.start}
-                                                                    </div>
-                                                            ))}
+                                                        {group.data.meetings.map(
+                                                            (m) => (
+                                                                <div>
+                                                                    {m.day}{" "}
+                                                                    {m.start}
+                                                                </div>
+                                                            ),
+                                                        )}
                                                     </span>
                                                 </div>
                                             )}
@@ -112,7 +113,7 @@ const metaIcons = import.meta.glob("@/assets/icons/*.svg", {
     <div class="carousel-scroll-text">
         <button id="group-prev"><ArrowLeft /></button>
         ← Drag To View More →
-        <button id="group-next"><ArrowRight /></botton>
+        <button id="group-next"><ArrowRight /></button>
     </div>
 </div>
 
@@ -135,17 +136,17 @@ const metaIcons = import.meta.glob("@/assets/icons/*.svg", {
                 [Autoplay({ delay: 3000, stopOnMouseEnter: true })],
             );
 
-            const prevBtn = document.querySelector('#group-prev');
-            const nextBtn = document.querySelector('#group-next');
+            const prevBtn = document.querySelector("#group-prev");
+            const nextBtn = document.querySelector("#group-next");
 
-              const scrollPrev = () => {
-                  emblaApi.scrollPrev();
-              }
-              const scrollNext = () => {
-                  emblaApi.scrollNext();
-              }
-              prevBtn.addEventListener('click', scrollPrev, false)
-              nextBtn.addEventListener('click', scrollNext, false)
+            const scrollPrev = () => {
+                emblaApi.scrollPrev();
+            };
+            const scrollNext = () => {
+                emblaApi.scrollNext();
+            };
+            prevBtn.addEventListener("click", scrollPrev, false);
+            nextBtn.addEventListener("click", scrollNext, false);
         }
     });
 </script>

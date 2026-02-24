@@ -1,8 +1,8 @@
 - title: RITSEC Resources
   hosts:
-    - name: Leah Kvares
-    - name: Kasey Kiggins
-    - name: Lukas Peters
+      - name: Leah Kvares
+      - name: Kasey Kiggins
+      - name: Lukas Peters
   start: 2025-01-17T12:00:00-04:00
   end: 2025-01-17T14:00:00-04:00
   location: GOL-1710/20/30
@@ -12,7 +12,7 @@
 
 - title: Advanced Linux
   hosts:
-    - name: Stella Morrow
+      - name: Stella Morrow
   start: 2025-01-24T12:00:00-04:00
   end: 2025-01-24T14:00:00-04:00
   location: GOL-1710/20/30
@@ -22,8 +22,8 @@
 
 - title: Advanced Windows
   hosts:
-    - name: Asa Horn
-    - name: James Southcott
+      - name: Asa Horn
+      - name: James Southcott
   start: 2025-01-31T12:00:00-04:00
   end: 2025-01-31T14:00:00-04:00
   location: GOL-1710/20/30
@@ -33,7 +33,7 @@
 
 - title: Physical Security
   hosts:
-    - name: Anthony Ioppolo
+      - name: Anthony Ioppolo
   start: 2025-02-07T12:00:00-04:00
   end: 2025-02-07T14:00:00-04:00
   location: GOL-1710/20/30
@@ -43,7 +43,7 @@
 
 - title: Mobile Security
   hosts:
-    - name: Sharad Khanna
+      - name: Sharad Khanna
   start: 2025-02-14T12:00:00-04:00
   end: 2025-02-14T14:00:00-04:00
   location: GOL-1710/20/30
@@ -53,9 +53,9 @@
 
 - title: CSEC Careers
   hosts:
-    - name: Dom Cunningham
-    - name: Anthony Ioppolo
-    - name: Aaron Schwager
+      - name: Dom Cunningham
+      - name: Anthony Ioppolo
+      - name: Aaron Schwager
   start: 2025-02-21T12:00:00-04:00
   end: 2025-02-21T14:00:00-04:00
   location: GOL-1710/20/30
@@ -65,7 +65,7 @@
 
 - title: Containerization
   hosts:
-    - name: Maxim Kochnev
+      - name: Maxim Kochnev
   start: 2025-03-07T12:00:00-04:00
   end: 2025-03-07T14:00:00-04:00
   location: GOL-1710/20/30
@@ -75,8 +75,8 @@
 
 - title: Social Engineering & OSINT
   hosts:
-    - name: Anthony Ioppolo
-    - name: Leah Kvares
+      - name: Anthony Ioppolo
+      - name: Leah Kvares
   start: 2025-03-21T12:00:00-04:00
   end: 2025-03-21T14:00:00-04:00
   location: GOL-1710/20/30
@@ -85,7 +85,7 @@
 
 - title: Wireless
   hosts:
-    - name: Dan LaChance
+      - name: Dan LaChance
   start: 2025-03-28T12:00:00-04:00
   end: 2025-03-28T14:00:00-04:00
   location: GOL-1710/20/30
@@ -94,7 +94,7 @@
 
 - title: Hardware Security
   hosts:
-    - name: Kasey Kiggins
+      - name: Kasey Kiggins
   start: 2025-04-04T12:00:00-04:00
   end: 2025-04-04T14:00:00-04:00
   location: GOL-1710/20/30

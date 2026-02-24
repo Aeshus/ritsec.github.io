@@ -1,5 +1,10 @@
 function isSameDay(a, b) {
-    const opts = { timeZone: "America/New_York", year: "numeric", month: "numeric", day: "numeric" };
+    const opts = {
+        timeZone: "America/New_York",
+        year: "numeric",
+        month: "numeric",
+        day: "numeric",
+    };
     const dateA = new Intl.DateTimeFormat("en-US", opts).format(a);
     const dateB = new Intl.DateTimeFormat("en-US", opts).format(b);
     return dateA === dateB;
@@ -62,7 +67,10 @@ export function getEmbedUrl(url) {
         const u = new URL(url);
 
         // YouTube
-        if (u.hostname.includes("youtube.com") || u.hostname.includes("youtu.be")) {
+        if (
+            u.hostname.includes("youtube.com") ||
+            u.hostname.includes("youtu.be")
+        ) {
             let videoId = null;
             if (u.hostname.includes("youtu.be")) {
                 videoId = u.pathname.slice(1);
@@ -78,14 +86,23 @@ export function getEmbedUrl(url) {
         }
 
         // Google Slides
-        if (u.hostname.includes("docs.google.com") && u.pathname.includes("/presentation/")) {
+        if (
+            u.hostname.includes("docs.google.com") &&
+            u.pathname.includes("/presentation/")
+        ) {
             // Ensure it's in embed mode if possible, though usually the user provides the publish link
             // If it's a /pub link, it's already embeddable usually.
             // If it's a /edit link, we might want to convert it to /embed?
             // For now, let's trust the user or just return as is if it's already an embed link.
             // A common pattern for slides is /presentation/d/ID/embed
-            if (!u.pathname.includes("/embed") && !u.pathname.includes("/pub")) {
-                return url.replace(/\/edit.*$/, "/embed?start=false&loop=false&delayms=3000");
+            if (
+                !u.pathname.includes("/embed") &&
+                !u.pathname.includes("/pub")
+            ) {
+                return url.replace(
+                    /\/edit.*$/,
+                    "/embed?start=false&loop=false&delayms=3000",
+                );
             }
         }
 
