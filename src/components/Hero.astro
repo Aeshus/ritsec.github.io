@@ -53,25 +53,6 @@ const i = !Astro.slots.has("image");
         gap: var(--padding-lg);
         position: relative;
         overflow: hidden;
-        /* Dot pattern background */
-        background-image: radial-gradient(
-            var(--border-color) 1px,
-            transparent 1px
-        );
-        background-size: 30px 30px;
-        background-position: center;
-        /* Subtle gradient overlay */
-        background:
-            radial-gradient(
-                circle at top right,
-                color-mix(in srgb, var(--accent) 5%, transparent) 0%,
-                transparent 40%
-            ),
-            radial-gradient(var(--border-color) 1px, transparent 1px);
-        background-size:
-            100% 100%,
-            30px 30px;
-        border-bottom: var(--border);
     }
 
     .image {
@@ -81,7 +62,6 @@ const i = !Astro.slots.has("image");
         transform: translateY(20px);
     }
 
-    /* Animation Keyframes */
     @keyframes fadeSlideIn {
         to {
             opacity: 1;
@@ -103,26 +83,6 @@ const i = !Astro.slots.has("image");
         margin-bottom: var(--padding);
     }
 
-    /* Make the slot="title" stronger */
-    :global(h1 strong) {
-        color: var(--accent);
-        display: inline-block;
-        position: relative;
-    }
-
-    /* Underline effect for strong text */
-    :global(h1 strong::after) {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 6px;
-        background-color: color-mix(in srgb, var(--accent) 20%, transparent);
-        z-index: -1;
-        transform: skewX(-15deg);
-    }
-
     .reverse {
         grid-template-columns: 1fr 1.2fr;
     }
@@ -131,16 +91,7 @@ const i = !Astro.slots.has("image");
         order: -1;
     }
 
-    /* Responsive Design */
     @media (max-width: 1000px) {
-        section {
-            grid-template-columns: 1fr;
-            text-align: center;
-            background-size:
-                100% 100%,
-                20px 20px; /* Smaller dots on mobile */
-        }
-
         section.i {
             display: flex;
             flex-direction: column;
