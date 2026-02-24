@@ -28,9 +28,8 @@ const eboard = await getCollection("eboard");
                         <div class="role">{member.data.id}</div>
                     </header>
 
-                    <div class="member-meta">
-                        <span class="meta-label">Class of</span>
-                        <span class="meta-value">{member.data.grad_year}</span>
+                    <div class="misc">
+                        <div>Class of {member.data.grad_year}</div>
                     </div>
 
                     <div class="list">
@@ -87,12 +86,8 @@ const eboard = await getCollection("eboard");
     }
 
     .card-content {
-        display: flex;
-        flex-direction: column;
         gap: var(--padding);
         padding: var(--padding);
-        flex-grow: 1;
-        text-align: left;
     }
 
     .member-header {
