@@ -232,11 +232,8 @@ const { title, description, image } = Astro.props;
 
     main > * {
         padding: 0 var(--page-padding);
-    }
-
-
-    main > * > * {
-        margin-bottom: var(--padding-md);
+        margin-top: var(--padding);
+        margin-bottom: var(--padding);
     }
 
     main > hr {
@@ -246,6 +243,10 @@ const { title, description, image } = Astro.props;
         width: 100%;
         border: unset;
         border-bottom: var(--border);
+    }
+
+    main > ul {
+        margin-left: var(--padding);
     }
 
     hr + h1,

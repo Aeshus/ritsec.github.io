@@ -7,7 +7,6 @@ group: vulnerability research
 summary: AFL++
 ---
 
-<section>
 ## How this post is structured
 
 The objective of this post is to allow anyone to gain an understanding of AFL at the level they want. I want to cover AFL at both a usage level and an internals level.
@@ -20,9 +19,7 @@ This is not a user's guide to AFL. For that, I highly recommend checking out [Fu
 
 **Disclaimer: I not a developer on the AFL++ project. This is just my analysis of the source code.**
 
-</section>
-
-<section>
+---
 ## What is AFL++ and Coverage-Based Fuzzing?
 AFL, or the current variation AFL++, is a state-of-the-art fuzzer used to fuzz a wide variety of binaries. Almost every fuzzing campaign today is done using AFL or some variation of AFL.
 
@@ -54,9 +51,7 @@ Suppose we then mutate `seed` in some way to generate `seed_A`. This `seed_A`, u
 
 This iterative process of finding new, "interesting" input and building on it is what makes coverage-based fuzzing so powerful.
 
-</section>
-
-<section>
+---
 ## AFL++ Architecture
 AFL++ starts when the `afl-fuzz` binary is run. The command will usually look something like this:
 
@@ -76,9 +71,7 @@ The control pipe is used to send control messages to the target binary. The stat
 
 Now that we have a high-level understanding of what `afl-fuzz` does let's take a closer look at what the binary looks like and is doing.
 
-</section>
-
-<section>
+---
 ## Coverage Instrumentation
 
 In order for AFL++ to work properly (At least in its normal operating mode), the binary must be compiled using a special AFL compiler. This is so that AFL can insert special instructions to keep track of coverage. These special instructions are known as instrumentation. Typically, instrumentaton instructions access what is known as a coverage map. This coverage map is a record of what parts of the code have been accessed.
@@ -109,9 +102,7 @@ Notice how the index into `__afl_area_ptr` is an immediate instead of a variable
 
 For more information on coverage, how it is inserted, and general implementation details I recommend checking out the In-Depth: Coverage Instrumentation and LLVM Hell section which covers the internals of the AFL compiler.
 
-</section>
-
-<section>
+---
 ## Initialization and Forkserver
 
 Before we discuss the initialization process, we need to a discuss a feature within ELFs known as the init array.
@@ -402,9 +393,7 @@ The above code is essentially the forkserver. Essentially, in order to perform o
 
 With all of these functions, the fuzzer is set up, and we are successfully fuzzing. However, there are ways that we can make fuzzing much faster.
 
-</section>
-
-<section>
+---
 ## Persistent Mode
 
 Persistent mode is a way to make fuzzing faster. In general, when we fuzz, we have to restart the program every time we want to run a test case. However, what if we wanted to test one small subset of the code. This is where persistent mode is useful.
@@ -446,9 +435,7 @@ The idea behind this function is that there is a static variable `cycle_cnt` whi
 
 This loop structure allows the section of code within the loop to run multiple times without having to restart the binary which can often be very slow.
 
-</section>
-<section>
-## Shared Memory Fuzzing
+---
 
 Shared memory fuzzing is a way to make fuzzing even faster. Typically, the target binary will read from stdin or from a file passed in as a command line argument. However, this can be slow as it requires a read system call. So, how do we make this faster?
 
@@ -496,9 +483,7 @@ Notice how `__afl_fuzz_len` is actually a `u32*` as the first 4 bytes of the map
 
 If you're interested in learning more about how both shared memory fuzzing and persistent mode fuzzing work, I highly suggest compiling and analyzing the demo code found [here](https://github.com/AFLplusplus/AFLplusplus/blob/7101192865893e00b9029d0cb898a3ca3015d50b/utils/persistent_mode/persistent_demo_new.c) in a debugger or a diassembler like Ghidra.
 
-</section>
-<section>
-## Sanitizers
+---
 
 Many might ask what about memory errors (i.e. buffer overflow, heap overflow, use-after-free, etc.)? How can coverage instrumentation help detect those. Unfortunately, coverage-based fuzzing cannot detect memory errors. Instead, we must use what is called a sanitizer.
 
@@ -506,9 +491,7 @@ There are many kinds of sanitizers all dedicated to detecting different kinds of
 
 Because of how complicated some of them can get, I'm not going to explain them here. For more information, Google has published a fantastic wiki describing each sanitizer and its implementation [here](https://github.com/google/sanitizers/wiki).
 
-</section>
-<section>
-## In-Depth: `afl-fuzz` initialization and runtime processes
+---
 
 ### Initializing `afl-fuzz`
 
@@ -1088,9 +1071,7 @@ This code checks if the child is stopped. If the child is not stopped (i.e. exit
 
 This loop of mutate-write-execute will run endlessly until either something goes catastrophically wrong, or we tell the fuzzer to stop.
 
-</section>
-<section>
-## In-Depth: Coverage Instrumentation and LLVM Hell
+---
 
 ### `afl-cc`
 
@@ -1511,9 +1492,7 @@ This can also be seen in Ghidra in a LTO binary:
 
 And that concludes the instrumentation! Once all of this IR has been inserted, the IR code is sent to the backend and turned into our raw assembly.
 
-</section>
-<section>
-## Conclusion
+---
 
 Fuzzing is awesome. There are so many capabilities of AFL++ here I haven't covered like QEMU cross-arch fuzzing, frida fuzzing, LibAFL, and more I probably don't even know about. If you are interested in this kind of technology, I cannot recommend the [Awesome Fuzzing Discord](https://discord.gg/Kd86WEEr) and the AFL++ documentation enough.
 
@@ -1521,10 +1500,6 @@ If there are any mistakes or improvements that can be made here, absolutely do n
 
 Happy hacking!
 
-</section>
-<section>
-## Acknowledgements
+---
 
 Huge thanks to vanhauser-thc (Marc Heuse) for answering my various questions on the AFL implementation.
-
-</section>

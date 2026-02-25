@@ -6,14 +6,11 @@ authors:
     - name: Emmanuel Adewale
 ---
 
-<section>
 In my little journey of learning about macOS/Apple security, I will be documenting things I have learned via blogpost. This might not be useful to most researches since they probably know more about this topic but this should be a good resource for other beginners in this field.
 
 For the first post, I will document my step in reversing a simple yet interesting malware, TinyShell. It’s important to not, I used [Mitten Mac’s post](https://themittenmac.com/tinyshell-under-the-microscope/) as a reference. I focus more on using advanced static and dynamic analysis.
 
-</section>
-
-<section>
+---
 ## Background
 
 Before looking at the disassembled code, I ran codesign to get some basic information about signing certificate. This would provide us with the developer identifier, format type(app bundle or command line), Authority and so on.
@@ -32,8 +29,7 @@ Next is an if statement checking if the user that ran the program has the UID of
 
 The important aspect of this function is the xoring of r14 and r15. We can see that those values are the second and third argument passed to the function. Taking a step back to the main function, those values are 0x2 and 0x4. To decode the encoded strings, I have decided to use a debugger and write a simple python script to replicate the function.
 
-</section>
-<section>
+---
 ## Python Script
 
 ```python
@@ -52,8 +48,7 @@ Not the best code but it works 😉
 
 [image lost]
 
-</section>
-<section>
+---
 ## Debugging
 
 To execute the malware, we have to strip off the revoked signature, quarantine flag and nop the PTRACE call. If not, macOS will pop a warning saying “It is a known malware and will delete it”. Run the commands below
@@ -82,5 +77,3 @@ I ran it couple of time until I hit the breakpoint and I found more interesting 
 Based on those strings, it is easy to say that they are configuration strings for the victim to properly communicate with the attacker’s server. It is important to note that all of these are being read from `/Users/%@/Library/Fonts/.cache`. This would be different if we are running as root.
 
 I will stop here for now. Next time, I will figure out the config format for the malware and attempt to do dynamic analysis.
-
-</section>
