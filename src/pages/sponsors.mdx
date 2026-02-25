@@ -30,7 +30,7 @@ import heroImg from "@/assets/image4.jpg";
             </Fragment>
     </Hero>
 
-    <section class="copy">
+    ---
       ## How to Sponsor
 
       RITSEC is a student organization that operates under Rochester Institute of Technology, a 501(c)(3) organization.
@@ -40,9 +40,8 @@ import heroImg from "@/assets/image4.jpg";
       RITSEC accepts both monetary and non-monetary sponsorship, from both individuals and corporations.
 
       For more information such as sponsorship perks, read the <a href={import.meta.env.BASE_URL === "/" ? "/sponsorship.pdf" : import.meta.env.BASE_URL.replace(/\/$/, "") + "/sponsorship.pdf"}>Sponsorship Contract</a>.
-    </section>
 
-    <section class="copy">
+      ---
       ## Sponsorship Tiers
 
       | Tier        | Amount       | Term         |
@@ -55,24 +54,18 @@ import heroImg from "@/assets/image4.jpg";
       | Titanium    | $20,000+     | Full Year    |
 
 
-    </section>
-
-    <section>
+    ---
       ## Corporate Sponsors
 
       Thank you to the organizations that empower our mission through their generous support of our events and research.
 
       <SponsorsList />
 
-    </section>
-
-    <section>
+    ---
       ## Individual Sponsors
 
       Our heartfelt thanks go to the alumni, mentors, and friends whose personal generosity fuels our community.
 
       <SponsorsList individuals="true" />
-
-    </section>
 
 </BaseLayout>

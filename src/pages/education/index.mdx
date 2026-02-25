@@ -1,4 +1,5 @@
 ---
+---
 import { Picture } from "astro:assets";
 
 import Hero from "@/components/Hero.astro";
@@ -7,7 +8,6 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import Schedule from "@/components/Schedule.astro";
 
 import heroImg from "@/assets/image6.jpg";
----
 
 <BaseLayout title="Schedule">
     <Hero reverse={true}>
@@ -28,20 +28,13 @@ import heroImg from "@/assets/image6.jpg";
         of our favorite topics with our project-focused education system
     </Hero>
 
-    <section>
-        <h2>Friday Schedule</h2>
+    ---
+        ## Friday Schedule
 
-        <p>TODO:</p>
+        TODO: To be announced
 
-        <p>
-            12:00-1:00 - Education 1:00-1:15 - Pizza 1:15-1:30 - Demo
-            Announcement 1:30-3:00 - Research 3:00-4:00 - Social Hour
-        </p>
-    </section>
-
-    <section>
+    ---
         <h2>General Education</h2>
 
         <Schedule ascending={false} showOld={true} group={"general"} />
-    </section>
 </BaseLayout>
