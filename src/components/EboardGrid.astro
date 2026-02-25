@@ -64,11 +64,33 @@ const eboard = await getCollection("eboard");
         justify-content: center;
     }
 
-    .card.interactive {
-        flex: 1 1 264px;
-        max-width: 400px;
+
+    .card {
+        flex: 1 1 25%;
+        max-width: calc((100% - 3 * var(--padding-lg))/4);
         display: flex;
         flex-direction: column;
+    }
+
+    @media (max-width: 1200px) {
+        .card {
+            flex: 1 1 33%;
+            max-width: calc((100% - 2 * var(--padding-lg))/3);
+        }
+    }
+
+    @media (max-width: 700px) {
+        .card {
+            flex: 1 1 50%;
+            max-width: calc((100% - 1 * var(--padding-lg))/2);
+        }
+    }
+
+    @media (max-width: 500px) {
+        .card {
+            flex: 1 1 100%;
+            max-width: 100%;
+        }
     }
 
     .eboard-img {
