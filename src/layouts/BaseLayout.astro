@@ -9,8 +9,7 @@ import "@fontsource/ibm-plex-sans/400.css";
 import "@fontsource/ibm-plex-sans/700.css";
 import "@fontsource/ibm-plex-sans/400-italic.css";
 import "@fontsource/ibm-plex-sans/700-italic.css";
-import "@fontsource/ibm-plex-mono/400.css";
-import "@fontsource/ibm-plex-mono/700.css";
+import '@fontsource-variable/jetbrains-mono';
 
 interface Props {
     title: string;
@@ -144,6 +143,8 @@ const { title, description, image } = Astro.props;
         text-wrap: balance;
     }
 
+
+
     #root,
     #__next {
         isolation: isolate;
@@ -154,7 +155,7 @@ const { title, description, image } = Astro.props;
     :root {
         --page-width: 120ch;
         --text-width: 610px;
-        --font-mono: "IBM Plex Mono", monospace;
+        --font-mono: "JetBrains Mono Variable", monospace;
         --font-sans: "IBM Plex Sans", sans-serif;
 
         --page-padding: max(1rem, (100% - var(--page-width)) / 2);
@@ -205,6 +206,7 @@ const { title, description, image } = Astro.props;
         display: flex;
         flex-direction: column;
         background-image: var(--bgUrl);
+        background-attachment: fixed;
     }
 
     main {
@@ -277,9 +279,8 @@ const { title, description, image } = Astro.props;
         color: var(--accent);
     }
 
-    main > section > p,
-    .text {
-        max-width: var(--text-width);
+    * {
+        font-family: var(--font-mono);
     }
 
     @media (max-width: 1000px) {
