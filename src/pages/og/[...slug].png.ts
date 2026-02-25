@@ -62,6 +62,20 @@ export async function getStaticPaths() {
     });
 
     paths.push({
+        params: { slug: "alumni" },
+        props: {
+            title: "Alumni",
+            subtitle: "RITSEC's Alumnis",
+            type: "Alumni",
+            leads: [],
+            meetings: [],
+            authors: [],
+            group: undefined,
+            links: { video: false, slides: false },
+        },
+    });
+
+    paths.push({
         params: { slug: "events" },
         props: {
             title: "Events",
