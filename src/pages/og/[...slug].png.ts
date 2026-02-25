@@ -5,6 +5,10 @@ import fs from "fs/promises";
 import path from "path";
 
 export async function getStaticPaths() {
+    if (import.meta.env.DEV) {
+        return [];
+    }
+
     const researchEntries = await getCollection("research");
     const paths: any[] = researchEntries.map((entry) => ({
         params: { slug: `research/${entry.slug}` },
