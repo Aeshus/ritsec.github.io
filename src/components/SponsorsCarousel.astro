@@ -38,6 +38,7 @@ const sponsors = await getCollection("sponsors");
 <script>
     import EmblaCarousel from "embla-carousel";
     import AutoScroll from "embla-carousel-auto-scroll";
+    import WheelGestures from "embla-carousel-wheel-gestures";
 
     document.addEventListener("astro:page-load", () => {
         const carousel = document.querySelector(
@@ -59,6 +60,7 @@ const sponsors = await getCollection("sponsors");
                         stopOnInteraction: false,
                         stopOnMouseEnter: false,
                     }),
+                    WheelGestures()
                 ],
             );
         }

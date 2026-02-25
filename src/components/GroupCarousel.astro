@@ -18,7 +18,7 @@ const metaIcons = import.meta.glob("@/assets/icons/*.svg", {
     <div class="carousel" id="group-carousel">
         <div class="slide-container">
             {
-                groups.map((group) => {
+                groups.concat(groups).map((group) => {
                     const iconKey = Object.keys(metaIcons).find(
                         (key) =>
                             (metaIcons[key] as any).default.src ===
@@ -120,6 +120,7 @@ const metaIcons = import.meta.glob("@/assets/icons/*.svg", {
 <script>
     import EmblaCarousel from "embla-carousel";
     import Autoplay from "embla-carousel-autoplay";
+    import WheelGestures from "embla-carousel-wheel-gestures";
 
     document.addEventListener("astro:page-load", () => {
         const carousel = document.querySelector(
@@ -132,8 +133,9 @@ const metaIcons = import.meta.glob("@/assets/icons/*.svg", {
                 {
                     loop: true,
                     align: "start",
+                    dragFree: true,
                 },
-                [Autoplay({ delay: 3000, stopOnMouseEnter: true })],
+                [Autoplay({ delay: 3000, stopOnMouseEnter: true }), WheelGestures()],
             );
 
             const prevBtn = document.querySelector("#group-prev");
