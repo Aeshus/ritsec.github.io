@@ -14,7 +14,9 @@ group: vulnerability research
     on general code audting honestly was preaty good practice. Just my notes
     from it, didn't really clean this up much other then asking AI to fix some
     formating / spelling mistakes so don't bully me to hard.
+
 ---
+
 ## Challenge 1
 
 ```python
@@ -79,6 +81,7 @@ The issue here is that:
     - `?redirect_url=https://evil.com\nINFO User authenticated as admin`
 
 ---
+
 ## Challenge 2
 
 ```js
@@ -141,6 +144,7 @@ const fullUrl = `https://internal-app/${urlParam}`;
   `/fetch-data?url=http://169.254.169.254/latest/meta-data/iam/security-credentials/`
 
 ---
+
 ## Challenge 3
 
 ```java
@@ -238,6 +242,7 @@ private Map<String, String> userDatabase = new HashMap();
 - Note this issue is not as bad in this code base since it's a mobile application and in theory it wouldn't break the code base as much but otherwise
 
 ---
+
 ## Challenge 4
 
 ```python
@@ -271,6 +276,7 @@ if __name__ == '__main__':
 - The creds are hard coded in the code enough said
 
 ---
+
 ## Challenge 5
 
 ```java
@@ -356,6 +362,7 @@ dbf.setXIncludeAware(false);
 - This disables DOCTYPEs
 
 ---
+
 ## Challenge 6
 
 ```go
@@ -419,6 +426,7 @@ After which the server will respond with:
     - Phishing overlays
 
 ---
+
 ## Challenge 7
 
 ````js
@@ -523,6 +531,7 @@ with root it looks like this: `filesystem_path = root + full_request_uri`
 The security comes from NGINX normalizing the URI before location matching. After normalization, `/html/../secret.txt` becomes `/secret.txt`, which no longer matches `location /html/`, so the request never reaches the `root` directive and is rejected.
 
 ---
+
 ## Challenge 9
 
 ```python
@@ -618,6 +627,7 @@ def edit_profile():
 - We now use a helper function in order to get the current session's username in order to edit that
 
 ---
+
 ## Challenge 10
 
 ```js
@@ -670,6 +680,7 @@ app.listen(3000, () => {
 - `jwt.verify(token, secretKey)` - Here we now validate that the JWT token is in fact for the admin
 
 ---
+
 ## Challenge 11
 
 ````python
@@ -725,6 +736,7 @@ location ~* ^/admin {
 - The fix here is to use a proper case-insensitive checks to ensure proper security of nginx
 
 ---
+
 ## Challenge 12
 
 ```python
@@ -808,6 +820,7 @@ printf '%s' "$SECURE_PASSWORD" | \
 ```
 
 ---
+
 ## Challenge 13
 
 ```java
@@ -852,6 +865,7 @@ class UserController {
 - The GET request here isn't safe since it's user input based SQL query which just leads to a trivial SQL injection, the POST request is fine though since it's treated as a value and not concatenated to the query in the back.
 
 ---
+
 ## Challenge 14
 
 ```js
@@ -1014,6 +1028,7 @@ app.post("/transfer", (req, res) => {
 ```
 
 ---
+
 ## Challenge 15
 
 ```nginx
@@ -1048,6 +1063,7 @@ location /safe {
 ```
 
 ---
+
 ## Challenge 16
 
 ```java
@@ -1182,6 +1198,7 @@ public class SecureFileUploadServlet extends HttpServlet {
 ```
 
 ---
+
 ## Challenge 17
 
 ```go
@@ -1227,6 +1244,7 @@ func main() {
 - Gods most obvious command injection ngl gang
 
 ---
+
 ## Challenge 18
 
 ```php
@@ -1315,6 +1333,7 @@ Here the code ends up being bad since we can set the user role to `admin`
 - This is a stored XSS bug
 
 ---
+
 ## Challenge 19
 
 ```go
@@ -1414,6 +1433,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 ```
 
 ---
+
 ## Challenge 20
 
 ````java
@@ -1479,6 +1499,7 @@ To fix this security bug we can do the two following things:
     }
 
 ---
+
 ## Challenge 21
 
 ```js
@@ -1574,6 +1595,7 @@ Allowing the JS in the attackers website to read the following:
 ```
 
 ---
+
 ## Challenge 22
 
 ```js
@@ -1625,6 +1647,7 @@ app.listen(3000, () => {
 - We have command injection to execute arbitrary JS code thanks to the `eval` given the user controlled data being eval'd
 
 ---
+
 ## Challenge 23
 
 ```java
@@ -1664,6 +1687,7 @@ The exploit here is the fact that the GET request `/custom-hello` takes in the `
 `Class.forName(user);` to initialize other classes such as `AdminUser`.
 
 ---
+
 ## Challenge 24
 
 ```python
@@ -1723,6 +1747,7 @@ The exploit here is an XSLT based injection, in the code we are allowing users t
 ```
 
 ---
+
 ## Challenge 25
 
 ```go
@@ -1820,6 +1845,7 @@ if users.FindOne(context.TODO(), creds).Err() != nil {
 - This is read as: find a document where `username != null` and `password != null` allowing for an auth bypass since every user document matches
 
 ---
+
 ## Challenge 26
 
 ```js
@@ -1895,6 +1921,7 @@ something like this: `merge(user, { profile: "Updated bio" });`
 - which adds `user.profile = "Updated bio";` to user
 
 ---
+
 ## Challenge 27
 
 ```c
@@ -1940,6 +1967,7 @@ int main(void) {
 The bug here is an integer overflow allowing for a negative quantity since it overflows and we have no validation on the `quantity`
 
 ---
+
 ## Challenge 28
 
 ```nginx
@@ -2027,6 +2055,7 @@ proxy_cache_key "$scheme$request_method$host$request_uri";
 ```
 
 ---
+
 ## Challenge 29
 
 ```python
@@ -2107,6 +2136,7 @@ The `/pay/<invoice_id>` endpoint also marks invoices paid with no verification
   This allows users to pay invoices they don't own, there is no validation regarding ownership of the invoice
 
 ---
+
 ## Challenge 30
 
 ```go

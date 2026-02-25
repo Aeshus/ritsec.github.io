@@ -20,7 +20,9 @@ This is not a user's guide to AFL. For that, I highly recommend checking out [Fu
 **Disclaimer: I not a developer on the AFL++ project. This is just my analysis of the source code.**
 
 ---
+
 ## What is AFL++ and Coverage-Based Fuzzing?
+
 AFL, or the current variation AFL++, is a state-of-the-art fuzzer used to fuzz a wide variety of binaries. Almost every fuzzing campaign today is done using AFL or some variation of AFL.
 
 AFL is not a random-input fuzzer. AFL does something called coverage-based fuzzing. The idea behind coverage-based fuzzing is to keep track of what areas of the binary are executing or coverage. By keeping track of this information, we are able to figure out which inputs lead to which parts of the code executing. With this, we can develop a database of inputs that cover not only a small subset of the codebase but the entire codebase. This would allow us to find errors everywhere in the code, not only in the most commonly used codepaths.
@@ -52,7 +54,9 @@ Suppose we then mutate `seed` in some way to generate `seed_A`. This `seed_A`, u
 This iterative process of finding new, "interesting" input and building on it is what makes coverage-based fuzzing so powerful.
 
 ---
+
 ## AFL++ Architecture
+
 AFL++ starts when the `afl-fuzz` binary is run. The command will usually look something like this:
 
 `afl-fuzz -i [input] -o [output] -- /path/to/fuzzed/binary [@@]`
@@ -72,6 +76,7 @@ The control pipe is used to send control messages to the target binary. The stat
 Now that we have a high-level understanding of what `afl-fuzz` does let's take a closer look at what the binary looks like and is doing.
 
 ---
+
 ## Coverage Instrumentation
 
 In order for AFL++ to work properly (At least in its normal operating mode), the binary must be compiled using a special AFL compiler. This is so that AFL can insert special instructions to keep track of coverage. These special instructions are known as instrumentation. Typically, instrumentaton instructions access what is known as a coverage map. This coverage map is a record of what parts of the code have been accessed.
@@ -103,6 +108,7 @@ Notice how the index into `__afl_area_ptr` is an immediate instead of a variable
 For more information on coverage, how it is inserted, and general implementation details I recommend checking out the In-Depth: Coverage Instrumentation and LLVM Hell section which covers the internals of the AFL compiler.
 
 ---
+
 ## Initialization and Forkserver
 
 Before we discuss the initialization process, we need to a discuss a feature within ELFs known as the init array.
@@ -394,6 +400,7 @@ The above code is essentially the forkserver. Essentially, in order to perform o
 With all of these functions, the fuzzer is set up, and we are successfully fuzzing. However, there are ways that we can make fuzzing much faster.
 
 ---
+
 ## Persistent Mode
 
 Persistent mode is a way to make fuzzing faster. In general, when we fuzz, we have to restart the program every time we want to run a test case. However, what if we wanted to test one small subset of the code. This is where persistent mode is useful.

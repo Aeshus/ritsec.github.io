@@ -138,7 +138,10 @@ function getBadgeDate(date) {
                     align: "start",
                     dragFree: true,
                 },
-                [Autoplay({ delay: 3000, stopOnMouseEnter: true }), WheelGestures()],
+                [
+                    Autoplay({ delay: 3000, stopOnMouseEnter: true }),
+                    WheelGestures(),
+                ],
             );
 
             const prevBtn = document.querySelector("#group-prev");

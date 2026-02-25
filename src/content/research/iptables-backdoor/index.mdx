@@ -11,11 +11,13 @@ authors:
 For my project, I chose the ambitious goal of adding a backdoor to Linux’s iptables firewall. In order to do this, I had to delve deep into the Linux kernel and study the inner workings of the networking stack. Through my efforts, I was able to make iptables accept specially-crafted packets, even if the user-defined rules say otherwise.
 
 ---
+
 ## The Evil Bit
 
 In April 2003, the Internet Engineering Task Force published [RFC3514](https://tools.ietf.org/html/rfc3514), which defines a previously-unused bit of the IPv4 fragment offset field as the “evil bit” or security flag. All packets containing malicious contents were supposed to have the evil bit set and thus be blocked. This, of course, was an overly complicated joke, but the idea of using this bit that no one will notice stuck with me after reading about it. Most conventional network diagnostic tools are not aware of the evil bit, as it is almost never set or used. Wireshark labels it as the “reserved bit”, and tcpdump requires a very specific filter to detect it.
 
 ---
+
 ## A Quick Intro To IPTables
 
 When a packet is received by the Linux kernel, it is processed by iptables and either sent to userspace, rejected, or modified based on the rules configured. On a standard build of iptables, there are several tables, which each contain chains of rules that send packets to targets. The most commonly used table is the filter table, but the nat, mangle, raw, and security tables are just a command line option away. The default targets are ACCEPT, DROP, and RETURN, but custom targets can be created by writing kernel modules and extensions to the iptables CLI to handle them. Custom tables are much more difficult to add, as they were not intended in the original design and require modifications to kernel headers, as there are only a limited number of spaces for tables in the kernel.
@@ -23,6 +25,7 @@ When a packet is received by the Linux kernel, it is processed by iptables and e
 This diagram is a rough approximation of how packets are processed in the Linux kernel. If a packet is dropped by BPF or by any table, it is not processed by anything further along in the chain. For a packet to be accepted, it has to be accepted by every table. In order to insert a backdoor, it needs to either be applied to every table (the option I chose) or pass the packet directly to userspace, bypassing all other tables.
 
 ---
+
 ## How This Works/What Did I Do?
 
 My initial plan was to write a Berkeley Packet Filter (BPF) program, but I couldn’t find a good starting point and gave up on that approach as soon as I discovered Ben Cox’s iptables_uwu example. iptables_uwu, which messes with the contents of packets to “uwu-ify” text before passing them along, was a good starting point for delving into the internals of iptables and discovering where to look for the functions to add tables and targets to iptables.
@@ -32,6 +35,7 @@ I attempted to add another table to iptables, which I called iptable_evil, but I
 Backdoor packets still show up in tcpdump and Wireshark captures because they both use libpcap, which is very difficult to bypass without interrupting network communications. Libpcap compiles filters into BPF programs, which are processed before any iptables rules are applied, as shown in the iptables network flow diagram.
 
 ---
+
 ## Why Do This?
 
 My code has no practical use outside of red/blue team competitions, but it’s been a good learning experience for me. I’ve learned a lot about how iptables and the Linux kernel build system work under the hood, and I’ve already come up with some more ideas of what to do with this knowledge.
@@ -39,6 +43,7 @@ My code has no practical use outside of red/blue team competitions, but it’s b
 Red teaming a competition often entails writing or using malware and tools with no use in conventional penetration tests, and this is no different. My backdoor requires either setting up a build environment with the exact same kernel version and distribution-specific patches or building a build environment on each target machine.
 
 ---
+
 ## Further Research
 
 With my new understanding of Linux kernel networking internals, there’s a lot of possible further work that can be done. One example I’m particularly interested in trying is hiding packets from libpcap by not writing a BPF program that prevents libpcap from capturing any packets.
@@ -50,6 +55,7 @@ Another idea that I’ve been considering is creating a more useful backdoor in 
 Thank you for reading! My code is on GitHub [here](https://github.com/FlamingSpork/iptable_evil) if you’d like to take a look.
 
 ---
+
 ## References
 
 - RFC 3514 introducing the evil bit: https://tools.ietf.org/html/rfc3514
