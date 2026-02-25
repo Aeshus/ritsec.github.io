@@ -222,8 +222,10 @@ const { title, description, image } = Astro.props;
     h4 strong,
     h5 strong,
     h6 strong {
-        color: var(--accent);
         text-decoration: underline;
+        text-decoration-thickness: 7px;
+        text-underline-offset: 5px;
+        color: var(--accent);
     }
 
     main > section {
