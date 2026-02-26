@@ -664,10 +664,11 @@ const { title, description, image } = Astro.props;
     }
 
     table {
-        width: 100%;
         background-color: var(--bg-panel);
         border: var(--border);
         border-collapse: collapse;
+        width: var(--page-width);
+        margin-inline: auto;
     }
 
     th,
