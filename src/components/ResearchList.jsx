@@ -150,7 +150,7 @@ function ResearchList({ data, group: lockedGroup, count, ascending }) {
                         href={`${import.meta.env.BASE_URL === "/" ? "" : import.meta.env.BASE_URL.replace(/\/$/, "")}/research/${post.slug}`}
                         className="card card-row"
                     >
-                        <div className="col-date">
+                        <div className="col-date date-part">
                             <time
                                 dateTime={new Date(
                                     post.data.date,

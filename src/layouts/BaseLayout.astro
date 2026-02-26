@@ -381,11 +381,6 @@ const { title, description, image } = Astro.props;
         color: var(--fg-dim);
     }
 
-    .card-row:hover .icon-button {
-        background-color: var(--accent);
-        color: var(--bg);
-    }
-
     /* Common Styles */
 
     .accent {
@@ -682,10 +677,6 @@ const { title, description, image } = Astro.props;
         margin: auto;
     }
 
-    /* Refactored Schedule Styles */
-
-    /* Generic List/Card Styles */
-
     .filter-controls {
         display: flex;
         gap: var(--padding);
@@ -710,14 +701,13 @@ const { title, description, image } = Astro.props;
         border: var(--border);
         background-color: var(--bg);
         color: var(--fg);
-        min-width: 150px;
         cursor: pointer;
+        transition: all 0.1s ease-in-out;
     }
 
     .filter-select:hover,
     .filter-select:focus {
         border-color: var(--accent);
-        outline: none;
     }
 
     .list-stack {
@@ -728,14 +718,14 @@ const { title, description, image } = Astro.props;
 
     .card-row {
         display: grid;
-        grid-template-columns: 160px 1fr auto; /* Date | Info | Actions */
+        grid-template-columns: 160px 1fr auto;
         gap: var(--padding);
         align-items: center;
         padding: var(--padding);
-        transition: border-color 0.1s ease-in-out;
+        transition: all 0.1s ease-in-out;
     }
 
-    .card-row:hover {
+    a > .card-row:hover {
         border-color: var(--accent);
     }
 
@@ -745,31 +735,11 @@ const { title, description, image } = Astro.props;
         position: relative;
     }
 
-    .card-row.active::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        width: 4px;
-        background-color: var(--accent);
-    }
-
     .col-date {
         font-family: var(--font-mono);
         font-size: var(--sm);
         white-space: pre-wrap;
-        line-height: 1.4;
         color: var(--fg);
-        opacity: 0.9;
-        padding-right: var(--padding);
-    }
-
-    .col-content {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-        justify-content: center;
     }
 
     .card-header-row {
@@ -794,22 +764,18 @@ const { title, description, image } = Astro.props;
         font-weight: bold;
     }
 
-    .meta-info {
-        width: 100%;
-    }
-
     .meta-row {
         display: flex;
         flex-wrap: wrap;
         gap: var(--padding);
         font-size: var(--sm);
-        opacity: 0.8;
     }
 
     .meta-item {
         display: flex;
         align-items: center;
         gap: 6px;
+        opacity: 0.8;
     }
 
     .meta-item.italic {
@@ -819,16 +785,17 @@ const { title, description, image } = Astro.props;
     .meta-item svg {
         width: 14px;
         height: 14px;
-        opacity: 0.7;
     }
 
     .date-part {
-        font-weight: bold;
+        font-size: var(--sm);
+        font-weight: var(--w-bold);
+        line-height: 1.2;
     }
 
     .time-part {
         white-space: nowrap;
-        font-size: 0.9em;
+        font-size: 1em;
         opacity: 0.8;
     }
 
@@ -859,27 +826,18 @@ const { title, description, image } = Astro.props;
         padding: 0;
     }
 
-    .icon-button:hover,
-    .icon-button:focus {
+    a.icon-button:hover {
         background-color: var(--accent);
+    }
+
+    a.icon-button:hover svg {
         color: var(--bg);
-        border-color: var(--accent);
     }
 
     .icon-button svg {
         width: 20px;
         height: 20px;
         stroke-width: 2px;
-    }
-
-    .empty-state {
-        text-align: center;
-        padding: var(--padding-lg);
-        color: var(--fg);
-        opacity: 0.6;
-        font-style: italic;
-        background-color: var(--bg-panel);
-        border: var(--border);
     }
 
     @media (max-width: 768px) {
