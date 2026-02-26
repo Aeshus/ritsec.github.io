@@ -1,0 +1,170 @@
+---
+import { getCollection } from "astro:content";
+import { Picture } from "astro:assets";
+
+const events = await getCollection("events");
+
+function getBadgeDate(date) {
+    if (!date) return null;
+    const isUtcMidnight =
+        date.getUTCHours() === 0 &&
+        date.getUTCMinutes() === 0 &&
+        date.getUTCSeconds() === 0;
+
+    const timeZone = isUtcMidnight ? "UTC" : "America/New_York";
+
+    return (
+        date.toLocaleString("default", { month: "short", day: 'numeric', timeZone }),
+    );
+}
+---
+
+<div class="events-grid">
+    {
+        events.map((event) => {
+            return (
+                <article class="card">
+                    <div class="card-img">
+                        <Picture
+                            src={event.data.image}
+                            alt={event.data.title}
+                            width={800}
+                            height={400}
+                        />
+                    </div>
+
+                    <div class="card-content">
+                        <h3>{event.data.title}</h3>
+
+                        <div class="meta-info">
+                            <div class="meta-item">
+                                <span class="meta-label">Where:</span>
+                                <span class="meta-value">
+                                    {event.data.location}
+                                </span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">When:</span>
+                                <span class="meta-value">
+                                    {getBadgeDate(event.data.start)} - {getBadgeDate(event.data.end)}
+                                </span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Access:</span>
+                                <span class="meta-value">
+                                    {event.data.access}
+                                </span>
+                            </div>
+                        </div>
+
+                        <p class="expand">{event.data.summary}</p>
+
+                        <div class="list">
+                            {event.data.website && (
+                                <a
+                                    href={event.data.website}
+                                    class="link-button secondary"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    Website
+                                </a>
+                            )}
+                        </div>
+                    </div>
+                </article>
+            );
+        })
+    }
+</div>
+
+<style>
+    .events-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: var(--padding);
+        padding: 0 var(--page-padding);
+    }
+
+    .card {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        border: var(--border);
+        background: var(--bg-panel);
+        overflow: hidden;
+    }
+
+    .card-img {
+        height: 200px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .card-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .date-badge .month {
+        font-size: var(--sm);
+        font-weight: bold;
+        text-transform: uppercase;
+        color: var(--accent);
+    }
+
+    .date-badge .day {
+        font-size: var(--lg);
+        font-weight: bold;
+        color: var(--fg);
+    }
+
+    .card-content {
+        display: flex;
+        flex-direction: column;
+        gap: var(--padding-sm);
+        padding: var(--padding);
+        flex-grow: 1;
+    }
+
+    h3 {
+        margin: 0;
+        font-size: var(--lg);
+    }
+
+    .meta-info {
+        display: flex;
+        flex-direction: column;
+        font-size: var(--sm);
+        border-top: var(--border);
+        padding-top: var(--padding-sm);
+    }
+
+    .meta-item {
+        display: flex;
+        gap: 8px;
+        opacity: 1;
+    }
+
+    .meta-label {
+        font-weight: bold;
+        color: var(--accent);
+    }
+
+    .meta-value {
+        font-weight: bold;
+    }
+
+    .expand {
+        font-size: var(--sm);
+        margin: var(--padding-sm) 0;
+        flex-grow: 1;
+        opacity: 0.9;
+    }
+
+    .list {
+        margin-top: auto;
+        display: flex;
+    }
+</style>
