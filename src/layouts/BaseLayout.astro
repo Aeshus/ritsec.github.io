@@ -872,34 +872,12 @@ const { title, description, image } = Astro.props;
     @media (max-width: 480px) {
         .card-row {
             display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            text-align: center;
-            padding: var(--padding-lg) var(--padding);
-        }
-
-        .col-date,
-        .col-content,
-        .col-actions {
-            width: 100%;
-            text-align: center;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .card-header-row {
-            justify-content: center;
-            flex-direction: column;
-            gap: 4px;
+            justify-content: start;
+            align-items: start;
         }
 
         .col-actions {
-            margin-top: var(--padding);
-            justify-content: center;
-        }
-
-        .action-group {
-            justify-content: center;
+            justify-content: start;
         }
     }
 </style>
