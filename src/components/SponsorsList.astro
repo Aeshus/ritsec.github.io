@@ -30,22 +30,22 @@ const getByTier = (tier: string) =>
                     <h3 class={"tier-header " + tier}>
                         {tier.charAt(0).toUpperCase() + tier.slice(1)} Sponsors
                     </h3>
-                    
+
                     <div class="sponsor-list">
                         {sponsors.map((s) => (
                             <a href={s.data.url}>
-                            <div class="card img-card grid-content">
-                                <div class="card-img">
-                                    <Picture
-                                        src={s.data.image}
-                                        alt={s.data.title + "'s logo"}
-                                    />
-                                </div>
+                                <div class="card img-card grid-content">
+                                    <div class="card-img">
+                                        <Picture
+                                            src={s.data.image}
+                                            alt={s.data.title + "'s logo"}
+                                        />
+                                    </div>
 
-                                <div class="card-content">
-                                    <h4>{s.data.title}</h4>
+                                    <div class="card-content">
+                                        <h4>{s.data.title}</h4>
+                                    </div>
                                 </div>
-                            </div>
                             </a>
                         ))}
                     </div>
