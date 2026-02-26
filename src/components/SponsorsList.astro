@@ -14,7 +14,7 @@ const getByTier = (tier: string) =>
     allSponsors.filter((s) => s.data.tier === tier);
 ---
 
-<div class="sponsor-list">
+<div>
     {
         tiers.map((tier) => {
             const sponsors = getByTier(tier).filter(
@@ -22,32 +22,35 @@ const getByTier = (tier: string) =>
                     (s.data.type == "company" && !individuals) ||
                     (s.data.type == "individual" && individuals),
             );
+
             if (sponsors.length === 0) return null;
 
-            return sponsors.map((s) => (
-                <div class="card grid-content">
-                    <div class="card-img">
-                        <Picture
-                            src={s.data.image}
-                            alt={s.data.title + "'s logo"}
-                        />
-                    </div>
+            return (
+                <section class="tier-section">
+                    <h3 class={"tier-header " + tier}>
+                        {tier.charAt(0).toUpperCase() + tier.slice(1)} Sponsors
+                    </h3>
+                    
+                    <div class="sponsor-list">
+                        {sponsors.map((s) => (
+                            <a href={s.data.url}>
+                            <div class="card img-card grid-content">
+                                <div class="card-img">
+                                    <Picture
+                                        src={s.data.image}
+                                        alt={s.data.title + "'s logo"}
+                                    />
+                                </div>
 
-                    <div class="card-content">
-                        <h3>{s.data.title}</h3>
-
-                        <div class={"tier " + s.data.tier}>
-                            {tier.charAt(0).toUpperCase() + tier.slice(1)}
-                        </div>
-
-                        <div class="list">
-                            <a class="link-button primary" href={s.data.url}>
-                                LEARN MORE
+                                <div class="card-content">
+                                    <h4>{s.data.title}</h4>
+                                </div>
+                            </div>
                             </a>
-                        </div>
+                        ))}
                     </div>
-                </div>
-            ));
+                </section>
+            );
         })
     }
 </div>
@@ -55,7 +58,7 @@ const getByTier = (tier: string) =>
 <style>
     .sponsor-list {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
         gap: var(--padding);
     }
 
@@ -64,22 +67,24 @@ const getByTier = (tier: string) =>
     }
 
     .card.grid-content {
-        /* Reset flex properties if any interfere, though parent is grid now */
         max-width: 100%;
-        height: 100%; /* Ensure card fills grid height */
+        height: 100%;
     }
 
-    .card-content .list {
-        padding-top: 1rem;
-        margin-top: auto;
+    .card-content {
+        padding: var(--padding);
+    }
+
+    h4 {
+        margin: 0;
     }
 
     .card-img {
         width: 100%;
-        /* Restore aspect ratio containment */
         aspect-ratio: 1/1;
         background-color: white;
         border-bottom: var(--border);
+        padding: 0.25rem;
     }
 
     .card-img img,
@@ -112,9 +117,20 @@ const getByTier = (tier: string) =>
         color: #c8aa07;
     }
 
-    @media (max-width: 600px) {
-        .sponsor-list {
-            grid-template-columns: 1fr;
-        }
+    a,
+    a:hover,
+    a:active,
+    a:visited {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .card:hover,
+    .card:active {
+        border-color: var(--accent);
+    }
+
+    h3 {
+        margin-bottom: var(--padding-sm);
     }
 </style>
