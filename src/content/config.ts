@@ -32,6 +32,7 @@ const groups = defineCollection({
                 )
                 .default([]),
             logo: image(),
+            type: z.enum(["group", "team", "partnership"]).default("group"),
             website: z.string().optional(),
         }),
 });

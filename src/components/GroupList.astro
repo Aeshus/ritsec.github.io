@@ -1,0 +1,204 @@
+---
+import { Picture } from "astro:assets";
+import { getCollection, getEntry } from "astro:content";
+import { ArrowRight, ArrowLeft } from "@lucide/astro";
+const groups = await getCollection("groups");
+
+const { type } = Astro.props;
+
+const icons = import.meta.glob("@/assets/icons/*.svg", {
+    query: "?raw",
+    import: "default",
+    eager: true,
+});
+const metaIcons = import.meta.glob("@/assets/icons/*.svg", {
+    eager: true,
+});
+---
+
+<div class="group-grid">
+    {
+    groups.filter((group) => group.data.type == type).sort((a,b) => a.data.name.localeCompare(b.data.name)).map((group) => {
+            const iconKey = Object.keys(metaIcons).find(
+                (key) =>
+                    (metaIcons[key] as any).default.src ===
+                    group.data.logo.src,
+            );
+            const rawSvg = iconKey ? icons[iconKey] : "";
+
+            return (
+                    <article class="card">
+                        <div aria-hidden="true" class="card-header">
+                            <div class="accent">
+                                <Fragment set:html={rawSvg} />
+                            </div>
+                        </div>
+
+                        <div class="card-content">
+                            <h3>{group.data.name}</h3>
+
+                            <div class="meta-info">
+                                {group.data.leads &&
+                                    group.data.leads.length > 0 && (
+                                        <div class="meta-item">
+                                            <span class="meta-label">
+                                                Leads:
+                                            </span>
+                                            <span class="meta-value">
+                                                {group.data.leads
+                                                    .map((l) => l.name)
+                                                    .join(", ")}
+                                            </span>
+                                        </div>
+                                    )}
+                                {group.data.meetings &&
+                                    group.data.meetings.length > 0 && (
+                                        <div class="meta-item">
+                                            <span class="meta-label">
+                                                When:
+                                            </span>
+                                            <span class="meta-value">
+                                                {group.data.meetings.map(
+                                                    (m) => (
+                                                        <div>
+                                                            {m.day}{" "}
+                                                            {m.start}
+                                                        </div>
+                                                    ),
+                                                )}
+                                            </span>
+                                        </div>
+                                    )}
+                            </div>
+
+                            <p class="expand">{group.data.summary}</p>
+
+                            <div class="list">
+                                <a
+                                    href={
+                                        (import.meta.env.BASE_URL ===
+                                        "/"
+                                            ? ""
+                                            : import.meta.env.BASE_URL.replace(
+                                                  /\/$/,
+                                                  "",
+                                              )) +
+                                        "/groups/" +
+                                        group.slug
+                                    }
+                                    class="link-button primary"
+                                >
+                                    Learn More
+                                </a>
+                                {group.data.website && (
+                                    <a
+                                        href={group.data.website}
+                                        class="link-button secondary"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        Website
+                                    </a>
+                                )}
+                            </div>
+                        </div>
+                    </article>
+            );
+        })
+    }
+</div>
+
+<style>
+    .group-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: var(--padding);
+        padding: 0 var(--page-padding);
+    }
+
+    .card-header {
+        padding: var(--padding-lg);
+        background-color: var(--bg-panel);
+        border-bottom: var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        user-select: none;
+    }
+
+    :global(.accent svg) {
+        width: 100px;
+        height: 100px;
+        display: block;
+    }
+
+    .card-content {
+        padding: var(--padding);
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        gap: var(--padding);
+    }
+
+    h3 {
+        margin: 0;
+        font-size: var(--lg);
+    }
+
+    .expand {
+        flex-grow: 1;
+        font-size: var(--sm);
+        user-select: none;
+    }
+
+    .meta-info {
+        display: flex;
+        flex-direction: column;
+        gap: var(--padding-xs);
+        font-size: var(--sm);
+        border-top: var(--border);
+        padding-top: var(--padding-sm);
+        margin-top: auto;
+        user-select: none;
+    }
+
+
+    .meta-item {
+        display: flex;
+        gap: 8px;
+        opacity: 1;
+    }
+
+    .meta-label {
+        font-weight: bold;
+        color: var(--accent);
+    }
+
+    .meta-value {
+        font-weight: bold;
+    }
+
+    .list {
+        gap: var(--padding-sm);
+    }
+
+    .carousel-scroll-text {
+        text-align: center;
+        padding: var(--padding) 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    button {
+        border: var(--border);
+        padding: var(--padding-sm);
+        background: var(--bg);
+        color: var(--fg);
+    }
+
+    button:hover,
+    button:active {
+        color: var(--accent);
+    }
+</style>

@@ -4,7 +4,6 @@
 import { Picture } from "astro:assets";
 
 import Hero from "@/components/Hero.astro";
-import GroupCarousel from "@/components/GroupCarousel.astro";
 import SponsorsList from "@/components/SponsorsList.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
@@ -24,6 +23,8 @@ import heroImg from "@/assets/image4.jpg";
             <Fragment slot="image">
                 <Picture src={heroImg} width={1000} formats={['avif', 'webp']} alt="RITSEC working in the club room, with ISTS flags in the background." />
             </Fragment>
+
+            All of this is made possible thanks to our sponsors.
     </Hero>
 
     ---

@@ -57,9 +57,7 @@ Object.keys(calendar).forEach((day) => {
 });
 ---
 
-<div>
-    <div class="carousel" id="calendar-carousel">
-        <div class="slide-container">
+<div class="calendar-grid">
             {
                 days.map((d) => {
                     const matching = calendar[d];
@@ -69,7 +67,6 @@ Object.keys(calendar).forEach((day) => {
                         }) === d;
 
                     return (
-                        <div class="slide">
                             <div
                                 class={`card h-full ${isToday ? "today" : ""}`}
                             >
@@ -105,97 +102,24 @@ Object.keys(calendar).forEach((day) => {
                                     )}
                                 </div>
                             </div>
-                        </div>
                     );
                 })
             }
-        </div>
-    </div>
-
-    <div class="carousel-scroll-text">
-        <button id="calendar-prev"><ArrowLeft /></button>
-        ← Drag To View More →
-        <button id="calendar-next"><ArrowRight /></button>
-    </div>
 </div>
 
-<script>
-    import EmblaCarousel, { type EmblaCarouselType } from "embla-carousel";
-
-    let emblaApi: EmblaCarouselType | undefined;
-    let resizeListener: (() => void) | undefined;
-
-    const updateCarousel = () => {
-        const carousel = document.querySelector(
-            "#calendar-carousel",
-        ) as HTMLElement;
-        if (!carousel) return;
-
-        const isDesktop = window.matchMedia("(min-width: 1001px)").matches;
-
-        if (isDesktop) {
-            if (emblaApi) {
-                emblaApi.destroy();
-                emblaApi = undefined;
-            }
-        } else {
-            if (!emblaApi) {
-                emblaApi = EmblaCarousel(carousel, {
-                    loop: false,
-                    align: "start",
-                    containScroll: "trimSnaps",
-                });
-
-                const prevBtn = document.querySelector("#calendar-prev");
-                const nextBtn = document.querySelector("#calendar-next");
-
-                const scrollPrev = () => {
-                    emblaApi.scrollPrev();
-                };
-                const scrollNext = () => {
-                    emblaApi.scrollNext();
-                };
-                prevBtn.addEventListener("click", scrollPrev, false);
-                nextBtn.addEventListener("click", scrollNext, false);
-            }
-        }
-    };
-
-    document.addEventListener("astro:page-load", () => {
-        updateCarousel();
-        resizeListener = () => updateCarousel();
-        window.addEventListener("resize", resizeListener);
-    });
-
-    document.addEventListener("astro:before-swap", () => {
-        if (emblaApi) {
-            emblaApi.destroy();
-            emblaApi = undefined;
-        }
-        if (resizeListener) {
-            window.removeEventListener("resize", resizeListener);
-            resizeListener = undefined;
-        }
-    });
-</script>
-
 <style>
-    .carousel {
-        overflow: hidden;
+    .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+        gap: var(--padding);
+        padding: 0 var(--page-padding);
     }
 
-    .slide {
-        flex: 0 0 20%;
-        padding: 0 var(--padding-xs);
-        min-width: 0;
-    }
-
-    .card {
-        height: 100%;
-        border: var(--border);
-        background-color: var(--bg-panel);
-        display: flex;
-        flex-direction: column;
+    @media (max-width: 700px) {
+        .calendar-grid {
+            display: flex;
+            flex-direction: column;
+        }
     }
 
     .card.today {
@@ -272,54 +196,5 @@ Object.keys(calendar).forEach((day) => {
     .empty-day {
         text-align: center;
         font-style: italic;
-    }
-
-    .slide-container {
-        display: flex;
-        margin-left: calc(var(--padding-xs) * -1);
-    }
-
-    @media (max-width: 1000px) {
-        .slide {
-            flex: 0 0 33.3333%;
-        }
-    }
-
-    @media (max-width: 700px) {
-        .slide {
-            flex: 0 0 50%;
-        }
-    }
-
-    @media (max-width: 500px) {
-        .slide {
-            flex: 0 0 85%;
-        }
-    }
-
-    .carousel-scroll-text {
-        display: none;
-    }
-
-    @media (max-width: 1000px) {
-        .carousel-scroll-text {
-            text-align: center;
-            padding: var(--padding) 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        button {
-            border: var(--border);
-            padding: var(--padding-sm);
-            background: var(--bg);
-            color: var(--fg);
-        }
-
-        button:hover,
-        button:active {
-            color: var(--accent);
-        }
     }
 </style>

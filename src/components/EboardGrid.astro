@@ -9,7 +9,7 @@ const eboard = await getCollection("eboard");
 <div class="eboard-grid">
     {
         eboard.map((member) => (
-            <article class="card interactive">
+            <article class="card">
                 <div class="card-img eboard-img">
                     <Picture
                         src={member.data.image}

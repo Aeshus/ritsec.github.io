@@ -5,7 +5,7 @@ import { Picture } from "astro:assets";
 
 import Hero from "@/components/Hero.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import GroupCarousel from "@/components/GroupCarousel.astro";
+import GroupList from "@/components/GroupList.astro";
 import Schedule from "@/components/Schedule.astro";
 import Calendar from "@/components/Calendar.astro";
 
@@ -14,20 +14,40 @@ import heroImg from "@/assets/image5.jpg";
 <BaseLayout title="Groups">
     <Hero>
         <Fragment slot="title">
-            Interest Groups
+            Groups
         </Fragment>
 
         <Fragment slot="image">
             <Picture src={heroImg} width={1000} formats={['avif', 'webp']} alt="RITSEC students collaborating in the Cyber Range" />
         </Fragment>
+
+        <Fragment slot="bottom">
+            <a class="link-button primary" href="https://calendar.ritsec.club">Calendar</a>
+        </Fragment>
+
+        There is a place for everyone within RITSEC.
     </Hero>
 
     ---
-    ## Interest Groups/Partnerships
+    ## Partnerships
 
-    The interest groups (IGs) and partnerships are the heart of RITSEC, allowing for students to learn and connect in smaller speciality-focused groups.
+    Partnerships are semi-autonomous organizations that work in direct collaboration with RITSEC.
 
-    <GroupCarousel />
+    <GroupList type="partnership" />
+
+    ---
+    ## Competition Teams
+
+    Competition Teams represents RIT as the university’s official team for external cybersecurity competitions.
+
+    <GroupList type="team" />
+
+    ---
+    ## Interest Groups
+
+    Interest Groups are specialized groups within RITSEC that go into the weeds of the cybersecurity field.
+
+    <GroupList type="group" />
 
     ---
     ## Weekly Overview
@@ -50,7 +70,7 @@ import heroImg from "@/assets/image5.jpg";
     </div>
 
     ---
-    ## Interest Group Education
+    ## Group Education
 
     <Schedule ascending={false} showOld={true} />
 </BaseLayout>
