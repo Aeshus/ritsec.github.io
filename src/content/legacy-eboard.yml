@@ -14,11 +14,11 @@
         name: Leah Kvares
       - position: Head of Research
         name: Will D'Andrade
-      - position: ISTS
+      - position: ISTS Competition Architect
         name: Drew Young
-      - position: IRSeC CA
+      - position: IRSeC Competition Architect
         name: Maxim Kochnev
-      - position: CTF CA
+      - position: CTF Competition Architect
         name: Chase Killorin
       - position: Treasurer
         name: David Girard
@@ -43,11 +43,11 @@
         name: Kasey Kiggins
       - position: Head of Research
         name: Chase Killorin
-      - position: ISTS CA
+      - position: ISTS Competition Architect
         name: Zach Price
-      - position: IRSeC CA
+      - position: IRSeC Competition Architect
         name: Jack Audino
-      - position: CTF CA
+      - position: CTF Competition Architect
         name: Rachel Leone
       - position: Treasurer
         name: Albie Snyder
@@ -72,11 +72,11 @@
         name: Kenneth Anderson
       - position: Head of Research
         name: Anthony Ioppolo
-      - position: ISTS CA
+      - position: ISTS Competition Architect
         name: Michael Vaughan
-      - position: IRSeC CA
+      - position: IRSeC Competition Architect
         name: Jacob Doll
-      - position: CTF CA
+      - position: CTF Competition Architect
         name: Zach Price
       - position: Treasurer
         name: Bailey Powers
@@ -97,7 +97,7 @@
         name: Tenchi Mata
       - position: ISTS Competition Architect
         name: Alison Nakai-Lackey
-      - position: IRSeC CA
+      - position: IRSeC Competition Architect
         name: Jason Howe
       - position: Treasurer
         name: Olivia Gallucci
@@ -122,7 +122,7 @@
         name: Enzo DeStephano
       - position: ISTS Competition Architect
         name: Daniel Szafran
-      - position: IRSeC CA
+      - position: IRSeC Competition Architect
         name: Joshua Niemann
       - position: Treasurer
         name: Spencer Roth
@@ -147,7 +147,7 @@
         name: Ian Furr
       - position: ISTS Competition Architect
         name: Jack McKenna
-      - position: IRSEC CA
+      - position: IRSEC Competition Architect
         name: Quintin Walters
       - position: Treasurer
         name: Amanda Brown

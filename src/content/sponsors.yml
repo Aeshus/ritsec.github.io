@@ -83,10 +83,31 @@
   type: company
 
 - title: Sharad Khanna
-  id: sharad
+  id: sharad-khanna
   image: "@/assets/sponsors/sharad.jpg"
   url: https://www.linkedin.com/in/khanna-sharad/
   tier: gold
+  type: individual
+
+- title: Drew Young
+  id: drew-young
+  image: "@/assets/sponsors/placeholder.png"
+  url: https://www.linkedin.com/in/drew-m-young/
+  tier: silver
+  type: individual
+
+- title: Zach Price
+  id: zach-price
+  image: "@/assets/sponsors/placeholder.png"
+  url: https://www.linkedin.com/in/zachprice43/
+  tier: silver
+  type: individual
+
+- title: Asa Horn
+  id: drew
+  image: "@/assets/sponsors/placeholder.png"
+  url: https://www.linkedin.com/in/asa-horn-4b7618212/
+  tier: silver
   type: individual
 
 - title: Travelers Insurance

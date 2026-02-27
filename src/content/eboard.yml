@@ -10,7 +10,7 @@
   linked_in: https://www.linkedin.com/in/david-wg2
   email: vicepresident@ritsec.club
   image: "@/assets/eboard/davidg.jpg"
-- id: Public Relations
+- id: Director of Public Relations
   name: Danny Nichols
   grad_year: 2027
   linked_in: https://www.linkedin.com/in/daniel-t-nichols
@@ -28,13 +28,13 @@
   linked_in: https://www.linkedin.com/in/hayden-hartman-60a042293
   email: research@ritsec.club
   image: "@/assets/eboard/haydenh.jpg"
-- id: ISTS CA
+- id: ISTS Competition Architect
   name: Leah Kvares
   grad_year: 2027
   linked_in: https://www.linkedin.com/in/leahkvares
   email: ists@ritsec.club
   image: "@/assets/eboard/leahk.jpg"
-- id: IRSeC CA
+- id: IRSeC Competition Architect
   name: Arianna Schwartz
   grad_year: 2026
   linked_in: https://www.linkedin.com/in/arianna--schwartz
@@ -64,7 +64,7 @@
   linked_in: https://www.linkedin.com/in/owensilsbee
   email: tech@ritsec.club
   image: "@/assets/eboard/owens.jpg"
-- id: CTF CA
+- id: CTF Competition Architect
   name: Manav Malik
   grad_year: 2026
   linked_in: https://www.linkedin.com/in/manav-malik
