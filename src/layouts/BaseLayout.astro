@@ -147,12 +147,11 @@ const { title, description, image } = Astro.props;
     /* ---- VARIABLE DEFINITIONS ---- */
 
     :root {
-        --page-width: 75rem;
-        --text-width: 610px;
+        --page-width: 63rem;
         --font-mono: "JetBrains Mono Variable", monospace;
         --font-sans: "IBM Plex Sans", sans-serif;
 
-        --page-padding: max(1rem, (100% - var(--page-width)) / 2);
+        --page-padding: max(2rem, (100% - var(--page-width)) / 2);
 
         --padding-lg: 2rem;
         --padding: 1rem;
@@ -663,7 +662,6 @@ const { title, description, image } = Astro.props;
 
     .subtitle {
         font-size: var(--lg);
-        max-width: var(--text-width);
         min-width: 100%;
         margin-bottom: var(--padding-lg);
     }
